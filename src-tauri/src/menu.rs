@@ -13,9 +13,10 @@ use crate::window;
 #[derive(Debug, Display, EnumString)]
 #[allow(non_camel_case_types, clippy::upper_case_acronyms)]
 enum MenuID {
-    SHOW_SETTING_WINDOW,
+    RIGHT_NOW_TAKE_A_BREAK,
     START_TIMER,
     STOP_TIMER,
+    SHOW_SETTING_WINDOW,
     HELP,
     FEEDBACK,
     EXIT,
@@ -37,6 +38,13 @@ pub fn get_tray_menu(app: &AppHandle) -> Result<Menu<tauri::Wry>, tauri::Error> 
     let tray = Menu::with_id(app, "tray_menu")?;
 
     tray.append_items(&[
+        &MenuItem::with_id(
+            app,
+            MenuID::RIGHT_NOW_TAKE_A_BREAK.to_string(),
+            "Right Now Take A Break",
+            true,
+            None::<&str>,
+        )?,
         &PredefinedMenuItem::separator(app)?,
         &MenuItem::with_id(
             app,
@@ -146,9 +154,12 @@ fn handle_tray_menu_events(app: &AppHandle, event: MenuEvent) {
     };
 
     match menu_id {
+        MenuID::RIGHT_NOW_TAKE_A_BREAK => {
+            info!("Right Now Take A Break");
+            // window::show_main_window(&app);
+        }
         MenuID::START_TIMER => {
             info!("Start Timer");
-            // window::show_main_window(&app);
         }
         MenuID::STOP_TIMER => {
             info!("Stop Timer");

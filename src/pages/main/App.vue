@@ -27,7 +27,7 @@ onMounted(() => {
 <template>
   <div class="w-full h-screen bg-red-100 flex flex-col items-center justify-center gap-8 select-none">
     <div class="text-2xl font-normal text-gray-600 text-center">
-      专注时间30分钟了，请注意休息
+      休息一会儿
     </div>
     <!-- countdown  min sec -->
     <div class="flex flex-row items-center justify-center gap-8">

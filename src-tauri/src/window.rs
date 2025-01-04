@@ -79,8 +79,8 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
                 .title_bar_style(TitleBarStyle::Transparent)
                 .transparent(true)
                 .skip_taskbar(true)
-                .decorations(false)
-                .fullscreen(true);
+                .decorations(false);
+                // .fullscreen(true);
 
         let window = win_builder.build().unwrap();
 
