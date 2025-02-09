@@ -7,9 +7,18 @@ use tauri_plugin_positioner::{Position, WindowExt};
 pub fn show_preview_window(window: &WebviewWindow) {
     let _ = window.show();
     let _ = window.unminimize();
-    window::bottom_right_position(window);
+    // window::bottom_right_position(window);
     let _ = window.set_focus();
     let _ = window.set_always_on_top(true);
+    if let Some(monitor) = window::find_monitor(window) {
+        let screen_size = monitor.size();
+        let size = PhysicalSize {
+            width: screen_size.width,
+            height: screen_size.height,
+        };
+        let _ = window.set_size(tauri::Size::Physical(size));
+        let _ = window.move_window(Position::Center);
+    }
 }
 
 pub fn update_preview_window(window: &WebviewWindow) {

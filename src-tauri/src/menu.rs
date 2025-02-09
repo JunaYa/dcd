@@ -1,4 +1,5 @@
 use std::str::FromStr;
+use std::{thread::sleep, time::Duration};
 
 use strum_macros::{Display, EnumString};
 use tauri::{
@@ -156,10 +157,16 @@ fn handle_tray_menu_events(app: &AppHandle, event: MenuEvent) {
     match menu_id {
         MenuID::RIGHT_NOW_TAKE_A_BREAK => {
             info!("Right Now Take A Break");
-            // window::show_main_window(&app);
+            let app_handle = app.clone();
+            tauri::async_runtime::spawn(async move {
+                sleep(Duration::from_millis(2000));
+                window::show_main_window(&app_handle);
+            });
+            
         }
         MenuID::START_TIMER => {
             info!("Start Timer");
+            window::show_preview_window(&app);
         }
         MenuID::STOP_TIMER => {
             info!("Stop Timer");

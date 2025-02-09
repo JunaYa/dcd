@@ -1,5 +1,6 @@
-use tauri::{AppHandle, Manager, Monitor, PhysicalPosition, WebviewWindow};
+use tauri::{AppHandle, Manager, Monitor, PhysicalPosition, PhysicalSize, WebviewWindow};
 use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
+use tauri_plugin_positioner::{Position, WindowExt};
 use tracing::info;
 
 use crate::constants::{MAIN_WINDOW, PREVIEW_WINDOW, SETTING_WINDOW, STARTUP_WINDOW};
@@ -76,13 +77,28 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
         let win_builder =
             WebviewWindowBuilder::new(app, MAIN_WINDOW, WebviewUrl::App("/main.html".into()))
                 .title("")
-                .title_bar_style(TitleBarStyle::Transparent)
+                .decorations(false)
                 .transparent(true)
+                .visible(true)
                 .skip_taskbar(true)
-                .decorations(false);
+                .shadow(false)
+                .resizable(false)
+                .inner_size(240.0, 240.0);
                 // .fullscreen(true);
 
         let window = win_builder.build().unwrap();
+
+        if let Some(monitor) = find_monitor(&window) {
+            let screen_size = monitor.size();
+            let size = PhysicalSize {
+                width: screen_size.width,
+                height: screen_size.height,
+            };
+            let _ = window.set_size(tauri::Size::Physical(size));
+            // sleep 0.3
+            let window = window.clone();
+            let _ = window.move_window(Position::Center);
+        }
 
         // set background color only when building for macOS
         #[cfg(target_os = "macos")]
