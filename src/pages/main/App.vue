@@ -3,29 +3,40 @@ import { invoke } from '@tauri-apps/api/core'
 import { onMounted, ref } from 'vue'
 import Button from '~/components/Button.vue'
 
+const intervalId = ref()
 async function onSkip() {
   await invoke('stop_timer')
   await invoke('hide_main_window')
+  reset()
 }
 
 const minutes = ref(0)
 const seconds = ref(0)
 
-onMounted(() => {
-  const interval = setInterval(() => {
+function start() {
+  intervalId.value = setInterval(() => {
     seconds.value++
     if (seconds.value === 60) {
       minutes.value++
       seconds.value = 0
     }
   }, 1000)
+}
 
-  return () => clearInterval(interval)
+function reset() {
+  clearInterval(intervalId.value)
+  minutes.value = 0
+  seconds.value = 0
+}
+
+onMounted(() => {
+  start()
+  return () => clearInterval(intervalId.value)
 })
 </script>
 
 <template>
-  <div class="w-full h-screen bg-red-100 flex flex-col items-center justify-center gap-8 select-none">
+  <div class="w-full h-screen bg-red-100 dark:bg-gray-800 flex flex-col items-center justify-center gap-8 select-none">
     <div class="text-2xl font-normal text-gray-600 text-center">
       休息一会儿
     </div>
@@ -50,7 +61,7 @@ onMounted(() => {
     </div>
     <div class="flex flex-row items-center justify-center gap-4">
       <Button class-name="btn-solid" anim @click="onSkip">
-        Skip
+        跳过
       </Button>
     </div>
   </div>

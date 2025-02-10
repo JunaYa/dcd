@@ -159,7 +159,7 @@ fn handle_tray_menu_events(app: &AppHandle, event: MenuEvent) {
             info!("Right Now Take A Break");
             let app_handle = app.clone();
             tauri::async_runtime::spawn(async move {
-                sleep(Duration::from_millis(2000));
+                sleep(Duration::from_millis(100));
                 window::show_main_window(&app_handle);
             });
             

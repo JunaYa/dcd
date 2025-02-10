@@ -58,6 +58,7 @@ pub fn show_main_window(window: &WebviewWindow) {
 
 pub fn hide_main_window(window: &WebviewWindow) {
     let _ = window.minimize();
+    let _ = window.hide();
 }
 
 pub fn show_setting_window(window: &WebviewWindow) {
