@@ -82,8 +82,7 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
                 .visible(true)
                 .skip_taskbar(true)
                 .shadow(false)
-                .resizable(false)
-                .inner_size(240.0, 240.0);
+                .resizable(false);
                 // .fullscreen(true);
 
         let window = win_builder.build().unwrap();
