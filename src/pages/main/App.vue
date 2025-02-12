@@ -6,7 +6,7 @@ import Button from '~/components/Button.vue'
 const intervalId = ref()
 async function onSkip() {
   await invoke('stop_timer')
-  await invoke('hide_main_window')
+  await invoke('hide_preview_window')
   reset()
 }
 

@@ -164,7 +164,7 @@ pub fn get_preview_window(app: &AppHandle) -> WebviewWindow {
         window
     } else {
         let window =
-            WebviewWindowBuilder::new(app, PREVIEW_WINDOW, WebviewUrl::App("/preview.html".into()))
+            WebviewWindowBuilder::new(app, PREVIEW_WINDOW, WebviewUrl::App("/main.html".into()))
                 .title("preview")
                 .decorations(false)
                 .transparent(true)

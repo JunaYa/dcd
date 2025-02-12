@@ -13,11 +13,11 @@ pub fn show_preview_window(window: &WebviewWindow) {
     if let Some(monitor) = window::find_monitor(window) {
         let screen_size = monitor.size();
         let size = PhysicalSize {
-            width: screen_size.width,
-            height: screen_size.height,
+            width: screen_size.width + 100,
+            height: screen_size.height + 100,
         };
         let _ = window.set_size(tauri::Size::Physical(size));
-        let _ = window.move_window(Position::Center);
+        let _ = window.move_window(Position::TopLeft);
     }
 }
 
