@@ -1,7 +1,9 @@
 use tauri::{AppHandle, Manager, Monitor, PhysicalPosition, PhysicalSize, WebviewWindow};
-use tauri::{TitleBarStyle, WebviewUrl, WebviewWindowBuilder};
+use tauri::{WebviewUrl, WebviewWindowBuilder};
 use tauri_plugin_positioner::{Position, WindowExt};
 use tracing::info;
+use objc::{sel, sel_impl};
+use tauri_nspanel::{panel_delegate, WebviewWindowExt};
 
 use crate::constants::{MAIN_WINDOW, PREVIEW_WINDOW, SETTING_WINDOW, STARTUP_WINDOW};
 use crate::platform;
@@ -21,6 +23,7 @@ pub fn find_monitor(window: &WebviewWindow) -> Option<Monitor> {
         None
     }
 }
+
 
 pub fn center_position(window: &WebviewWindow) {
     let window_size = match window.inner_size() {
@@ -116,8 +119,8 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
                 );
                 ns_window.setBackgroundColor_(bg_color);
             }
-            window
         }
+        window
     }
 }
 
@@ -159,6 +162,40 @@ pub fn get_setting_window(app: &AppHandle) -> WebviewWindow {
     }
 }
 
+fn init(app_handle: &AppHandle) {
+    let window: WebviewWindow = get_preview_window(app_handle);
+  
+    let panel = window.to_panel().unwrap();
+  
+    let delegate = panel_delegate!(MyPanelDelegate {
+      window_did_become_key,
+      window_did_resign_key
+    });
+
+    #[allow(non_upper_case_globals)]
+    const NSFloatWindowLevel: i32 = 1114;
+    panel.set_level(NSFloatWindowLevel);
+  
+    let handle = app_handle.to_owned();
+  
+    delegate.set_listener(Box::new(move |delegate_name: String| {
+      match delegate_name.as_str() {
+        "window_did_become_key" => {
+          let app_name = handle.package_info().name.to_owned();
+  
+          println!("[info]: {:?} panel becomes key window!", app_name);
+        }
+        "window_did_resign_key" => {
+          println!("[info]: panel resigned from key window!");
+        }
+        _ => (),
+      }
+    }));
+  
+    panel.set_delegate(delegate);
+    panel.show();
+}
+
 pub fn get_preview_window(app: &AppHandle) -> WebviewWindow {
     if let Some(window) = app.get_webview_window(PREVIEW_WINDOW) {
         window
@@ -172,9 +209,21 @@ pub fn get_preview_window(app: &AppHandle) -> WebviewWindow {
                 .skip_taskbar(true)
                 .shadow(false)
                 .resizable(false)
-                .inner_size(240.0, 240.0);
+                .inner_size(240.0, 240.0); 
 
         let window = window.build().expect("Unable to build startup window");
+        
+        center_position(&window);
+        if let Some(monitor) = find_monitor(&window) {
+            let screen_size = monitor.size();
+            let size = PhysicalSize {
+                width: screen_size.width + 100,
+                height: screen_size.height + 100,
+            };
+            let _ = window.set_size(tauri::Size::Physical(size));
+            // let _ = window.move_window(Position::TopLeft);
+        }
+
         #[cfg(target_os = "macos")]
         {
             use cocoa::appkit::{NSColor, NSWindow};
@@ -239,11 +288,13 @@ pub fn get_startup_window(app: &AppHandle) -> WebviewWindow {
     }
 }
 
-pub fn show_preview_window(app: &AppHandle) -> WebviewWindow {
-    let window = get_preview_window(app);
-    platform::show_preview_window(&window);
-    window
+pub fn show_preview_window(app: &AppHandle) {
+    // let window = get_preview_window(app);
+    // platform::show_preview_window(&window);
+    init(app);
 }
+
+
 
 pub fn update_preview_window(app: &AppHandle) -> WebviewWindow {
     let window = get_preview_window(app);

@@ -28,7 +28,7 @@ pub fn create_tray(app: &mut tauri::App) -> Result<(), tauri::Error> {
         .menu(&get_tray_menu(app.handle())?)
         .icon(app.default_window_icon().unwrap().clone())
         .icon_as_template(true)
-        .menu_on_left_click(true)
+        .show_menu_on_left_click(true)
         .on_menu_event(handle_tray_menu_events)
         .on_tray_icon_event(handle_tray_icon_events)
         .build(app)?;
@@ -160,16 +160,16 @@ fn handle_tray_menu_events(app: &AppHandle, event: MenuEvent) {
             let app_handle = app.clone();
             tauri::async_runtime::spawn(async move {
                 sleep(Duration::from_millis(100));
-                window::show_preview_window(&app_handle);
+                window::show_main_window(&app_handle);
             });
-            
         }
         MenuID::START_TIMER => {
             info!("Start Timer");
-            // window::show_preview_window(&app);
+            window::show_preview_window(&app);
         }
         MenuID::STOP_TIMER => {
             info!("Stop Timer");
+            window::hide_preview_window(&app);
         }
         MenuID::SHOW_SETTING_WINDOW => {
             info!("Setting Manager");

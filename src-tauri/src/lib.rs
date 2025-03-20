@@ -1,6 +1,7 @@
 use serde_json::json;
 use tauri::{ActivationPolicy, Manager};
 use tauri_plugin_store::StoreExt;
+use tauri_nspanel;
 
 mod cmd;
 mod common;
@@ -14,6 +15,7 @@ mod window;
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_window_state::Builder::new().build())
+        .plugin(tauri_nspanel::init())
         .plugin(tauri_plugin_positioner::init())
         .plugin(tauri_plugin_os::init())
         .setup(|app| {

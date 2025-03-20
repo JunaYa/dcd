@@ -48,10 +48,14 @@ core-foundation = "0.10.0"
 libc = "0.2.164"
 base64 = "0.22.1"
 tokio = "1.42.0"
+objc = "0.2.7"
+objc-foundation = "0.1.1"
+tauri-nspanel = { git = "https://github.com/ahkohd/tauri-nspanel", branch = "v2" }
 
 [features]
 default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
+cargo-clippy = []
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-autostart = "2"
@@ -61,3 +65,5 @@ tauri-plugin-window-state = "2"
 
 [target."cfg(target_os = \"macos\")".dependencies]
 cocoa = "0.25"
+
+
