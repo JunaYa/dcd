@@ -10,7 +10,6 @@ const intervalId = ref()
 async function onSkip() {
   await invoke('stop_timer')
   await invoke('hide_task_window')
-  // await invoke('close_task_window')
   reset()
 }
 
