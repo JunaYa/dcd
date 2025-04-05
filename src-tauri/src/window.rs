@@ -2,10 +2,10 @@ use tauri::{AppHandle, Manager, Monitor, PhysicalPosition, PhysicalSize, Webview
 use tauri::{WebviewUrl, WebviewWindowBuilder};
 use tauri_plugin_positioner::{Position, WindowExt};
 use tracing::info;
-use objc::{sel, sel_impl};
-use tauri_nspanel::{panel_delegate, WebviewWindowExt};
+use tauri_nspanel::{WebviewWindowExt};
+use std::{thread::sleep, time::Duration};
 
-use crate::constants::{MAIN_WINDOW, PREVIEW_WINDOW, SETTING_WINDOW, STARTUP_WINDOW};
+use crate::constants::{MAIN_WINDOW, TASK_WINDOW, PREVIEW_WINDOW, SETTING_WINDOW, STARTUP_WINDOW};
 use crate::platform;
 
 pub fn find_monitor(window: &WebviewWindow) -> Option<Monitor> {
@@ -23,7 +23,6 @@ pub fn find_monitor(window: &WebviewWindow) -> Option<Monitor> {
         None
     }
 }
-
 
 pub fn center_position(window: &WebviewWindow) {
     let window_size = match window.inner_size() {
@@ -86,7 +85,6 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
                 .skip_taskbar(true)
                 .shadow(false)
                 .resizable(false);
-                // .fullscreen(true);
 
         let window = win_builder.build().unwrap();
 
@@ -102,24 +100,6 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
             let _ = window.move_window(Position::Center);
         }
 
-        // set background color only when building for macOS
-        #[cfg(target_os = "macos")]
-        {
-            use cocoa::appkit::{NSColor, NSWindow};
-            use cocoa::base::{id, nil};
-
-            let ns_window = window.ns_window().unwrap() as id;
-            unsafe {
-                let bg_color = NSColor::colorWithRed_green_blue_alpha_(
-                    nil,
-                    33.0 / 255.0,
-                    54.0 / 255.0,
-                    201.0 / 255.0,
-                    0.1,
-                );
-                ns_window.setBackgroundColor_(bg_color);
-            }
-        }
         window
     }
 }
@@ -136,63 +116,21 @@ pub fn get_setting_window(app: &AppHandle) -> WebviewWindow {
                 .resizable(false)
                 .skip_taskbar(true)
                 .fullscreen(false)
+                .transparent(true)
                 .inner_size(600.0, 400.0);
 
         let window = win_builder.build().unwrap();
 
-        // set background color only when building for macOS
-        #[cfg(target_os = "macos")]
-        {
-            use cocoa::appkit::{NSColor, NSWindow};
-            use cocoa::base::{id, nil};
-
-            let ns_window = window.ns_window().unwrap() as id;
-            unsafe {
-                let bg_color = NSColor::colorWithRed_green_blue_alpha_(
-                    nil,
-                    33.0 / 255.0,
-                    54.0 / 255.0,
-                    201.0 / 255.0,
-                    0.1,
-                );
-                ns_window.setBackgroundColor_(bg_color);
-            }
-            window
-        }
+        window
     }
 }
 
-fn init(app_handle: &AppHandle) {
-    let window: WebviewWindow = get_preview_window(app_handle);
-  
+fn init(window: &WebviewWindow) {
     let panel = window.to_panel().unwrap();
-  
-    let delegate = panel_delegate!(MyPanelDelegate {
-      window_did_become_key,
-      window_did_resign_key
-    });
-
     #[allow(non_upper_case_globals)]
     const NSFloatWindowLevel: i32 = 1114;
     panel.set_level(NSFloatWindowLevel);
   
-    let handle = app_handle.to_owned();
-  
-    delegate.set_listener(Box::new(move |delegate_name: String| {
-      match delegate_name.as_str() {
-        "window_did_become_key" => {
-          let app_name = handle.package_info().name.to_owned();
-  
-          println!("[info]: {:?} panel becomes key window!", app_name);
-        }
-        "window_did_resign_key" => {
-          println!("[info]: panel resigned from key window!");
-        }
-        _ => (),
-      }
-    }));
-  
-    panel.set_delegate(delegate);
     panel.show();
 }
 
@@ -224,27 +162,6 @@ pub fn get_preview_window(app: &AppHandle) -> WebviewWindow {
             // let _ = window.move_window(Position::TopLeft);
         }
 
-        #[cfg(target_os = "macos")]
-        {
-            use cocoa::appkit::{NSColor, NSWindow};
-            use cocoa::base::{id, nil};
-
-            let ns_window = window.ns_window().unwrap() as id;
-            unsafe {
-                // macOS: Handle multiple spaces correctly
-                ns_window.setCollectionBehavior_(cocoa::appkit::NSWindowCollectionBehavior::NSWindowCollectionBehaviorMoveToActiveSpace);
-
-                let bg_color = NSColor::colorWithRed_green_blue_alpha_(
-                    nil,
-                    33.0 / 255.0,
-                    54.0 / 255.0,
-                    201.0 / 255.0,
-                    0.0,
-                );
-                ns_window.setBackgroundColor_(bg_color);
-            }
-        }
-
         window
     }
 }
@@ -266,35 +183,15 @@ pub fn get_startup_window(app: &AppHandle) -> WebviewWindow {
 
         let window = win_builder.build().unwrap();
 
-        // set background color only when building for macOS
-        #[cfg(target_os = "macos")]
-        {
-            use cocoa::appkit::{NSColor, NSWindow};
-            use cocoa::base::{id, nil};
-
-            let ns_window = window.ns_window().unwrap() as id;
-            unsafe {
-                let bg_color = NSColor::colorWithRed_green_blue_alpha_(
-                    nil,
-                    33.0 / 255.0,
-                    54.0 / 255.0,
-                    201.0 / 255.0,
-                    0.1,
-                );
-                ns_window.setBackgroundColor_(bg_color);
-            }
-            window
-        }
+        window
     }
 }
 
 pub fn show_preview_window(app: &AppHandle) {
-    // let window = get_preview_window(app);
+    let window = get_preview_window(app);
     // platform::show_preview_window(&window);
-    init(app);
+    init(&window);
 }
-
-
 
 pub fn update_preview_window(app: &AppHandle) -> WebviewWindow {
     let window = get_preview_window(app);
@@ -312,7 +209,8 @@ pub fn hide_preview_window(app: &AppHandle) {
 
 pub fn show_main_window(app: &AppHandle) {
     let window = get_main_window(app);
-    platform::show_main_window(&window);
+    // platform::show_main_window(&window);
+    init(&window);
 }
 
 pub fn hide_main_window(app: &AppHandle) {
@@ -347,4 +245,57 @@ pub fn hide_startup_window(app: &AppHandle) {
             platform::hide_startup_window(&startup_window);
         }
     }
+}
+
+pub fn get_task_window(app: &AppHandle) -> WebviewWindow {
+    if let Some(window) = app.get_webview_window(TASK_WINDOW) {
+        window
+    } else {
+        let window =
+            WebviewWindowBuilder::new(app, TASK_WINDOW, WebviewUrl::App("/main.html".into()))
+                .title("GLM")
+                .decorations(false)
+                .visible(false)
+                .transparent(true)
+                .skip_taskbar(true)
+                .shadow(false)
+                .resizable(false)
+                .inner_size(800.0, 800.0);
+
+        let window = window.build().expect("Unable to build startup window");
+
+        const WINDOW_HEIGHT_OFFSET: u32 = 6;
+        if let Some(monitor) = find_monitor(&window) {
+            let screen_size = monitor.size();
+            let size = PhysicalSize {
+                width: screen_size.width,
+                height: screen_size.height - WINDOW_HEIGHT_OFFSET,
+            };
+            let _ = window.set_size(tauri::Size::Physical(size));
+            // let _ = window.set_ignore_cursor_events(true);
+            // sleep 0.3
+            let window = window.clone();
+            tauri::async_runtime::spawn(async move {
+                sleep(Duration::from_millis(100));
+                let _ = window.move_window(Position::Center);
+            });
+        }
+
+        window
+    }
+}
+
+pub fn show_task_window(app: &AppHandle) {
+    let window = get_task_window(app);
+    window.show();
+}
+
+pub fn hide_task_window(app: &AppHandle) {
+    let window = get_task_window(app);
+    window.hide();
+}
+
+pub fn close_task_window(handle: AppHandle) {
+  let window = handle.get_webview_window(TASK_WINDOW).unwrap();
+  window.close();
 }

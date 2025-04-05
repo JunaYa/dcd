@@ -1,75 +1,77 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
-import { readFile } from '@tauri-apps/plugin-fs'
-import { LazyStore } from '@tauri-apps/plugin-store'
-import { useElementHover } from '@vueuse/core'
 import { onMounted, ref } from 'vue'
 import Button from '~/components/Button.vue'
-import PictureReview from './PictureReview.vue'
-
-const store = new LazyStore('settings.json')
-
-const snapHoverableElement = ref()
-const isHovered = useElementHover(snapHoverableElement)
-
-const imagePath = ref('')
-const imageSrc = ref('')
 
 const appWindow = getCurrentWindow()
 
-const isEdit = ref(false)
+const intervalId = ref()
+async function onSkip() {
+  await invoke('stop_timer')
+  await invoke('hide_preview_window')
+  await invoke('hide_main_window')
+  reset()
+}
+
+const minutes = ref(0)
+const seconds = ref(0)
+
+function start() {
+  intervalId.value = setInterval(() => {
+    seconds.value++
+    if (seconds.value === 60) {
+      minutes.value++
+      seconds.value = 0
+    }
+  }, 1000)
+}
+
+function reset() {
+  clearInterval(intervalId.value)
+  minutes.value = 0
+  seconds.value = 0
+}
 
 function dragStart() {
-  if (isEdit.value)
-    return
-
   appWindow.startDragging()
   // no effect
   appWindow.setCursorIcon('move')
 }
 
-async function onEdit() {
-  await invoke('update_preview_window')
-  const content = await readFile(imagePath.value)
-  const blob = new Blob([content], { type: 'image/png' })
-  imageSrc.value = URL.createObjectURL(blob)
-  isEdit.value = true
-  // appWindow.close()
-}
-
-async function onCopy() {
-  await invoke('copy_image_to_clipboard', {
-    path: imagePath.value,
-  })
-}
-
-function onSave() {
-  appWindow.close()
-}
-
-onMounted(async () => {
-  const val = await store.get<{ value: string }>('screenshot_path')
-  appWindow.listen<string>('image-prepared', (event: any) => {
-    imagePath.value = `${val?.value}/images/${event.payload}`
-  })
+onMounted(() => {
+  start()
+  return () => clearInterval(intervalId.value)
 })
 </script>
 
 <template>
-  <div ref="snapHoverableElement" :class="`preview ${!isEdit ? 'cursor-move' : ''}`" @mousedown="dragStart">
-    <div class="h-100vh flex select-none items-center justify-center rounded-md text-12">
-      <PictureReview v-if="imagePath" :image-path="imagePath" />
+  <div class="w-full h-screen bg-gradient-to-b from-gray-500 to-transparent bg-opacity-10 flex flex-col items-center justify-center gap-8 select-none" @mousedown="dragStart">
+    <div class="text-2xl font-normal text-gray-600 text-center">
+      休息一会儿
     </div>
-    <div v-if="isHovered && !isEdit" class="absolute bottom-0 left-0 right-0 top-0 flex items-center justify-around bg-#0000002F">
-      <Button class-name="btn-solid" :anim="true" @click="onEdit">
-        Edit
-      </Button>
-      <Button class-name="btn-solid" :anim="true" @click="onCopy">
-        Copy
-      </Button>
-      <Button class-name="btn-solid" :anim="true" @click="onSave">
-        Save
+    <!-- countdown  min sec -->
+    <div class="flex flex-row items-center justify-center gap-8">
+      <div class="text-4xl font-normal text-gray-900 text-center w-full flex flex-row items-baseline justify-center gap-2">
+        <div class="min-w-[54px] w-[54px] text-right rounded-md bg-blue-300 text-5xl p-2 text-white">
+          {{ minutes }}
+        </div>
+        <div class="text-left text-[#333333]">
+          分
+        </div>
+      </div>
+      <div class="text-4xl font-normal text-gray-900 text-center w-full flex flex-row items-baseline justify-center gap-2">
+        <div class="min-w-[54px] w-[54px] text-right rounded-md bg-blue-300 text-5xl p-2 text-white">
+          {{ seconds }}
+        </div>
+        <div class="text-left text-[#333333]">
+          秒
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-row items-center justify-center gap-4">
+      <Button class-name="btn-solid" anim @click="onSkip">
+        跳过
       </Button>
     </div>
   </div>
@@ -77,25 +79,6 @@ onMounted(async () => {
 
 <style>
 :root {
-  background-color: transparent !important;
-}
-/* bright / dark mode */
-.pintura-editor {
-  --color-background: 255, 255, 255;
-  --color-foreground: 10, 10, 10;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color: #fff;
-    background: #111;
-  }
-
-  .pintura-editor {
-    --color-background: 10, 10, 10;
-    --color-foreground: 255, 255, 255;
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
+  background-color: transparent;
 }
 </style>

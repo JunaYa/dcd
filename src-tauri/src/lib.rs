@@ -10,6 +10,7 @@ mod global_shortcut;
 mod menu;
 mod platform;
 mod window;
+mod panel;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

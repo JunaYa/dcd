@@ -1,5 +1,4 @@
 use std::str::FromStr;
-use std::{thread::sleep, time::Duration};
 
 use strum_macros::{Display, EnumString};
 use tauri::{
@@ -10,6 +9,7 @@ use tauri::{
 use tracing::info;
 
 use crate::window;
+use crate::panel;
 
 #[derive(Debug, Display, EnumString)]
 #[allow(non_camel_case_types, clippy::upper_case_acronyms)]
@@ -157,11 +157,7 @@ fn handle_tray_menu_events(app: &AppHandle, event: MenuEvent) {
     match menu_id {
         MenuID::RIGHT_NOW_TAKE_A_BREAK => {
             info!("Right Now Take A Break");
-            let app_handle = app.clone();
-            tauri::async_runtime::spawn(async move {
-                sleep(Duration::from_millis(100));
-                window::show_main_window(&app_handle);
-            });
+            panel::show_task_panel(&app);
         }
         MenuID::START_TIMER => {
             info!("Start Timer");
