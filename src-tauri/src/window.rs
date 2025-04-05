@@ -252,7 +252,7 @@ pub fn get_task_window(app: &AppHandle) -> WebviewWindow {
         window
     } else {
         let window =
-            WebviewWindowBuilder::new(app, TASK_WINDOW, WebviewUrl::App("/main.html".into()))
+            WebviewWindowBuilder::new(app, TASK_WINDOW, WebviewUrl::App("/task.html".into()))
                 .title("GLM")
                 .decorations(false)
                 .visible(false)

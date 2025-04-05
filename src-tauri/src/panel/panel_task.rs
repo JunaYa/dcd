@@ -1,4 +1,4 @@
-use tauri::{AppHandle, WebviewWindow};
+use tauri::{AppHandle, Manager, WebviewWindow};
 use tauri_nspanel::{
     cocoa::appkit::NSWindowCollectionBehavior, panel_delegate, ManagerExt, WebviewWindowExt
 };
@@ -70,7 +70,8 @@ pub fn hide_task_panel(app: &AppHandle) {
     }
 }
 
-pub fn close_task_panel(handle: AppHandle) {
+pub fn close_task_panel(app: &AppHandle) {
+    let handle = app.to_owned();
     if let Ok(panel) = handle.get_webview_panel(TASK_WINDOW) {
         panel.set_released_when_closed(true);
         panel.close();

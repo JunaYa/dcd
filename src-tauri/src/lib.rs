@@ -67,6 +67,9 @@ pub fn run() {
             cmd::hide_main_window,
             cmd::show_setting_window,
             cmd::hide_setting_window,
+            cmd::show_task_window,
+            cmd::hide_task_window,
+            cmd::close_task_window,
             cmd::start_timer,
             cmd::stop_timer,
         ])

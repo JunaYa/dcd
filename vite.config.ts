@@ -42,6 +42,7 @@ export default defineConfig(async () => ({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, './main.html'),
+        task: path.resolve(__dirname, './task.html'),
         setting: path.resolve(__dirname, './setting.html'),
         preview: path.resolve(__dirname, './preview.html'),
         startup: path.resolve(__dirname, './startup.html'),
