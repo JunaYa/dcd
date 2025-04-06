@@ -12,6 +12,11 @@
     "core:event:allow-listen",
     "core:event:allow-unlisten",
     "positioner:allow-move-window",
-    "positioner:allow-set-tray-icon-state"
+    "positioner:allow-set-tray-icon-state",
+    "sql:default",
+    "sql:allow-close",
+    "sql:allow-load",
+    "sql:allow-select",
+    "sql:allow-execute"
   ]
 }

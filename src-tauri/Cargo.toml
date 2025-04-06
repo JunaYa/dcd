@@ -51,6 +51,7 @@ tokio = "1.42.0"
 objc = "0.2.7"
 objc-foundation = "0.1.1"
 tauri-nspanel = { git = "https://github.com/ahkohd/tauri-nspanel", branch = "v2" }
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
 
 [features]
 default = [ "custom-protocol" ]
