@@ -3,6 +3,7 @@ import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { onMounted, ref } from 'vue'
 import Button from '~/components/Button.vue'
+import Clock from '~/components/Clock.vue'
 
 const appWindow = getCurrentWindow()
 
@@ -45,9 +46,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-screen bg-gradient-to-b from-gray-500 to-transparent bg-opacity-10 flex flex-col items-center justify-center gap-8 select-none" @mousedown="dragStart">
+  <div class="w-full h-screen animate-bg-gradient flex flex-col items-center justify-center gap-8 select-none" @mousedown="dragStart">
     <div class="text-2xl font-normal text-gray-600 text-center">
-      再休息一会儿
+      休息一会儿
     </div>
     <!-- countdown  min sec -->
     <div class="flex flex-row items-center justify-center gap-8">
@@ -55,7 +56,7 @@ onMounted(() => {
         <div class="min-w-[54px] w-[54px] text-right rounded-md bg-blue-300 text-5xl p-2 text-white">
           {{ minutes.toString().padStart(2, '0') }}
         </div>
-        <div class="text-left text-[#333333]">
+        <div class="text-left text-[#666666]">
           分
         </div>
       </div>
@@ -63,14 +64,14 @@ onMounted(() => {
         <div class="min-w-[54px] w-[54px] text-right rounded-md bg-blue-300 text-5xl p-2 text-white">
           {{ seconds.toString().padStart(2, '0') }}
         </div>
-        <div class="text-left text-[#333333]">
+        <div class="text-left text-[#666666]">
           秒
         </div>
       </div>
     </div>
     <div class="flex flex-row items-center justify-center gap-4">
       <Button class-name="btn-solid" anim @click="onSkip">
-        跳过去
+        跳过
       </Button>
     </div>
   </div>
@@ -78,6 +79,6 @@ onMounted(() => {
 
 <style>
 :root {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 </style>
