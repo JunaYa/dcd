@@ -1,7 +1,7 @@
 {
   "identifier": "window-capability",
   "description": "Capability for the main window",
-  "windows": ["main", "preview"],
+  "windows": ["main", "task", "preview"],
   "permissions": [
     "core:window:default",
     "core:window:allow-close",

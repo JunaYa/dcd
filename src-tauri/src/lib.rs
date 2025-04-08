@@ -1,3 +1,5 @@
+use std::sync::Mutex;
+
 use serde_json::json;
 use tauri::{ActivationPolicy, Manager};
 use tauri_plugin_store::StoreExt;
@@ -11,6 +13,13 @@ mod menu;
 mod platform;
 mod window;
 mod panel;
+mod state;
+
+#[derive(Default)]
+struct AppState {
+    status: u8, // 0: 休息, 1: 工作, 2: 暂停
+    time: u32, // 当前时间
+}
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -30,6 +39,8 @@ pub fn run() {
             app.set_activation_policy(ActivationPolicy::Accessory);
 
             menu::create_tray(app)?;
+
+            app.manage(Mutex::new(AppState::default()));
 
             let app_local_data = app
                 .path()
@@ -60,7 +71,6 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
-            cmd::greet,
             cmd::show_preview_window, 
             cmd::hide_preview_window,
             cmd::update_preview_window,
@@ -72,7 +82,9 @@ pub fn run() {
             cmd::hide_task_window,
             cmd::close_task_window,
             cmd::start_timer,
+            cmd::pause_timer,
             cmd::stop_timer,
+            cmd::get_state,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

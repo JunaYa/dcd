@@ -3,7 +3,6 @@ import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { onMounted, ref } from 'vue'
 import Button from '~/components/Button.vue'
-import Clock from '~/components/Clock.vue'
 
 const appWindow = getCurrentWindow()
 
@@ -14,11 +13,17 @@ async function onSkip() {
   reset()
 }
 
+async function getState() {
+  const state = await invoke('get_state')
+  console.log(state)
+}
+
 const minutes = ref(0)
 const seconds = ref(0)
 
 function start() {
   intervalId.value = setInterval(() => {
+    getState()
     seconds.value++
     if (seconds.value === 60) {
       minutes.value++

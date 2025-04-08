@@ -8,7 +8,7 @@ use tauri::{
 };
 use tracing::info;
 
-use crate::window;
+use crate::{state, window};
 use crate::panel;
 
 #[derive(Debug, Display, EnumString)]
@@ -157,15 +157,18 @@ fn handle_tray_menu_events(app: &AppHandle, event: MenuEvent) {
     match menu_id {
         MenuID::RIGHT_NOW_TAKE_A_BREAK => {
             info!("Right Now Take A Break");
+            state::start_timer(&app);
             panel::show_task_panel(&app);
         }
         MenuID::START_TIMER => {
             info!("Start Timer");
-            window::show_preview_window(&app);
+            state::start_timer(&app);
+            // window::show_preview_wisndow(&app);
         }
         MenuID::STOP_TIMER => {
             info!("Stop Timer");
-            window::hide_preview_window(&app);
+            state::stop_timer(&app);
+            // window::hide_preview_window(&app);
         }
         MenuID::SHOW_SETTING_WINDOW => {
             info!("Setting Manager");
