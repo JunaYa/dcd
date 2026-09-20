@@ -7,7 +7,8 @@
     "linux"
   ],
   "windows": [
-    "main"
+    "main",
+    "eye-tray"
   ],
   "permissions": [
     "clipboard-manager:allow-clear",

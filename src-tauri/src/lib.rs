@@ -5,6 +5,8 @@ use tauri::{ActivationPolicy, Manager};
 use tauri_plugin_store::StoreExt;
 use tauri_nspanel;
 
+mod eye;
+mod eye_model;
 mod cmd;
 mod common;
 mod constants;
@@ -36,9 +38,11 @@ pub fn run() {
             #[cfg(desktop)]
             let _ = global_shortcut::register_global_shortcut(app);
 
-            app.set_activation_policy(ActivationPolicy::Accessory);
+            app.set_activation_policy(ActivationPolicy::Regular);
 
             menu::create_tray(app)?;
+            eye::initialize(app.handle())?;
+            window::show_main_window(app.handle());
 
             app.manage(Mutex::new(AppState::default()));
 
@@ -71,6 +75,9 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
+            eye::eye_snapshot,
+            eye::eye_save_settings,
+            eye::eye_action,
             cmd::show_preview_window, 
             cmd::hide_preview_window,
             cmd::update_preview_window,
@@ -86,22 +93,27 @@ pub fn run() {
             cmd::stop_timer,
             cmd::get_state,
         ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|app, event| {
+            match event {
+                #[cfg(target_os = "macos")]
+                tauri::RunEvent::Reopen { has_visible_windows: false, .. } => {
+                    let _ = eye::show_main(app, "today");
+                }
+                tauri::RunEvent::Exit => eye::save_on_exit(app),
+                _ => {}
+            }
+        });
 }
 
 #[cfg(desktop)]
 fn configure_autostart(app: &tauri::App) {
     use tauri_plugin_autostart::MacosLauncher;
-    use tauri_plugin_autostart::ManagerExt;
 
     let _ = app.handle().plugin(tauri_plugin_autostart::init(
         MacosLauncher::LaunchAgent,
-        Some(vec!["--flag1", "--flag2"]),
+        None,
     ));
 
-    // Get the autostart manager
-    let autostart_manager = app.autolaunch();
-    // Enable autostart
-    let _ = autostart_manager.enable();
 }

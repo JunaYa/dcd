@@ -76,29 +76,17 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
     if let Some(window) = app.get_webview_window(MAIN_WINDOW) {
         window
     } else {
-        let win_builder =
-            WebviewWindowBuilder::new(app, MAIN_WINDOW, WebviewUrl::App("/main.html".into()))
-                .title("")
-                .decorations(false)
-                .transparent(true)
-                .visible(true)
-                .skip_taskbar(true)
-                .shadow(false)
-                .resizable(false);
-
-        let window = win_builder.build().unwrap();
-
-        if let Some(monitor) = find_monitor(&window) {
-            let screen_size = monitor.size();
-            let size = PhysicalSize {
-                width: screen_size.width,
-                height: screen_size.height,
-            };
-            let _ = window.set_size(tauri::Size::Physical(size));
-            // sleep 0.3
-            let window = window.clone();
-            let _ = window.move_window(Position::Center);
-        }
+        let window = WebviewWindowBuilder::new(app, MAIN_WINDOW, WebviewUrl::App("main.html".into()))
+            .title("Eye Monitor").decorations(false).transparent(false)
+            .inner_size(1100.0, 720.0).min_inner_size(760.0, 540.0)
+            .center().resizable(true).build().expect("Unable to build main window");
+        let hide = window.clone();
+        window.on_window_event(move |event| {
+            if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                api.prevent_close();
+                let _ = hide.hide();
+            }
+        });
 
         window
     }
@@ -209,8 +197,8 @@ pub fn hide_preview_window(app: &AppHandle) {
 
 pub fn show_main_window(app: &AppHandle) {
     let window = get_main_window(app);
-    // platform::show_main_window(&window);
-    init(&window);
+    let _ = window.show();
+    let _ = window.set_focus();
 }
 
 pub fn hide_main_window(app: &AppHandle) {
