@@ -1,6 +1,7 @@
 import { useMediaQuery } from '@vueuse/core'
 import { computed, onUnmounted, watch, watchEffect } from 'vue'
 import { locale, resolveLanguage, t } from '~/i18n'
+import { accentTokens } from '~/theme/accent'
 import type { Monitor } from './useMonitor'
 
 export function useAppearance({ mode, settings }: Monitor) {
@@ -37,6 +38,12 @@ export function useAppearance({ mode, settings }: Monitor) {
       '--overlay-opacity',
       String(settings.value.overlayOpacity / 100),
     )
+  })
+  watchEffect(() => {
+    const tokens = accentTokens(settings.value.accentColor, activeTheme.value === 'dark')
+    for (const [name, value] of Object.entries(tokens)) {
+      document.documentElement.style.setProperty(name, value)
+    }
   })
   let frame = 0
   watch(

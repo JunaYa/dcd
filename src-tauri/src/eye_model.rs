@@ -5,6 +5,7 @@ use std::collections::BTreeMap;
 #[serde(default, rename_all = "camelCase")]
 pub struct Settings {
     pub language: String,
+    pub accent_color: String,
     pub main_theme: String,
     pub tray_theme: String,
     pub tray_show_chart: bool,
@@ -32,6 +33,7 @@ impl Default for Settings {
     fn default() -> Self {
         Self {
             language: crate::i18n::system_language(),
+            accent_color: "#8842b6".into(),
             main_theme: "dark".into(),
             tray_theme: "dark".into(),
             tray_show_chart: true,
@@ -59,6 +61,10 @@ impl Default for Settings {
 }
 impl Settings {
     pub fn validate(&self) -> Result<(), String> {
+        if self.accent_color.len() != 7 || !self.accent_color.starts_with('#')
+            || !self.accent_color.as_bytes()[1..].iter().all(u8::is_ascii_hexdigit) {
+            return Err(crate::i18n::text(&self.language, "主题色格式无效"));
+        }
         if !crate::i18n::LANGUAGES.contains(&self.language.as_str()) {
             return Err("Unsupported language".into());
         }
@@ -232,6 +238,19 @@ impl Monitor {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn accent_color_defaults_validates_and_persists() {
+        let mut s: Settings = serde_json::from_str("{}").unwrap();
+        assert_eq!(s.accent_color, "#8842b6");
+        for invalid in ["", "#fff", "#gg0000", "red", "#12345678", "#💜abc"] {
+            s.accent_color = invalid.into();
+            assert!(s.validate().is_err());
+        }
+        s.accent_color = "#12ABef".into();
+        assert!(s.validate().is_ok());
+        let restored: Settings = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        assert_eq!(restored.accent_color, "#12ABef");
+    }
     #[test]
     fn legacy_settings_keep_appearance_and_themes_roundtrip_independently() {
         let mut s: Settings = serde_json::from_str(r#"{"background":"custom","workMinutes":30}"#).unwrap();

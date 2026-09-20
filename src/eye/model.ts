@@ -4,6 +4,7 @@ export type Theme = 'system' | 'light' | 'dark'
 
 export interface Settings {
   language: string
+  accentColor: string
   mainTheme: Theme
   trayTheme: Theme
   trayShowChart: boolean
@@ -46,6 +47,7 @@ export interface Snapshot {
 }
 export const defaults: Settings = {
   language: resolveLanguage(typeof navigator === 'undefined' ? ['en'] : navigator.languages),
+  accentColor: '#8842b6',
   mainTheme: 'dark',
   trayTheme: 'dark',
   trayShowChart: true,

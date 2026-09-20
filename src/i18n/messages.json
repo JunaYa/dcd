@@ -1456,5 +1456,59 @@
     "fr": "Gardez au moins l’icône de la barre d’état ou du Dock.",
     "de": "Lass mindestens das Statusleisten- oder Dock-Symbol aktiviert.",
     "ar": "أبقِ أيقونة شريط النظام أو Dock مفعلة على الأقل."
+  },
+  "主题色": {
+    "zh": "主题色",
+    "en": "Accent color",
+    "ja": "アクセントカラー",
+    "ko": "강조 색상",
+    "fr": "Couleur d’accent",
+    "de": "Akzentfarbe",
+    "ar": "لون التمييز"
+  },
+  "主题色说明": {
+    "zh": "用于按钮、开关和图表，自动适配深浅主题。",
+    "en": "Used for buttons, switches and charts, adapted to light and dark themes.",
+    "ja": "ボタン、スイッチ、グラフに使用し、ライト・ダークテーマに合わせて調整します。",
+    "ko": "버튼, 스위치, 차트에 적용되며 밝은 테마와 어두운 테마에 맞게 조정됩니다.",
+    "fr": "Appliquée aux boutons, interrupteurs et graphiques, adaptée aux thèmes clair et sombre.",
+    "de": "Für Schaltflächen, Schalter und Diagramme, an helle und dunkle Designs angepasst.",
+    "ar": "يُستخدم للأزرار والمفاتيح والرسوم البيانية ويتكيف مع المظهر الفاتح والداكن."
+  },
+  "选择主题色": {
+    "zh": "选择主题色 {color}",
+    "en": "Choose accent color {color}",
+    "ja": "アクセントカラー {color} を選択",
+    "ko": "강조 색상 {color} 선택",
+    "fr": "Choisir la couleur {color}",
+    "de": "Akzentfarbe {color} wählen",
+    "ar": "اختيار لون التمييز {color}"
+  },
+  "自定义主题色": {
+    "zh": "自定义主题色",
+    "en": "Custom accent color",
+    "ja": "カスタムアクセントカラー",
+    "ko": "사용자 지정 강조 색상",
+    "fr": "Couleur d’accent personnalisée",
+    "de": "Eigene Akzentfarbe",
+    "ar": "لون تمييز مخصص"
+  },
+  "恢复默认颜色": {
+    "zh": "恢复默认颜色",
+    "en": "Reset color",
+    "ja": "標準の色に戻す",
+    "ko": "기본 색상으로 재설정",
+    "fr": "Rétablir la couleur",
+    "de": "Farbe zurücksetzen",
+    "ar": "استعادة اللون الافتراضي"
+  },
+  "主题色格式无效": {
+    "zh": "主题色格式无效",
+    "en": "Invalid accent color format",
+    "ja": "アクセントカラーの形式が無効です",
+    "ko": "강조 색상 형식이 올바르지 않습니다",
+    "fr": "Format de couleur invalide",
+    "de": "Ungültiges Farbformat",
+    "ar": "تنسيق لون التمييز غير صالح"
   }
 }

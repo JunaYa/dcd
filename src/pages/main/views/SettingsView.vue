@@ -4,6 +4,7 @@ import { t } from '~/i18n'
 import { computed } from 'vue'
 import { languages } from '~/i18n'
 import Icon from '~/components/eye/Icon.vue'
+import { accentPresets, defaultAccent } from '~/theme/accent'
 import Toggle from '~/components/eye/Toggle.vue'
 const { settings, saving, dirty, saveSettings, toggle, action, report } = useMonitor()
 const themeOptions = computed(() => [
@@ -11,6 +12,10 @@ const themeOptions = computed(() => [
   { value: 'light', label: t('浅色') },
   { value: 'dark', label: t('深色') },
 ])
+async function selectAccent(color: string) {
+  settings.value.accentColor = color
+  await saveSettings()
+}
 const messageInput = computed({
   get: () => (settings.value.message === 'Take a break' ? '' : settings.value.message),
   set: (value: string) => {
@@ -77,6 +82,49 @@ async function upload(event: Event) {
       <p class="section-description">
         {{ t('各个窗口独立设置，修改后自动保存。') }}
       </p>
+      <div class="setting-row accent-setting">
+        <div>
+          <label for="accent-color">{{ t('主题色') }}</label>
+          <p class="section-description">{{ t('主题色说明') }}</p>
+        </div>
+        <div class="accent-controls">
+          <div class="accent-presets" role="group" :aria-label="t('主题色')">
+            <button
+              v-for="color in accentPresets"
+              :key="color"
+              type="button"
+              class="accent-swatch"
+              :style="{ '--swatch': color }"
+              :aria-label="t('选择主题色', { color })"
+              :title="color"
+              :aria-pressed="settings.accentColor.toLowerCase() === color"
+              :disabled="saving"
+              @click="selectAccent(color)"
+            >
+              <span aria-hidden="true" />
+            </button>
+          </div>
+          <div class="accent-custom">
+            <input
+              id="accent-color"
+              v-model="settings.accentColor"
+              type="color"
+              :aria-label="t('自定义主题色')"
+              :disabled="saving"
+              @change="saveSettings"
+            />
+            <output for="accent-color">{{ settings.accentColor.toUpperCase() }}</output>
+            <button
+              type="button"
+              class="button"
+              :disabled="saving || settings.accentColor === defaultAccent"
+              @click="selectAccent(defaultAccent)"
+            >
+              {{ t('恢复默认颜色') }}
+            </button>
+          </div>
+        </div>
+      </div>
       <div class="setting-row">
         <label for="main-theme">{{ t('主窗口主题') }}</label>
         <select
