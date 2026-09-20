@@ -1,191 +1,192 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  --color-canvas: oklch(0.205 0.004 285);
+  --color-sidebar: oklch(0.185 0.004 285);
+  --color-surface: oklch(0.245 0.004 285);
+  --color-surface-raised: oklch(0.29 0.005 285);
+  --color-input: oklch(0.215 0.004 285);
+  --color-hover: oklch(0.32 0.006 285);
+  --color-selected: oklch(0.345 0.013 295);
+  --color-border: oklch(0.365 0.005 285);
+  --color-border-subtle: oklch(0.285 0.004 285);
+  --color-text: oklch(0.94 0.003 285);
+  --color-text-muted: oklch(0.69 0.008 285);
+  --color-accent: oklch(0.73 0.16 305);
+  --color-accent-strong: oklch(0.51 0.19 305);
+  --color-accent-subtle: oklch(0.32 0.055 305);
+  --color-focus: oklch(0.85 0 0);
+  --color-scrim: rgb(0 0 0 / 0.6);
+  --shadow-popover: 0 8px 24px rgb(0 0 0 / 0.3), 0 2px 6px rgb(0 0 0 / 0.2);
+  --shadow-selected: inset 0 1px 0 rgb(255 255 255 / 0.04);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --text-small: 13px;
+  --text-body: 14px;
+  --text-section: 16px;
+  --text-title: 26px;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-toast: 40;
+  --color-window-close: #ff5f57;
+  --color-window-minimize: #febc2e;
+  --color-window-inactive: #484947;
+  --color-window-maximize: #28c840;
+  --color-success: #88ab87;
+  --color-warning: #c6a160;
+  --color-text-secondary: #c1c1be;
+  --color-grid: #343437;
+  --color-toggle-thumb: #eeeeef;
+  --color-error-surface: #422a2e;
+  --color-error-border: #97545f;
+  --color-break-light: #eeeae5;
+  --color-break-light-text: #292724;
+  --color-break-light-muted: #69635f;
+  --color-break-dark: #171716;
+  --color-break-custom: #282029;
+  --c-primary: var(--color-accent);
+  --c-primary-active: var(--color-accent-strong);
+  --c-primary-light: var(--color-accent-subtle);
+  --c-primary-fade: var(--color-accent-subtle);
+  --c-border: var(--color-border-subtle);
+  --c-border-dark: var(--color-border);
+  --c-bg-base: var(--color-canvas);
+  --c-bg-active: var(--color-hover);
+  --c-bg-card: var(--color-surface);
+  --c-bg-code: var(--color-surface);
+  --c-bg-dm: var(--color-surface);
+  --c-text-base: var(--color-text);
+  --c-text-code: var(--color-text);
+  --c-text-secondary: var(--color-text-muted);
+  --c-text-secondary-light: var(--color-text-muted);
+  --c-bg-btn-disabled: var(--color-surface);
+  --c-text-btn-disabled: var(--color-text-muted);
+  --c-danger: var(--color-error-border);
+  --c-danger-active: var(--color-error-border);
+  --c-error: var(--color-error-border);
+  --c-success: var(--color-success);
+  --c-warning: var(--color-warning);
+  --c-bg-selection: var(--color-selected);
+}
 html {
-  font-size: var(--font-size, 15px);
-  width: 100%;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  background: transparent;
+  color-scheme: dark;
+  font-synthesis: none;
 }
-
-@font-face {
-  font-display: swap;
-  font-family: 'Homemade Apple';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/fonts/homemade-apple-v18.ttf) format('truetype');
-}
-
-::-moz-selection {
-  background: var(--c-bg-selection);
-}
-
-::selection {
-  background: var(--c-bg-selection);
-}
-
-/* Force vertical scrollbar to be always visible to avoid layout shift while loading the content */
 body {
+  -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
-
 html,
 body,
 #app {
-  min-height: 100vh;
+  min-height: 100%;
   margin: 0;
-  padding: 0;
 }
-
-html.dark {
-  color-scheme: dark;
+::selection {
+  background: var(--color-selected);
 }
-
-html {
-  --at-apply: bg-base text-base;
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
-
-html:not(.enable-pinch-to-zoom) body {
-  /* Prevent arbitrary zooming on mobile devices */
-  touch-action: pan-x pan-y;
+button,
+input,
+select {
+  transition:
+    background-color 150ms ease-out,
+    color 150ms ease-out,
+    transform 150ms ease-out;
 }
-
-.animate:before, .animate:after{
-  position: absolute;
-  content: '';
-  display: block;
-  width: 140%;
-  height: 100%;
-  left: -20%;
-  z-index: -1111;
-  transition: all ease-in-out 0.5s;
-  background-repeat: no-repeat;
+button:active:not(:disabled) {
+  transform: scale(0.96);
 }
-
-.animate:before{
-  display: none;
-  top: -75%;
-  background-image: 
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle,  transparent 20%, var(--c-primary) 20%, transparent 30%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%), 
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle,  transparent 10%, var(--c-primary) 15%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%);
-  background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
-  background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
+button:disabled {
+  cursor: default;
 }
-
-.animate:after{
-  display: none;
-  bottom: -75%;
-  background-image:  
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%), 
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle,  transparent 10%, var(--c-primary) 15%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%),
-  radial-gradient(circle, var(--c-primary) 20%, transparent 20%);
-  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
-  background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
-}
-
-.animate:before{
-  display: block;
-  animation: topBubbles ease-in-out 0.75s forwards;
-}
-
-.animate:after{
-  display: block;
-  animation: bottomBubbles ease-in-out 0.75s forwards;
-}
-
-
-@keyframes topBubbles {
-  0%{
-    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
-  }
-    50% {
-      background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
- 100% {
-    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
-  background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
-
-@keyframes bottomBubbles {
-  0%{
-    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
-  }
-  50% {
-    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
- 100% {
-    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
-  background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
-  }
+* {
+  box-sizing: border-box;
 }
-
-
-.skeleton-loading-bg {
-  background: linear-gradient(
-    90deg,
-    rgba(190, 190, 190, 0.2) 25%,
-    rgba(129, 129, 129, 0.24) 37%,
-    rgba(190, 190, 190, 0.2) 63%
-  );
-  background-size: 400% 100%;
-  animation: skeleton-loading 1.4s ease infinite;
+body {
+  margin: 0;
 }
-
-@keyframes skeleton-loading {
-  0% {
-    background-position: 100% 50%;
-  }
-  to {
-    background-position: 0 50%;
-  }
+button,
+input,
+select {
+  font: inherit;
 }
-
-@property --hue1 {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+button {
+  color: inherit;
+  cursor: pointer;
 }
-@property --hue2 {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+button:disabled {
+  cursor: default;
+  color: var(--color-text-muted);
 }
-
-@keyframes anim_bg {
-  0% {
-    --hue1: 0deg;
-    --hue2: 300deg;
-  }
-
-  100% {
-    --hue1: 360deg;
-    --hue2: 660deg;
-  }
+button,
+input,
+select {
+  border-radius: 6px;
 }
-
-.animate-bg-gradient {
-  position: relative;
-  background-image: linear-gradient(
-      in oklch longer hue to right,
-      oklch(0.93 0.08 var(--hue1) / 50%),
-      oklch(0.93 0.08 var(--hue2) / 50%)
-    ),
-    linear-gradient(
-      in oklch longer hue to bottom,
-      oklch(0.93 0.08 var(--hue1) / 50%),
-      oklch(0.93 0.08 var(--hue2) / 50%)
-    );
-
-  background-size: 100% 100%;
-  animation-name: anim_bg;
-  animation-duration: 5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+button {
+  border: 0;
+  background: none;
+}
+button:active:not(:disabled) {
+  filter: brightness(0.85);
+}
+.icon {
+  width: 23px;
+  height: 23px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+h1,
+h2,
+p {
+  margin: 0;
+}
+h1 {
+  font-size: 20px;
+  font-weight: var(--weight-semibold);
+}
+h2 {
+  font-weight: 500;
+}
+button,
+input {
+  -webkit-app-region: no-drag;
 }

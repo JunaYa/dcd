@@ -12,12 +12,12 @@ const props = withDefaults(
   { metric: 'seconds' },
 )
 const width = computed(() =>
-  props.bars ? Math.max(900, props.bars.length * 80) : 1000,
+  props.bars ? Math.max(900, props.bars.length * 80) : props.compact ? 520 : 1000,
 )
 const left = 48
 const right = computed(() => width.value - 38)
 const top = 32
-const bottom = 310
+const bottom = props.compact ? 200 : 310
 const max = computed(() => {
   if (!props.bars)
     return 100
@@ -51,7 +51,7 @@ const tickStep = computed(() =>
     <svg
       class="usage-chart"
       :style="bars ? { minWidth: `${Math.max(550, bars.length * 65)}px` } : {}"
-      :viewBox="`0 0 ${width} 355`"
+      :viewBox="`0 0 ${width} ${bottom + 45}`"
       role="img"
       :aria-label="
         bars
@@ -61,8 +61,8 @@ const tickStep = computed(() =>
     >
       <defs>
         <linearGradient id="fatigue-fill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#bc54ed" stop-opacity=".32" />
-          <stop offset="100%" stop-color="#bc54ed" stop-opacity=".025" />
+          <stop offset="0%" stop-color="var(--color-accent)" stop-opacity=".32" />
+          <stop offset="100%" stop-color="var(--color-accent)" stop-opacity=".025" />
         </linearGradient>
       </defs>
       <g v-for="fraction in grid" :key="fraction">
@@ -108,7 +108,7 @@ const tickStep = computed(() =>
                 * (bottom - top)
             "
             rx="2"
-            fill="var(--accent)"
+            fill="var(--color-accent)"
           >
             <title>
               {{ bar.label }}：{{
@@ -119,7 +119,7 @@ const tickStep = computed(() =>
           <text
             v-if="index % tickStep === 0"
             :x="left + ((index + 0.5) / bars.length) * (right - left)"
-            y="335"
+            :y="bottom + 25"
             text-anchor="middle"
           >
             {{ bar.label }}
@@ -132,7 +132,7 @@ const tickStep = computed(() =>
           v-if="points.length"
           :points="points.join(' ')"
           fill="none"
-          stroke="var(--accent)"
+          stroke="var(--color-accent)"
           stroke-width="2"
           stroke-linejoin="round"
         />
@@ -141,13 +141,13 @@ const tickStep = computed(() =>
           :cx="points[points.length - 1].split(',')[0]"
           :cy="points[points.length - 1].split(',')[1]"
           r="4"
-          fill="var(--accent)"
+          fill="var(--color-accent)"
         />
         <text
           v-for="hour in 13"
           :key="hour"
           :x="left + ((hour - 1) / 12) * (right - left)"
-          y="335"
+          :y="bottom + 25"
           text-anchor="middle"
         >
           {{ (hour - 1) * 2 }}
@@ -156,7 +156,7 @@ const tickStep = computed(() =>
       <text
         v-if="bars ? bars.every((bar) => bar[metric] === 0) : !samples?.length"
         :x="width / 2"
-        y="175"
+        :y="(top + bottom) / 2"
         text-anchor="middle"
         class="empty-chart"
       >

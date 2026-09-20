@@ -70,7 +70,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="flex flex-row items-center justify-center gap-4">
-      <Button class-name="btn-solid" anim @click="onSkip">
+      <Button class-name="btn-solid" @click="onSkip">
         跳过
       </Button>
     </div>

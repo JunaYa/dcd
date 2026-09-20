@@ -19,7 +19,6 @@ import {
   type Settings,
   type Snapshot,
 } from '~/eye/model'
-import '~/styles/eye.css'
 
 const native = isTauri()
 const mode = new URLSearchParams(location.search).get('mode') || 'main'
@@ -283,18 +282,31 @@ async function share() {
   }
 }
 async function exportCsv() {
-  const rows = [['日期', '使用时长（分钟）', '疲劳峰值时长（分钟）', '完成休息次数'], ...bars.value.map(b => [b.key, (b.seconds / 60).toFixed(1), (b.peakSeconds / 60).toFixed(1), b.breaks])]
+  const rows = [
+    ['日期', '使用时长（分钟）', '疲劳峰值时长（分钟）', '完成休息次数'],
+    ...bars.value.map(b => [
+      b.key,
+      (b.seconds / 60).toFixed(1),
+      (b.peakSeconds / 60).toFixed(1),
+      b.breaks,
+    ]),
+  ]
   const csv = `\uFEFF${rows.map(row => row.join(',')).join('\r\n')}`
   const filename = `eye-monitor-${demo.value ? '示例-' : ''}${dateKey()}.csv`
   try {
     if (native) {
-      const path = await saveDialog({ defaultPath: filename, filters: [{ name: 'CSV', extensions: ['csv'] }] })
+      const path = await saveDialog({
+        defaultPath: filename,
+        filters: [{ name: 'CSV', extensions: ['csv'] }],
+      })
       if (!path)
         return
       await writeTextFile(path, csv)
     }
     else {
-      const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }))
+      const url = URL.createObjectURL(
+        new Blob([csv], { type: 'text/csv;charset=utf-8' }),
+      )
       const link = document.createElement('a')
       link.href = url
       link.download = filename
@@ -303,7 +315,9 @@ async function exportCsv() {
     }
     inform('已导出当前筛选范围的 CSV')
   }
-  catch (cause) { report(cause) }
+  catch (cause) {
+    report(cause)
+  }
 }
 async function upload(event: Event) {
   const input = event.target as HTMLInputElement
@@ -401,7 +415,10 @@ onUnmounted(() => {
   <div
     v-if="mode === 'break'"
     class="break-screen"
-    :class="[`background-${settings.background}`, { 'break-window': settings.reminderStyle !== 'fullscreen' }]"
+    :class="[
+      `background-${settings.background}`,
+      { 'break-window': settings.reminderStyle !== 'fullscreen' },
+    ]"
     :style="backgroundStyle"
   >
     <Icon name="eye" />
@@ -421,7 +438,7 @@ onUnmounted(() => {
       跳过本次休息
     </button>
   </div>
-  <div v-else class="eye-app" :class="[{ 'tray-app': mode === 'tray' }]">
+  <div v-else class="app-shell" :class="[{ 'tray-app': mode === 'tray' }]">
     <aside v-if="mode !== 'tray'" class="sidebar">
       <div class="window-drag" data-tauri-drag-region>
         <div class="traffic-lights">
@@ -486,6 +503,12 @@ onUnmounted(() => {
       </div>
       <template v-else-if="page === 'today' || mode === 'tray'">
         <header v-if="mode !== 'tray'" class="today-toolbar">
+          <div class="page-heading">
+            <div>
+              <h1>今日</h1>
+              <p>留意用眼节奏，给双眼一点休息。</p>
+            </div>
+          </div>
           <button
             class="demo-button"
             :class="{ active: demo }"
@@ -495,12 +518,12 @@ onUnmounted(() => {
             {{ demo ? "示例数据 · 返回实时" : "预览示例数据" }}
           </button>
           <button
-            class="icon-button"
+            class="button primary break-action"
             title="手动开始一次休息"
             aria-label="手动开始一次休息"
             @click="action('break')"
           >
-            <Icon name="eye" />
+            <Icon name="eye" /><span>休息一下</span>
           </button>
           <div class="pause-control">
             <button
@@ -602,6 +625,12 @@ onUnmounted(() => {
         </div>
       </template>
       <template v-else-if="page === 'analysis'">
+        <header class="page-heading">
+          <div>
+            <h1>使用分析</h1>
+            <p>回顾使用时长与疲劳趋势。</p>
+          </div>
+        </header>
         <div class="analysis-controls">
           <div class="filter-row">
             <Icon name="calendar" />
@@ -666,10 +695,15 @@ onUnmounted(() => {
       </template>
       <form
         v-else-if="page === 'rules'"
-        class="preferences rules"
+        class="preferences rules-page"
         @submit.prevent="saveSettings"
       >
-        <h1>规则</h1>
+        <header class="page-heading">
+          <div>
+            <h1>休息规则</h1>
+            <p>设定适合自己的工作与休息节奏。</p>
+          </div>
+        </header>
         <div class="setting-row rule-row">
           <label for="work">规则</label>
           <div class="rule-inputs">
@@ -756,8 +790,14 @@ onUnmounted(() => {
         class="preferences"
         @submit.prevent="saveSettings"
       >
+        <header class="page-heading">
+          <div>
+            <h1>设置</h1>
+            <p>调整应用行为和提醒方式。</p>
+          </div>
+        </header>
         <section>
-          <h1>启动</h1>
+          <h2>系统集成</h2>
           <div class="setting-row">
             <span>开机时启动</span><Toggle
               :model-value="settings.autostart"
@@ -766,9 +806,6 @@ onUnmounted(() => {
               @update:model-value="toggle('autostart', $event)"
             />
           </div>
-        </section>
-        <section>
-          <h1>状态栏</h1>
           <div class="setting-row">
             <span>显示状态栏图标</span><Toggle
               :model-value="settings.trayIcon"
@@ -785,9 +822,6 @@ onUnmounted(() => {
               @update:model-value="toggle('trayTime', $event)"
             />
           </div>
-        </section>
-        <section>
-          <h1>程序坞</h1>
           <div class="setting-row">
             <span>显示程序坞图标</span><Toggle
               :model-value="settings.dockIcon"
@@ -798,7 +832,7 @@ onUnmounted(() => {
           </div>
         </section>
         <section>
-          <h1>提醒</h1>
+          <h2>休息提醒</h2>
           <div class="setting-row">
             <span>开启提醒</span><Toggle
               :model-value="settings.reminders"

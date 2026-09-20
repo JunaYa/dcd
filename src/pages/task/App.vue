@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-screen animate-bg-gradient flex flex-col items-center justify-center gap-8 select-none" @mousedown="dragStart">
+  <div class="w-full h-screen bg-base flex flex-col items-center justify-center gap-8 select-none" @mousedown="dragStart">
     <div class="text-2xl font-normal text-gray-600 text-center">
       休息一会儿
     </div>
@@ -75,7 +75,7 @@ onMounted(() => {
       </div>
     </div>
     <div class="flex flex-row items-center justify-center gap-4">
-      <Button class-name="btn-solid" anim @click="onSkip">
+      <Button class-name="btn-solid" @click="onSkip">
         跳过
       </Button>
     </div>

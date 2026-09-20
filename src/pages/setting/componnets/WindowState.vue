@@ -13,10 +13,10 @@ async function onRestoreWindowState() {
 
 <template>
   <div class="flex-row-start gap-2">
-    <Button class-name="btn-solid" :anim="true" @click="onSaveWindowState">
+    <Button class-name="btn-solid" @click="onSaveWindowState">
       Save Window State
     </Button>
-    <Button class-name="btn-solid" :anim="true" @click="onRestoreWindowState">
+    <Button class-name="btn-solid" @click="onRestoreWindowState">
       Restore Window State
     </Button>
   </div>
