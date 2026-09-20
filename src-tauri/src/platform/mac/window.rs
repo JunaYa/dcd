@@ -82,3 +82,31 @@ pub fn show_startup_window(window: &WebviewWindow) {
 pub fn hide_startup_window(window: &WebviewWindow) {
     let _ = window.minimize();
 }
+
+pub fn show_break_panel(window: &WebviewWindow, new_panel: bool) -> Result<(), String> {
+    use tauri_nspanel::{ManagerExt, WebviewWindowExt};
+
+    let handle = window.clone();
+    let (sender, receiver) = std::sync::mpsc::sync_channel(1);
+    window
+        .run_on_main_thread(move || {
+            let result = (|| {
+                let panel = if new_panel {
+                    handle.to_panel().map_err(|error| error.to_string())?
+                } else {
+                    handle
+                        .get_webview_panel(handle.label())
+                        .map_err(|error| format!("Unable to find break panel: {error:?}"))?
+                };
+                // Receive input without activating DCD and raising its main window.
+                panel.set_style_mask(1 << 7); // NSWindowStyleMaskNonactivatingPanel
+                panel.set_hides_on_deactivate(false);
+                panel.set_has_shadow(false);
+                panel.show();
+                Ok(())
+            })();
+            let _ = sender.send(result);
+        })
+        .map_err(|error| error.to_string())?;
+    receiver.recv().map_err(|error| error.to_string())?
+}

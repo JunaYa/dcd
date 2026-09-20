@@ -104,7 +104,7 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
             }
             Effect::EndBreak => {
                 if let Some(window) = handle.get_webview_window("eye-break") {
-                    let _ = window.destroy();
+                    let _ = dismiss_break(&window);
                 }
                 #[cfg(target_os = "macos")]
                 if settings.sound {
@@ -209,8 +209,18 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
     popup.set_focus().map_err(|e| e.to_string())
 }
 
+fn dismiss_break(window: &tauri::WebviewWindow) -> Result<(), String> {
+    #[cfg(target_os = "macos")]
+    return window.hide().map_err(|error| error.to_string());
+    #[cfg(not(target_os = "macos"))]
+    window.destroy().map_err(|error| error.to_string())
+}
+
 fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
-    let window = if let Some(w) = app.get_webview_window("eye-break") {
+    let existing = app.get_webview_window("eye-break");
+    #[cfg(target_os = "macos")]
+    let new_panel = existing.is_none();
+    let window = if let Some(w) = existing {
         w
     } else {
         let w = WebviewWindowBuilder::new(
@@ -273,8 +283,19 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
             }).map_err(|e| e.to_string())?;
         }
     }
-    window.show().map_err(|e| e.to_string())?;
-    window.set_focus().map_err(|e| e.to_string())?;
+    if settings.reminder_style != "fullscreen" {
+        window.set_size(tauri::LogicalSize::new(800.0, 560.0)).map_err(|e| e.to_string())?;
+        window.center().map_err(|e| e.to_string())?;
+        window.set_always_on_top(true).map_err(|e| e.to_string())?;
+    }
+    window.set_title(&text(&settings.language, "休息一下")).map_err(|e| e.to_string())?;
+    #[cfg(target_os = "macos")]
+    crate::platform::show_break_panel(&window, new_panel)?;
+    #[cfg(not(target_os = "macos"))]
+    {
+        window.show().map_err(|e| e.to_string())?;
+        window.set_focus().map_err(|e| e.to_string())?;
+    }
     if let Some(popup) = app.get_webview_window("eye-tray") {
         let _ = popup.hide();
     }
@@ -376,7 +397,7 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             m.break_until = 0;
             m.next_reminder = now + m.settings.repeat_minutes as i64 * 60;
             if let Some(w) = app.get_webview_window("eye-break") {
-                w.destroy().map_err(|e| e.to_string())?;
+                dismiss_break(&w)?;
             }
         }
         "pause" => {
