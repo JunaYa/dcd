@@ -1,20 +1,17 @@
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
 const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [
-    vue(),
-    UnoCSS(),
-  ],
+  plugins: [vue(), UnoCSS()],
 
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, 'src'),
+      '~': path.resolve(import.meta.dirname, 'src'),
     },
   },
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
@@ -38,14 +35,18 @@ export default defineConfig(async () => ({
       ignored: ['**/src-tauri/**'],
     },
   },
+  test: {
+    include: ['tests/**/*.test.mjs'],
+    environment: 'node',
+  },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       input: {
-        main: path.resolve(__dirname, './main.html'),
-        task: path.resolve(__dirname, './task.html'),
-        setting: path.resolve(__dirname, './setting.html'),
-        preview: path.resolve(__dirname, './preview.html'),
-        startup: path.resolve(__dirname, './startup.html'),
+        main: path.resolve(import.meta.dirname, './main.html'),
+        task: path.resolve(import.meta.dirname, './task.html'),
+        setting: path.resolve(import.meta.dirname, './setting.html'),
+        preview: path.resolve(import.meta.dirname, './preview.html'),
+        startup: path.resolve(import.meta.dirname, './startup.html'),
       },
     },
   },

@@ -2,7 +2,7 @@ import type { Snapshot } from '~/eye/model'
 import { invoke, isTauri } from '@tauri-apps/api/core'
 import { createApp } from 'vue'
 import App from './App.vue'
-import 'virtual:uno.css'
+import '~/styles/uno'
 import '~/styles/global.css'
 import '~/styles/app.css'
 

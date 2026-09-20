@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { it } from 'node:test'
+import { it } from 'vitest'
 import { resolveLanguage, languages } from '../src/i18n/locale.ts'
 
 const messages = JSON.parse(readFileSync(new URL('../src/i18n/messages.json', import.meta.url), 'utf8'))

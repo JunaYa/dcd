@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { it } from 'node:test'
+import { it } from 'vitest'
 import { aggregate, dateKey, duration } from '../src/eye/model.ts'
 
 const today = new Date(2026, 8, 20, 12)

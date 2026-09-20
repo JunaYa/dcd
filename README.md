@@ -1,5 +1,23 @@
 # DCD 松一刻 — Disconnect · Circulate · Decompress
 
+## Development
+
+Use Node.js 24.11+ and pnpm 12.5.1. Rust 1.96 is selected by `rust-toolchain.toml`.
+
+```sh
+npm install -g pnpm@12.5.1
+pnpm install --frozen-lockfile
+pnpm tauri dev
+```
+
+Vite 8 uses Rolldown and Oxc. Run `pnpm lint` for Oxlint, `pnpm fmt` for Oxfmt,
+`pnpm test` for Vitest, and `pnpm build` for Vue type checking and the production build.
+Run native tests with `cargo test --manifest-path src-tauri/Cargo.toml --lib`.
+The development server uses port 1422.
+
+TypeScript is kept on 6.0.3 because vue-tsc 3.3.11 still requires the JavaScript
+compiler API removed in TypeScript 7. Upgrade them together once vue-tsc supports it.
+
 ## Project Introduction
 
 DCD is a desktop application based on Vue 3 and Tauri for time management. It provides friendly reminders for users to take breaks, preventing physical discomfort caused by prolonged screen 🖥️ time.
