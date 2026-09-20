@@ -6,6 +6,7 @@ use tauri_plugin_store::StoreExt;
 use tauri_nspanel;
 
 mod eye;
+mod materials;
 mod i18n;
 mod eye_model;
 mod cmd;
@@ -85,6 +86,7 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
             eye::eye_snapshot,
+            materials::update_materials,
             eye::eye_save_settings,
             eye::eye_action,
             cmd::show_preview_window, 

@@ -1176,3 +1176,36 @@ html[data-theme="light"] .toggle:not(.on) {
     padding-block: var(--space-2);
   }
 }
+
+/* Native material views sit below the transparent webview and never intercept controls. */
+html[data-material='glass'] .native-window,
+html[data-material='vibrancy'] .native-window {
+  background: transparent;
+}
+html:is([data-material='glass'], [data-material='vibrancy']) .native-window .sidebar {
+  background: var(--material-tint);
+  border-radius: var(--radius-lg);
+}
+html:is([data-material='glass'], [data-material='vibrancy'])
+  .native-window
+  :is(.today-toolbar, header.page-heading) {
+  background: var(--material-tint);
+  border-radius: var(--radius-lg);
+}
+html:is([data-material='glass'], [data-material='vibrancy'])
+  .native-window
+  .sidebar
+  nav
+  button.selected {
+  background: var(--material-selection);
+}
+
+.native-window .sidebar {
+  margin: var(--space-2);
+  margin-inline-end: 0;
+  border-radius: var(--radius-lg);
+}
+.native-window :is(.today-toolbar, header.page-heading) {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}

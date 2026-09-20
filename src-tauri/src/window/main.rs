@@ -20,7 +20,7 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
             WebviewWindowBuilder::new(app, MAIN_WINDOW, WebviewUrl::App("main.html".into()))
                 .title(crate::i18n::text(&language, "appName"))
                 .decorations(true)
-                .transparent(false)
+                .transparent(cfg!(target_os = "macos"))
                 .shadow(true)
                 .inner_size(1100.0, 720.0)
                 .min_inner_size(760.0, 540.0)

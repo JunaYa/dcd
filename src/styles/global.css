@@ -4,6 +4,8 @@
   --color-scrollbar: rgb(150 150 157 / 0.35);
   --color-scrollbar-hover: rgb(170 170 177 / 0.55);
   --radius-window: 12px;
+  --material-tint: rgb(25 25 28 / 0.12);
+  --material-selection: rgb(255 255 255 / 0.12);
   --font-sans:
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
     "Microsoft YaHei", sans-serif;
@@ -85,6 +87,8 @@
 }
 html[data-theme="light"] {
   color-scheme: light;
+  --material-tint: rgb(255 255 255 / 0.08);
+  --material-selection: rgb(0 0 0 / 0.07);
   --color-canvas: #f4f4f6;
   --color-sidebar: #eaeaee;
   --color-surface: #ffffff;

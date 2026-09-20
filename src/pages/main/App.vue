@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import type { Snapshot } from '~/eye/model'
 import { t } from '~/i18n'
 import { provideMonitor } from './composables/useMonitor'
+import { useWindowMaterials } from './composables/useWindowMaterials'
 import { useAppearance } from './composables/useAppearance'
 import TodayView from './views/TodayView.vue'
 import AnalysisView from './views/AnalysisView.vue'
@@ -17,6 +18,7 @@ const props = defineProps<{ initialSnapshot?: Snapshot }>()
 const monitor = provideMonitor(props.initialSnapshot)
 const { mode, native, page, loading } = monitor
 useAppearance(monitor)
+useWindowMaterials(monitor)
 const dialogs = ref<InstanceType<typeof AppDialogs>>()
 const range = ref(8)
 const grouping = ref('day')
