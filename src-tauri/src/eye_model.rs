@@ -4,6 +4,7 @@ use std::collections::BTreeMap;
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Settings {
+    pub language: String,
     pub main_theme: String,
     pub tray_theme: String,
     pub tray_show_chart: bool,
@@ -30,6 +31,7 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Self {
+            language: crate::i18n::system_language(),
             main_theme: "dark".into(),
             tray_theme: "dark".into(),
             tray_show_chart: true,
@@ -48,7 +50,7 @@ impl Default for Settings {
             dock_icon: true,
             reminders: true,
             reminder_style: "fullscreen".into(),
-            message: "Take a break".into(),
+            message: String::new(),
             allow_skip: true,
             background: "system".into(),
             background_image: String::new(),
@@ -57,12 +59,15 @@ impl Default for Settings {
 }
 impl Settings {
     pub fn validate(&self) -> Result<(), String> {
+        if !crate::i18n::LANGUAGES.contains(&self.language.as_str()) {
+            return Err("Unsupported language".into());
+        }
         if !["system", "light", "dark"].contains(&self.main_theme.as_str())
             || !["system", "light", "dark"].contains(&self.tray_theme.as_str())
             || !(50..=100).contains(&self.overlay_opacity)
             || self.overlay_blur > 40
         {
-            return Err("主题设置无效：遮罩浓度须为 50–100%，模糊须为 0–40".into());
+            return Err(crate::i18n::text(&self.language, "主题设置无效：遮罩浓度须为 50–100%，模糊须为 0–40"));
         }
         if !(1..=240).contains(&self.work_minutes)
             || self.break_minutes > 60
@@ -71,8 +76,7 @@ impl Settings {
             || !(1..=60).contains(&self.repeat_minutes)
         {
             return Err(
-                "工作时长须为 1–240 分钟，休息时长须为 1 秒–60 分 59 秒，提醒间隔须为 1–60 分钟"
-                    .into(),
+                crate::i18n::text(&self.language, "工作时长须为 1–240 分钟，休息时长须为 1 秒–60 分 59 秒，提醒间隔须为 1–60 分钟"),
             );
         }
         if !["fullscreen", "window"].contains(&self.reminder_style.as_str())
@@ -80,7 +84,7 @@ impl Settings {
             || self.message.chars().count() > 120
             || self.background_image.len() > 4_200_000
         {
-            return Err("提醒设置无效，图片须小于 3 MB，提醒文字不能超过 120 字".into());
+            return Err(crate::i18n::text(&self.language, "提醒设置无效，图片须小于 3 MB，提醒文字不能超过 120 字"));
         }
         if !self.background_image.is_empty()
             && ![
@@ -91,10 +95,10 @@ impl Settings {
             .iter()
             .any(|p| self.background_image.starts_with(p))
         {
-            return Err("请选择 PNG、JPEG 或 WebP 图片".into());
+            return Err(crate::i18n::text(&self.language, "请选择 PNG、JPEG 或 WebP 图片"));
         }
         if !self.tray_icon && !self.dock_icon {
-            return Err("请至少保留状态栏或程序坞入口".into());
+            return Err(crate::i18n::text(&self.language, "请至少保留状态栏或程序坞入口"));
         }
         Ok(())
     }
@@ -237,10 +241,12 @@ mod tests {
         assert_eq!(s.overlay_opacity, 82);
         assert_eq!(s.overlay_blur, 16);
         assert!(s.tray_show_chart);
+        s.language = "ja".into();
         s.main_theme = "light".into();
         s.tray_theme = "system".into();
         s.tray_show_chart = false;
         let restored: Settings = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        assert_eq!(restored.language, "ja");
         assert_eq!(restored.main_theme, "light");
         assert_eq!(restored.tray_theme, "system");
         assert_eq!(restored.background, "custom");

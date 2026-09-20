@@ -1,7 +1,7 @@
 [package]
 name = "dcd"
 version = "0.1.9"
-description = "Descktop Countdown"
+description = "DCD"
 authors = [ "ayac3j@gmail.com" ]
 edition = "2021"
 

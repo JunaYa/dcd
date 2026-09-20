@@ -6,6 +6,7 @@ use tauri_plugin_store::StoreExt;
 use tauri_nspanel;
 
 mod eye;
+mod i18n;
 mod eye_model;
 mod cmd;
 mod common;

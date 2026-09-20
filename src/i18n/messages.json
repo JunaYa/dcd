@@ -1,0 +1,1460 @@
+{
+  "appName": {
+    "zh": "DCD 松一刻",
+    "en": "DCD",
+    "ja": "DCD",
+    "ko": "DCD",
+    "fr": "DCD",
+    "de": "DCD",
+    "ar": "DCD"
+  },
+  "今日": {
+    "zh": "今日",
+    "en": "Today",
+    "ja": "今日",
+    "ko": "오늘",
+    "fr": "Aujourd’hui",
+    "de": "Heute",
+    "ar": "اليوم"
+  },
+  "分析": {
+    "zh": "分析",
+    "en": "Analysis",
+    "ja": "分析",
+    "ko": "분석",
+    "fr": "Analyse",
+    "de": "Analyse",
+    "ar": "التحليل"
+  },
+  "规则": {
+    "zh": "规则",
+    "en": "Rules",
+    "ja": "ルール",
+    "ko": "규칙",
+    "fr": "Règles",
+    "de": "Regeln",
+    "ar": "القواعد"
+  },
+  "设置": {
+    "zh": "设置",
+    "en": "Settings",
+    "ja": "設定",
+    "ko": "설정",
+    "fr": "Réglages",
+    "de": "Einstellungen",
+    "ar": "الإعدادات"
+  },
+  "过去7天": {
+    "zh": "过去7天",
+    "en": "Last 7 days",
+    "ja": "過去7日間",
+    "ko": "지난 7일",
+    "fr": "7 derniers jours",
+    "de": "Letzte 7 Tage",
+    "ar": "آخر 7 أيام"
+  },
+  "过去28天": {
+    "zh": "过去28天",
+    "en": "Last 28 days",
+    "ja": "過去28日間",
+    "ko": "지난 28일",
+    "fr": "28 derniers jours",
+    "de": "Letzte 28 Tage",
+    "ar": "آخر 28 يومًا"
+  },
+  "过去90天": {
+    "zh": "过去90天",
+    "en": "Last 90 days",
+    "ja": "過去90日間",
+    "ko": "지난 90일",
+    "fr": "90 derniers jours",
+    "de": "Letzte 90 Tage",
+    "ar": "آخر 90 يومًا"
+  },
+  "过去12个月": {
+    "zh": "过去12个月",
+    "en": "Last 12 months",
+    "ja": "過去12か月",
+    "ko": "지난 12개월",
+    "fr": "12 derniers mois",
+    "de": "Letzte 12 Monate",
+    "ar": "آخر 12 شهرًا"
+  },
+  "全部时间": {
+    "zh": "全部时间",
+    "en": "All time",
+    "ja": "全期間",
+    "ko": "전체 기간",
+    "fr": "Toute la période",
+    "de": "Gesamter Zeitraum",
+    "ar": "كل الأوقات"
+  },
+  "按天": {
+    "zh": "按天",
+    "en": "Daily",
+    "ja": "日別",
+    "ko": "일별",
+    "fr": "Par jour",
+    "de": "Täglich",
+    "ar": "يوميًا"
+  },
+  "按周": {
+    "zh": "按周",
+    "en": "Weekly",
+    "ja": "週別",
+    "ko": "주별",
+    "fr": "Par semaine",
+    "de": "Wöchentlich",
+    "ar": "أسبوعيًا"
+  },
+  "按月": {
+    "zh": "按月",
+    "en": "Monthly",
+    "ja": "月別",
+    "ko": "월별",
+    "fr": "Par mois",
+    "de": "Monatlich",
+    "ar": "شهريًا"
+  },
+  "跟随系统": {
+    "zh": "跟随系统",
+    "en": "System",
+    "ja": "システムに合わせる",
+    "ko": "시스템 설정",
+    "fr": "Système",
+    "de": "System",
+    "ar": "النظام"
+  },
+  "浅色": {
+    "zh": "浅色",
+    "en": "Light",
+    "ja": "ライト",
+    "ko": "라이트",
+    "fr": "Clair",
+    "de": "Hell",
+    "ar": "فاتح"
+  },
+  "深色": {
+    "zh": "深色",
+    "en": "Dark",
+    "ja": "ダーク",
+    "ko": "다크",
+    "fr": "Sombre",
+    "de": "Dunkel",
+    "ar": "داكن"
+  },
+  "自定义": {
+    "zh": "自定义",
+    "en": "Custom",
+    "ja": "カスタム",
+    "ko": "사용자 지정",
+    "fr": "Personnalisé",
+    "de": "Benutzerdefiniert",
+    "ar": "مخصص"
+  },
+  "休息一下": {
+    "zh": "休息一下",
+    "en": "Take a break",
+    "ja": "ひと休みしましょう",
+    "ko": "잠시 쉬세요",
+    "fr": "Faites une pause",
+    "de": "Zeit für eine Pause",
+    "ar": "خذ استراحة"
+  },
+  "移开视线，看看远处，让双眼放松。": {
+    "zh": "看看远处，舒展身体，让思绪歇一会儿。",
+    "en": "Look into the distance, stretch your body, and let your mind rest.",
+    "ja": "遠くを眺め、体を伸ばして、頭もひと休み。",
+    "ko": "먼 곳을 바라보고 몸을 펴며 마음도 쉬어 가세요.",
+    "fr": "Regardez au loin, étirez-vous et reposez votre esprit.",
+    "de": "Schau in die Ferne, streck dich und lass deine Gedanken ruhen.",
+    "ar": "انظر بعيدًا، ومدد جسمك، وأرح ذهنك."
+  },
+  "休息倒计时": {
+    "zh": "休息倒计时",
+    "en": "Break time remaining",
+    "ja": "休憩の残り時間",
+    "ko": "남은 휴식 시간",
+    "fr": "Temps de pause restant",
+    "de": "Verbleibende Pausenzeit",
+    "ar": "الوقت المتبقي للاستراحة"
+  },
+  "休息已完成": {
+    "zh": "休息已完成",
+    "en": "Break complete",
+    "ja": "休憩終了",
+    "ko": "휴식 완료",
+    "fr": "Pause terminée",
+    "de": "Pause beendet",
+    "ar": "انتهت الاستراحة"
+  },
+  "跳过本次休息": {
+    "zh": "跳过本次休息",
+    "en": "Skip this break",
+    "ja": "今回の休憩をスキップ",
+    "ko": "이번 휴식 건너뛰기",
+    "fr": "Passer cette pause",
+    "de": "Diese Pause überspringen",
+    "ar": "تخطي هذه الاستراحة"
+  },
+  "关闭窗口": {
+    "zh": "关闭窗口",
+    "en": "Close window",
+    "ja": "ウィンドウを閉じる",
+    "ko": "창 닫기",
+    "fr": "Fermer la fenêtre",
+    "de": "Fenster schließen",
+    "ar": "إغلاق النافذة"
+  },
+  "最小化": {
+    "zh": "最小化",
+    "en": "Minimize",
+    "ja": "最小化",
+    "ko": "최소화",
+    "fr": "Réduire",
+    "de": "Minimieren",
+    "ar": "تصغير"
+  },
+  "切换最大化": {
+    "zh": "切换最大化",
+    "en": "Toggle maximize",
+    "ja": "最大化を切り替える",
+    "ko": "최대화 전환",
+    "fr": "Agrandir ou restaurer",
+    "de": "Maximieren oder wiederherstellen",
+    "ar": "تبديل التكبير"
+  },
+  "主导航": {
+    "zh": "主导航",
+    "en": "Main navigation",
+    "ja": "メインナビゲーション",
+    "ko": "주 탐색",
+    "fr": "Navigation principale",
+    "de": "Hauptnavigation",
+    "ar": "التنقل الرئيسي"
+  },
+  "提醒已暂停": {
+    "zh": "提醒已暂停",
+    "en": "Reminders paused",
+    "ja": "通知を一時停止中",
+    "ko": "알림 일시 중지됨",
+    "fr": "Rappels en pause",
+    "de": "Erinnerungen pausiert",
+    "ar": "التذكيرات متوقفة مؤقتًا"
+  },
+  "浏览器预览 · 系统计时在桌面应用中运行": {
+    "zh": "浏览器预览 · 系统计时在桌面应用中运行",
+    "en": "Browser preview · Tracking runs in the desktop app",
+    "ja": "ブラウザプレビュー · 計測はデスクトップアプリで実行",
+    "ko": "브라우저 미리 보기 · 시간 기록은 데스크톱 앱에서 실행됩니다",
+    "fr": "Aperçu navigateur · Suivi dans l’application de bureau",
+    "de": "Browservorschau · Erfassung in der Desktop-App",
+    "ar": "معاينة المتصفح · يعمل التتبع في تطبيق سطح المكتب"
+  },
+  "关闭错误提示": {
+    "zh": "关闭错误提示",
+    "en": "Dismiss error",
+    "ja": "エラーを閉じる",
+    "ko": "오류 닫기",
+    "fr": "Fermer l’erreur",
+    "de": "Fehlermeldung schließen",
+    "ar": "إغلاق رسالة الخطأ"
+  },
+  "正在读取本机记录…": {
+    "zh": "正在读取本机记录…",
+    "en": "Loading local records…",
+    "ja": "ローカル記録を読み込み中…",
+    "ko": "로컬 기록 불러오는 중…",
+    "fr": "Chargement des données locales…",
+    "de": "Lokale Daten werden geladen…",
+    "ar": "جارٍ تحميل السجلات المحلية…"
+  },
+  "留意用眼节奏，给双眼一点休息。": {
+    "zh": "目光移远，身体动动，思绪放松。",
+    "en": "Rest your eyes. Move your body. Unwind your mind.",
+    "ja": "目を休め、体を動かし、気持ちをほぐしましょう。",
+    "ko": "눈을 쉬고, 몸을 움직이고, 마음을 편히 하세요.",
+    "fr": "Reposez vos yeux, bougez et détendez votre esprit.",
+    "de": "Entlaste deine Augen, bewege dich und entspanne deinen Geist.",
+    "ar": "أرح عينيك، وحرك جسمك، واسترخِ ذهنيًا."
+  },
+  "示例数据 · 返回实时": {
+    "zh": "示例数据 · 返回实时",
+    "en": "Demo data · Return to live",
+    "ja": "サンプル表示中 · 実データに戻る",
+    "ko": "예시 데이터 · 실시간으로 돌아가기",
+    "fr": "Démo · Retour aux données réelles",
+    "de": "Beispieldaten · Zurück zu aktuellen Daten",
+    "ar": "بيانات تجريبية · العودة للبيانات الفعلية"
+  },
+  "预览示例数据": {
+    "zh": "预览示例数据",
+    "en": "Preview demo data",
+    "ja": "サンプルデータを見る",
+    "ko": "예시 데이터 보기",
+    "fr": "Voir les données de démo",
+    "de": "Beispieldaten anzeigen",
+    "ar": "معاينة البيانات التجريبية"
+  },
+  "手动开始一次休息": {
+    "zh": "手动开始一次休息",
+    "en": "Start a break",
+    "ja": "休憩を始める",
+    "ko": "휴식 시작",
+    "fr": "Commencer une pause",
+    "de": "Pause starten",
+    "ar": "بدء استراحة"
+  },
+  "暂停提醒": {
+    "zh": "暂停提醒",
+    "en": "Pause reminders",
+    "ja": "通知を一時停止",
+    "ko": "알림 일시 중지",
+    "fr": "Suspendre les rappels",
+    "de": "Erinnerungen pausieren",
+    "ar": "إيقاف التذكيرات مؤقتًا"
+  },
+  "暂停通知": {
+    "zh": "暂停通知",
+    "en": "Pause notifications",
+    "ja": "通知の一時停止",
+    "ko": "알림 중지",
+    "fr": "Suspendre les notifications",
+    "de": "Benachrichtigungen pausieren",
+    "ar": "إيقاف الإشعارات مؤقتًا"
+  },
+  "30分钟": {
+    "zh": "30分钟",
+    "en": "30 minutes",
+    "ja": "30分",
+    "ko": "30분",
+    "fr": "30 minutes",
+    "de": "30 Minuten",
+    "ar": "30 دقيقة"
+  },
+  "1小时": {
+    "zh": "1小时",
+    "en": "1 hour",
+    "ja": "1時間",
+    "ko": "1시간",
+    "fr": "1 heure",
+    "de": "1 Stunde",
+    "ar": "ساعة واحدة"
+  },
+  "直到明天": {
+    "zh": "直到明天",
+    "en": "Until tomorrow",
+    "ja": "明日まで",
+    "ko": "내일까지",
+    "fr": "Jusqu’à demain",
+    "de": "Bis morgen",
+    "ar": "حتى الغد"
+  },
+  "取消暂停": {
+    "zh": "取消暂停",
+    "en": "Resume",
+    "ja": "再開",
+    "ko": "다시 시작",
+    "fr": "Reprendre",
+    "de": "Fortsetzen",
+    "ar": "استئناف"
+  },
+  "使用说明": {
+    "zh": "使用说明",
+    "en": "Help",
+    "ja": "使い方",
+    "ko": "도움말",
+    "fr": "Aide",
+    "de": "Hilfe",
+    "ar": "المساعدة"
+  },
+  "疲劳值": {
+    "zh": "疲劳值",
+    "en": "Fatigue",
+    "ja": "疲労度",
+    "ko": "피로도",
+    "fr": "Fatigue",
+    "de": "Ermüdung",
+    "ar": "الإجهاد"
+  },
+  "今日时长": {
+    "zh": "今日时长",
+    "en": "Today’s usage",
+    "ja": "今日の使用時間",
+    "ko": "오늘 사용 시간",
+    "fr": "Utilisation du jour",
+    "de": "Heutige Nutzung",
+    "ar": "استخدام اليوم"
+  },
+  "与昨日全天相比": {
+    "zh": "与昨日全天相比",
+    "en": "Compared with all of yesterday",
+    "ja": "昨日の合計と比較",
+    "ko": "어제 전체와 비교",
+    "fr": "Par rapport à toute la journée d’hier",
+    "de": "Im Vergleich zum gesamten Vortag",
+    "ar": "مقارنة بإجمالي الأمس"
+  },
+  "打开主窗口": {
+    "zh": "打开主窗口",
+    "en": "Open main window",
+    "ja": "メインウィンドウを開く",
+    "ko": "메인 창 열기",
+    "fr": "Ouvrir la fenêtre principale",
+    "de": "Hauptfenster öffnen",
+    "ar": "فتح النافذة الرئيسية"
+  },
+  "退出": {
+    "zh": "退出",
+    "en": "Quit",
+    "ja": "終了",
+    "ko": "종료",
+    "fr": "Quitter",
+    "de": "Beenden",
+    "ar": "إنهاء"
+  },
+  "恢复提醒": {
+    "zh": "恢复提醒",
+    "en": "Resume reminders",
+    "ja": "通知を再開",
+    "ko": "알림 다시 시작",
+    "fr": "Reprendre les rappels",
+    "de": "Erinnerungen fortsetzen",
+    "ar": "استئناف التذكيرات"
+  },
+  "今日使用": {
+    "zh": "今日使用",
+    "en": "Today’s activity",
+    "ja": "今日の利用状況",
+    "ko": "오늘 활동",
+    "fr": "Activité du jour",
+    "de": "Heutige Aktivität",
+    "ar": "نشاط اليوم"
+  },
+  "示例": {
+    "zh": "示例",
+    "en": "Demo",
+    "ja": "サンプル",
+    "ko": "예시",
+    "fr": "Démo",
+    "de": "Beispiel",
+    "ar": "تجريبي"
+  },
+  "示例仅用于预览，不会写入使用记录": {
+    "zh": "示例仅用于预览，不会写入使用记录",
+    "en": "Demo data is not saved to your records",
+    "ja": "サンプルは記録に保存されません",
+    "ko": "예시 데이터는 기록에 저장되지 않습니다",
+    "fr": "La démo n’est pas enregistrée dans vos données",
+    "de": "Beispieldaten werden nicht gespeichert",
+    "ar": "لا تُحفظ البيانات التجريبية في سجلاتك"
+  },
+  "本机记录 · 每分钟更新曲线": {
+    "zh": "本机记录 · 每分钟更新曲线",
+    "en": "Stored locally · Chart updates every minute",
+    "ja": "ローカル保存 · グラフは毎分更新",
+    "ko": "로컬 저장 · 차트는 매분 갱신",
+    "fr": "Stockage local · Graphique actualisé chaque minute",
+    "de": "Lokal gespeichert · Diagramm wird minütlich aktualisiert",
+    "ar": "محفوظ محليًا · يُحدَّث الرسم كل دقيقة"
+  },
+  "使用分析": {
+    "zh": "使用分析",
+    "en": "Usage analysis",
+    "ja": "利用状況の分析",
+    "ko": "사용 분석",
+    "fr": "Analyse de l’utilisation",
+    "de": "Nutzungsanalyse",
+    "ar": "تحليل الاستخدام"
+  },
+  "回顾使用时长与疲劳趋势。": {
+    "zh": "回顾使用时长与疲劳趋势。",
+    "en": "Review usage and fatigue trends.",
+    "ja": "使用時間と疲労の推移を振り返ります。",
+    "ko": "사용 시간과 피로도 추이를 살펴보세요.",
+    "fr": "Consultez l’évolution de l’utilisation et de la fatigue.",
+    "de": "Sieh dir Nutzungsdauer und Ermüdungsverlauf an.",
+    "ar": "راجع اتجاهات الاستخدام والإجهاد."
+  },
+  "统计范围": {
+    "zh": "统计范围",
+    "en": "Date range",
+    "ja": "期間",
+    "ko": "기간",
+    "fr": "Période",
+    "de": "Zeitraum",
+    "ar": "الفترة الزمنية"
+  },
+  "分组方式": {
+    "zh": "分组方式",
+    "en": "Group by",
+    "ja": "集計単位",
+    "ko": "그룹 기준",
+    "fr": "Regrouper par",
+    "de": "Gruppierung",
+    "ar": "التجميع حسب"
+  },
+  "导出 CSV": {
+    "zh": "导出 CSV",
+    "en": "Export CSV",
+    "ja": "CSVを書き出す",
+    "ko": "CSV 내보내기",
+    "fr": "Exporter en CSV",
+    "de": "CSV exportieren",
+    "ar": "تصدير CSV"
+  },
+  "正在查看示例数据": {
+    "zh": "正在查看示例数据",
+    "en": "Viewing demo data",
+    "ja": "サンプルデータを表示中",
+    "ko": "예시 데이터 표시 중",
+    "fr": "Données de démo affichées",
+    "de": "Beispieldaten werden angezeigt",
+    "ar": "عرض البيانات التجريبية"
+  },
+  "使用记录仅保存在本机": {
+    "zh": "使用记录仅保存在本机",
+    "en": "Usage records stay on this device",
+    "ja": "利用記録はこの端末のみに保存されます",
+    "ko": "사용 기록은 이 기기에만 저장됩니다",
+    "fr": "Les données restent sur cet appareil",
+    "de": "Nutzungsdaten bleiben auf diesem Gerät",
+    "ar": "تبقى سجلات الاستخدام على هذا الجهاز"
+  },
+  "返回实时数据": {
+    "zh": "返回实时数据",
+    "en": "Return to live data",
+    "ja": "実データに戻る",
+    "ko": "실시간 데이터로 돌아가기",
+    "fr": "Retour aux données réelles",
+    "de": "Zurück zu aktuellen Daten",
+    "ar": "العودة للبيانات الفعلية"
+  },
+  "使用时长": {
+    "zh": "使用时长",
+    "en": "Usage time",
+    "ja": "使用時間",
+    "ko": "사용 시간",
+    "fr": "Durée d’utilisation",
+    "de": "Nutzungsdauer",
+    "ar": "مدة الاستخدام"
+  },
+  "当前筛选范围内的实际电脑使用时长": {
+    "zh": "当前筛选范围内的实际电脑使用时长",
+    "en": "Active computer time in the selected period",
+    "ja": "選択した期間の実際の使用時間",
+    "ko": "선택한 기간의 실제 컴퓨터 사용 시간",
+    "fr": "Temps d’utilisation actif sur la période sélectionnée",
+    "de": "Aktive Computernutzung im gewählten Zeitraum",
+    "ar": "وقت استخدام الكمبيوتر الفعلي خلال الفترة المحددة"
+  },
+  "疲劳峰值时长": {
+    "zh": "疲劳峰值时长",
+    "en": "Time at peak fatigue",
+    "ja": "疲労度が最大の時間",
+    "ko": "최대 피로 시간",
+    "fr": "Durée de fatigue maximale",
+    "de": "Zeit bei maximaler Ermüdung",
+    "ar": "مدة الإجهاد الأقصى"
+  },
+  "疲劳值达到 100% 后仍在使用电脑的时长": {
+    "zh": "疲劳值达到 100% 后仍在使用电脑的时长",
+    "en": "Computer time after fatigue reaches 100%",
+    "ja": "疲労度100%で使用を続けた時間",
+    "ko": "피로도 100% 이후의 컴퓨터 사용 시간",
+    "fr": "Utilisation après avoir atteint 100 % de fatigue",
+    "de": "Nutzungszeit nach Erreichen von 100 % Ermüdung",
+    "ar": "وقت الاستخدام بعد بلوغ الإجهاد 100%"
+  },
+  "休息规则": {
+    "zh": "休息规则",
+    "en": "Break rules",
+    "ja": "休憩ルール",
+    "ko": "휴식 규칙",
+    "fr": "Règles de pause",
+    "de": "Pausenregeln",
+    "ar": "قواعد الاستراحة"
+  },
+  "设定适合自己的工作与休息节奏。": {
+    "zh": "设定适合自己的工作与休息节奏。",
+    "en": "Find a work and rest rhythm that suits you.",
+    "ja": "自分に合う作業と休憩のリズムを設定します。",
+    "ko": "나에게 맞는 작업과 휴식 주기를 설정하세요.",
+    "fr": "Choisissez votre rythme de travail et de repos.",
+    "de": "Finde deinen Rhythmus für Arbeit und Erholung.",
+    "ar": "اختر إيقاع العمل والراحة المناسب لك."
+  },
+  "工作": {
+    "zh": "工作",
+    "en": "Work",
+    "ja": "作業",
+    "ko": "작업",
+    "fr": "Travail",
+    "de": "Arbeiten",
+    "ar": "العمل"
+  },
+  "工作分钟": {
+    "zh": "工作分钟",
+    "en": "Work minutes",
+    "ja": "作業時間（分）",
+    "ko": "작업 시간(분)",
+    "fr": "Minutes de travail",
+    "de": "Arbeitsminuten",
+    "ar": "دقائق العمل"
+  },
+  "分钟后，休息": {
+    "zh": "分钟后，休息",
+    "en": "min, then rest",
+    "ja": "分ごとに休憩",
+    "ko": "분 후 휴식",
+    "fr": "min, puis repos",
+    "de": "Min., dann Pause",
+    "ar": "دقيقة، ثم استراحة"
+  },
+  "休息分钟": {
+    "zh": "休息分钟",
+    "en": "Break minutes",
+    "ja": "休憩時間（分）",
+    "ko": "휴식 시간(분)",
+    "fr": "Minutes de pause",
+    "de": "Pausenminuten",
+    "ar": "دقائق الاستراحة"
+  },
+  "分钟": {
+    "zh": "分钟",
+    "en": "min",
+    "ja": "分",
+    "ko": "분",
+    "fr": "min",
+    "de": "Min.",
+    "ar": "دقيقة"
+  },
+  "小时": {
+    "zh": "小时",
+    "en": "h",
+    "ja": "時間",
+    "ko": "시간",
+    "fr": "h",
+    "de": "Std.",
+    "ar": "ساعة"
+  },
+  "休息秒数": {
+    "zh": "休息秒数",
+    "en": "Break seconds",
+    "ja": "休憩時間（秒）",
+    "ko": "휴식 시간(초)",
+    "fr": "Secondes de pause",
+    "de": "Pausensekunden",
+    "ar": "ثواني الاستراحة"
+  },
+  "秒": {
+    "zh": "秒",
+    "en": "sec",
+    "ja": "秒",
+    "ko": "초",
+    "fr": "s",
+    "de": "Sek.",
+    "ar": "ثانية"
+  },
+  "提醒间隔": {
+    "zh": "提醒间隔",
+    "en": "Reminder interval",
+    "ja": "通知間隔",
+    "ko": "알림 간격",
+    "fr": "Intervalle de rappel",
+    "de": "Erinnerungsintervall",
+    "ar": "الفاصل بين التذكيرات"
+  },
+  "若疲劳值一直处于100%，每隔": {
+    "zh": "若疲劳值一直处于100%，每隔",
+    "en": "At 100% fatigue, remind every",
+    "ja": "疲労度100%の間は",
+    "ko": "피로도가 100%이면 다음 간격으로",
+    "fr": "À 100 % de fatigue, rappeler toutes les",
+    "de": "Bei 100 % Ermüdung erinnern alle",
+    "ar": "عند إجهاد 100%، ذكّر كل"
+  },
+  "分钟提醒一次": {
+    "zh": "分钟提醒一次",
+    "en": "min",
+    "ja": "分ごとに通知",
+    "ko": "분마다 알림",
+    "fr": "min",
+    "de": "Minuten",
+    "ar": "دقيقة"
+  },
+  "在弹窗出现前通知提醒": {
+    "zh": "在弹窗出现前通知提醒",
+    "en": "Notify before the break",
+    "ja": "休憩の前に通知",
+    "ko": "휴식 전 알림",
+    "fr": "Prévenir avant la pause",
+    "de": "Vor der Pause benachrichtigen",
+    "ar": "التنبيه قبل الاستراحة"
+  },
+  "休息结束时播放声音": {
+    "zh": "休息结束时播放声音",
+    "en": "Play sound when a break ends",
+    "ja": "休憩終了時に音を鳴らす",
+    "ko": "휴식 종료 시 소리 재생",
+    "fr": "Son à la fin de la pause",
+    "de": "Ton am Pausenende",
+    "ar": "تشغيل صوت عند انتهاء الاستراحة"
+  },
+  "观影模式": {
+    "zh": "观影模式",
+    "en": "Movie mode",
+    "ja": "動画モード",
+    "ko": "동영상 모드",
+    "fr": "Mode cinéma",
+    "de": "Filmmodus",
+    "ar": "وضع المشاهدة"
+  },
+  "开启后，无键盘和鼠标操作时仍持续计时。关闭时，空闲一分钟后暂停累计并恢复疲劳值。": {
+    "zh": "开启后，无键盘和鼠标操作时仍持续计时。关闭时，空闲一分钟后暂停累计并恢复疲劳值。",
+    "en": "Keep tracking without keyboard or mouse input. When off, one idle minute pauses tracking and reduces fatigue.",
+    "ja": "入力がなくても計測します。オフの場合、1分間の無操作で計測を止め、疲労度が下がります。",
+    "ko": "입력이 없어도 기록합니다. 끄면 1분간 입력이 없을 때 기록을 멈추고 피로도가 줄어듭니다.",
+    "fr": "Continue le suivi sans saisie. Sinon, une minute d’inactivité arrête le suivi et réduit la fatigue.",
+    "de": "Erfasst auch ohne Eingabe. Sonst pausiert die Erfassung nach einer Minute Inaktivität und die Ermüdung sinkt.",
+    "ar": "يستمر التتبع دون إدخال. عند تعطيله، يتوقف التتبع بعد دقيقة خمول وينخفض الإجهاد."
+  },
+  "关于应用": {
+    "zh": "关于应用",
+    "en": "About",
+    "ja": "このアプリについて",
+    "ko": "앱 정보",
+    "fr": "À propos",
+    "de": "Über die App",
+    "ar": "حول التطبيق"
+  },
+  "工作有节奏，休息有提醒": {
+    "zh": "目光移远，身体动动，思绪放松",
+    "en": "Disconnect · Circulate · Decompress",
+    "ja": "目を休め、体を動かし、心をほぐす",
+    "ko": "눈을 쉬고, 몸을 움직이고, 마음을 편히",
+    "fr": "Reposez vos yeux, bougez, détendez-vous",
+    "de": "Augen entlasten, bewegen, entspannen",
+    "ar": "أرح عينيك، وتحرك، واسترخِ"
+  },
+  "疲劳值按连续使用时长估算": {
+    "zh": "疲劳值按连续使用时长估算",
+    "en": "Fatigue is estimated from continuous usage",
+    "ja": "疲労度は連続使用時間から推定します",
+    "ko": "피로도는 연속 사용 시간으로 추정합니다",
+    "fr": "Fatigue estimée selon l’utilisation continue",
+    "de": "Ermüdung wird anhand der ununterbrochenen Nutzung geschätzt",
+    "ar": "يُقدَّر الإجهاد من مدة الاستخدام المتواصل"
+  },
+  "有未保存的更改": {
+    "zh": "有未保存的更改",
+    "en": "Unsaved changes",
+    "ja": "未保存の変更があります",
+    "ko": "저장하지 않은 변경 사항",
+    "fr": "Modifications non enregistrées",
+    "de": "Ungespeicherte Änderungen",
+    "ar": "تغييرات غير محفوظة"
+  },
+  "保存中…": {
+    "zh": "保存中…",
+    "en": "Saving…",
+    "ja": "保存中…",
+    "ko": "저장 중…",
+    "fr": "Enregistrement…",
+    "de": "Wird gespeichert…",
+    "ar": "جارٍ الحفظ…"
+  },
+  "保存规则": {
+    "zh": "保存规则",
+    "en": "Save rules",
+    "ja": "ルールを保存",
+    "ko": "규칙 저장",
+    "fr": "Enregistrer les règles",
+    "de": "Regeln speichern",
+    "ar": "حفظ القواعد"
+  },
+  "保存设置": {
+    "zh": "保存设置",
+    "en": "Save settings",
+    "ja": "設定を保存",
+    "ko": "설정 저장",
+    "fr": "Enregistrer les réglages",
+    "de": "Einstellungen speichern",
+    "ar": "حفظ الإعدادات"
+  },
+  "调整应用行为和提醒方式。": {
+    "zh": "调整应用行为和提醒方式。",
+    "en": "Adjust app behavior and reminders.",
+    "ja": "アプリの動作と通知を設定します。",
+    "ko": "앱 동작과 알림을 설정하세요.",
+    "fr": "Réglez le fonctionnement et les rappels.",
+    "de": "Passe Verhalten und Erinnerungen an.",
+    "ar": "اضبط سلوك التطبيق والتذكيرات."
+  },
+  "外观": {
+    "zh": "外观",
+    "en": "Appearance",
+    "ja": "外観",
+    "ko": "모양",
+    "fr": "Apparence",
+    "de": "Darstellung",
+    "ar": "المظهر"
+  },
+  "各个窗口独立设置，修改后自动保存。": {
+    "zh": "各个窗口独立设置，修改后自动保存。",
+    "en": "Each window is independent. Changes save automatically.",
+    "ja": "ウィンドウごとに設定できます。変更は自動保存されます。",
+    "ko": "창마다 따로 설정하며 변경 내용은 자동 저장됩니다.",
+    "fr": "Chaque fenêtre est indépendante. Enregistrement automatique.",
+    "de": "Jedes Fenster ist unabhängig. Änderungen werden automatisch gespeichert.",
+    "ar": "لكل نافذة إعدادات مستقلة. تُحفظ التغييرات تلقائيًا."
+  },
+  "主窗口主题": {
+    "zh": "主窗口主题",
+    "en": "Main window theme",
+    "ja": "メインウィンドウのテーマ",
+    "ko": "메인 창 테마",
+    "fr": "Thème de la fenêtre principale",
+    "de": "Hauptfenster-Design",
+    "ar": "مظهر النافذة الرئيسية"
+  },
+  "托盘菜单主题": {
+    "zh": "托盘菜单主题",
+    "en": "Tray menu theme",
+    "ja": "トレイメニューのテーマ",
+    "ko": "트레이 메뉴 테마",
+    "fr": "Thème du menu de la barre d’état",
+    "de": "Design des Statusmenüs",
+    "ar": "مظهر قائمة شريط النظام"
+  },
+  "托盘菜单显示今日曲线": {
+    "zh": "托盘菜单显示今日曲线",
+    "en": "Show today’s chart in the tray menu",
+    "ja": "トレイに今日のグラフを表示",
+    "ko": "트레이에 오늘 차트 표시",
+    "fr": "Graphique du jour dans le menu d’état",
+    "de": "Heutiges Diagramm im Statusmenü anzeigen",
+    "ar": "عرض مخطط اليوم في قائمة النظام"
+  },
+  "系统集成": {
+    "zh": "系统集成",
+    "en": "System integration",
+    "ja": "システム連携",
+    "ko": "시스템 연동",
+    "fr": "Intégration système",
+    "de": "Systemintegration",
+    "ar": "التكامل مع النظام"
+  },
+  "开机时启动": {
+    "zh": "开机时启动",
+    "en": "Launch at login",
+    "ja": "ログイン時に起動",
+    "ko": "로그인 시 실행",
+    "fr": "Ouvrir à la connexion",
+    "de": "Bei Anmeldung starten",
+    "ar": "التشغيل عند تسجيل الدخول"
+  },
+  "显示状态栏图标": {
+    "zh": "显示状态栏图标",
+    "en": "Show menu bar icon",
+    "ja": "メニューバーにアイコンを表示",
+    "ko": "메뉴 막대 아이콘 표시",
+    "fr": "Afficher l’icône dans la barre d’état",
+    "de": "Symbol in der Statusleiste anzeigen",
+    "ar": "إظهار أيقونة شريط النظام"
+  },
+  "在状态栏中显示今日时长": {
+    "zh": "在状态栏中显示今日时长",
+    "en": "Show today’s usage in the menu bar",
+    "ja": "メニューバーに今日の使用時間を表示",
+    "ko": "메뉴 막대에 오늘 사용 시간 표시",
+    "fr": "Durée du jour dans la barre d’état",
+    "de": "Heutige Nutzung in der Statusleiste anzeigen",
+    "ar": "عرض مدة استخدام اليوم في شريط النظام"
+  },
+  "显示程序坞图标": {
+    "zh": "显示程序坞图标",
+    "en": "Show Dock icon",
+    "ja": "Dockにアイコンを表示",
+    "ko": "Dock 아이콘 표시",
+    "fr": "Afficher l’icône dans le Dock",
+    "de": "Dock-Symbol anzeigen",
+    "ar": "إظهار أيقونة Dock"
+  },
+  "休息提醒": {
+    "zh": "休息提醒",
+    "en": "Break reminders",
+    "ja": "休憩通知",
+    "ko": "휴식 알림",
+    "fr": "Rappels de pause",
+    "de": "Pausenerinnerungen",
+    "ar": "تذكيرات الاستراحة"
+  },
+  "开启提醒": {
+    "zh": "开启提醒",
+    "en": "Enable reminders",
+    "ja": "通知を有効にする",
+    "ko": "알림 사용",
+    "fr": "Activer les rappels",
+    "de": "Erinnerungen aktivieren",
+    "ar": "تفعيل التذكيرات"
+  },
+  "提醒方式": {
+    "zh": "提醒方式",
+    "en": "Reminder style",
+    "ja": "通知の表示方法",
+    "ko": "알림 방식",
+    "fr": "Type de rappel",
+    "de": "Erinnerungsart",
+    "ar": "طريقة التذكير"
+  },
+  "桌面浮层": {
+    "zh": "桌面浮层",
+    "en": "Desktop overlay",
+    "ja": "デスクトップオーバーレイ",
+    "ko": "데스크톱 오버레이",
+    "fr": "Superposition du bureau",
+    "de": "Desktop-Overlay",
+    "ar": "طبقة فوق سطح المكتب"
+  },
+  "窗口提醒": {
+    "zh": "窗口提醒",
+    "en": "Window",
+    "ja": "ウィンドウ",
+    "ko": "창",
+    "fr": "Fenêtre",
+    "de": "Fenster",
+    "ar": "نافذة"
+  },
+  "休息提醒内容": {
+    "zh": "休息提醒内容",
+    "en": "Break message",
+    "ja": "休憩メッセージ",
+    "ko": "휴식 메시지",
+    "fr": "Message de pause",
+    "de": "Pausennachricht",
+    "ar": "رسالة الاستراحة"
+  },
+  "在弹窗中展示跳过按钮": {
+    "zh": "在弹窗中展示跳过按钮",
+    "en": "Show skip button",
+    "ja": "スキップボタンを表示",
+    "ko": "건너뛰기 버튼 표시",
+    "fr": "Afficher le bouton Passer",
+    "de": "Überspringen-Schaltfläche anzeigen",
+    "ar": "إظهار زر التخطي"
+  },
+  "关闭后需要完成倒计时才能结束休息": {
+    "zh": "关闭后需要完成倒计时才能结束休息",
+    "en": "When off, the countdown must finish before you can leave the break",
+    "ja": "オフの場合、カウントダウンが終わるまで休憩を終了できません",
+    "ko": "끄면 카운트다운이 끝나야 휴식을 종료할 수 있습니다",
+    "fr": "Sinon, la pause dure jusqu’à la fin du compte à rebours",
+    "de": "Ohne diese Option muss der Countdown ablaufen",
+    "ar": "عند تعطيله، يجب انتهاء العد التنازلي لإنهاء الاستراحة"
+  },
+  "休息浮层外观": {
+    "zh": "休息浮层外观",
+    "en": "Break appearance",
+    "ja": "休憩画面の外観",
+    "ko": "휴식 화면 모양",
+    "fr": "Apparence de la pause",
+    "de": "Pausendarstellung",
+    "ar": "مظهر الاستراحة"
+  },
+  "独立于主窗口和托盘菜单，也用于窗口提醒。": {
+    "zh": "独立于主窗口和托盘菜单，也用于窗口提醒。",
+    "en": "Independent of the main window and tray. Also applies to window reminders.",
+    "ja": "メイン画面やトレイとは独立し、ウィンドウ通知にも適用されます。",
+    "ko": "메인 창 및 트레이와 독립적이며 창 알림에도 적용됩니다.",
+    "fr": "Indépendante de la fenêtre principale et du menu d’état. S’applique aussi aux rappels en fenêtre.",
+    "de": "Unabhängig von Hauptfenster und Statusmenü. Gilt auch für Fenstererinnerungen.",
+    "ar": "مستقل عن النافذة الرئيسية وقائمة النظام، ويُطبق أيضًا على تذكيرات النافذة."
+  },
+  "背景主题": {
+    "zh": "背景主题",
+    "en": "Background theme",
+    "ja": "背景テーマ",
+    "ko": "배경 테마",
+    "fr": "Thème de fond",
+    "de": "Hintergrunddesign",
+    "ar": "مظهر الخلفية"
+  },
+  "上传": {
+    "zh": "上传",
+    "en": "Upload",
+    "ja": "アップロード",
+    "ko": "업로드",
+    "fr": "Importer",
+    "de": "Hochladen",
+    "ar": "رفع"
+  },
+  "测试": {
+    "zh": "测试",
+    "en": "Test",
+    "ja": "テスト",
+    "ko": "테스트",
+    "fr": "Tester",
+    "de": "Testen",
+    "ar": "اختبار"
+  },
+  "桌面遮罩浓度": {
+    "zh": "桌面遮罩浓度",
+    "en": "Overlay opacity",
+    "ja": "オーバーレイの不透明度",
+    "ko": "오버레이 불투명도",
+    "fr": "Opacité de la superposition",
+    "de": "Deckkraft des Overlays",
+    "ar": "عتامة الطبقة"
+  },
+  "桌面背景模糊": {
+    "zh": "桌面背景模糊",
+    "en": "Background blur",
+    "ja": "背景のぼかし",
+    "ko": "배경 흐림",
+    "fr": "Flou de l’arrière-plan",
+    "de": "Hintergrundunschärfe",
+    "ar": "تمويه الخلفية"
+  },
+  "关闭说明": {
+    "zh": "关闭说明",
+    "en": "Close help",
+    "ja": "説明を閉じる",
+    "ko": "도움말 닫기",
+    "fr": "Fermer l’aide",
+    "de": "Hilfe schließen",
+    "ar": "إغلاق المساعدة"
+  },
+  "给双眼一点休息时间": {
+    "zh": "给眼睛、身体和大脑一点休息时间",
+    "en": "A little rest for your eyes, body, and mind",
+    "ja": "目と体と心に、ひと休みを",
+    "ko": "눈과 몸과 마음에 잠깐의 휴식을",
+    "fr": "Un peu de repos pour vos yeux, votre corps et votre esprit",
+    "de": "Eine Pause für Augen, Körper und Geist",
+    "ar": "قليل من الراحة لعينيك وجسمك وذهنك"
+  },
+  "知道了": {
+    "zh": "知道了",
+    "en": "Got it",
+    "ja": "わかりました",
+    "ko": "확인",
+    "fr": "Compris",
+    "de": "Verstanden",
+    "ar": "فهمت"
+  },
+  "浏览器休息预览": {
+    "zh": "浏览器休息预览",
+    "en": "Browser break preview",
+    "ja": "ブラウザでの休憩プレビュー",
+    "ko": "브라우저 휴식 미리 보기",
+    "fr": "Aperçu de pause dans le navigateur",
+    "de": "Pausenvorschau im Browser",
+    "ar": "معاينة الاستراحة في المتصفح"
+  },
+  "日期": {
+    "zh": "日期",
+    "en": "Date",
+    "ja": "日付",
+    "ko": "날짜",
+    "fr": "Date",
+    "de": "Datum",
+    "ar": "التاريخ"
+  },
+  "使用时长（分钟）": {
+    "zh": "使用时长（分钟）",
+    "en": "Usage (minutes)",
+    "ja": "使用時間（分）",
+    "ko": "사용 시간(분)",
+    "fr": "Utilisation (minutes)",
+    "de": "Nutzung (Minuten)",
+    "ar": "الاستخدام (دقائق)"
+  },
+  "疲劳峰值时长（分钟）": {
+    "zh": "疲劳峰值时长（分钟）",
+    "en": "Peak fatigue (minutes)",
+    "ja": "最大疲労時間（分）",
+    "ko": "최대 피로 시간(분)",
+    "fr": "Fatigue maximale (minutes)",
+    "de": "Maximale Ermüdung (Minuten)",
+    "ar": "الإجهاد الأقصى (دقائق)"
+  },
+  "完成休息次数": {
+    "zh": "完成休息次数",
+    "en": "Completed breaks",
+    "ja": "完了した休憩数",
+    "ko": "완료한 휴식 수",
+    "fr": "Pauses terminées",
+    "de": "Abgeschlossene Pausen",
+    "ar": "الاستراحات المكتملة"
+  },
+  "今日疲劳值变化折线图": {
+    "zh": "今日疲劳值变化折线图",
+    "en": "Today’s fatigue chart",
+    "ja": "今日の疲労度グラフ",
+    "ko": "오늘 피로도 차트",
+    "fr": "Graphique de fatigue du jour",
+    "de": "Heutiger Ermüdungsverlauf",
+    "ar": "مخطط إجهاد اليوم"
+  },
+  "此时间段暂无记录": {
+    "zh": "此时间段暂无记录",
+    "en": "No records in this period",
+    "ja": "この期間の記録はありません",
+    "ko": "이 기간의 기록이 없습니다",
+    "fr": "Aucune donnée pour cette période",
+    "de": "Keine Daten in diesem Zeitraum",
+    "ar": "لا توجد سجلات لهذه الفترة"
+  },
+  "开始使用电脑后，将在这里记录今日使用情况": {
+    "zh": "开始使用电脑后，将在这里记录今日使用情况",
+    "en": "Today’s activity appears here as you use your computer",
+    "ja": "パソコンを使うと今日の記録が表示されます",
+    "ko": "컴퓨터를 사용하면 오늘 활동이 여기에 표시됩니다",
+    "fr": "Votre activité s’affichera ici pendant l’utilisation",
+    "de": "Deine heutige Nutzung erscheint hier, sobald du den Computer verwendest",
+    "ar": "سيظهر نشاط اليوم هنا أثناء استخدام الكمبيوتر"
+  },
+  "语言": {
+    "zh": "语言",
+    "en": "Language",
+    "ja": "言語",
+    "ko": "언어",
+    "fr": "Langue",
+    "de": "Sprache",
+    "ar": "اللغة"
+  },
+  "语言说明": {
+    "zh": "首次按系统语言选择，可随时更改。",
+    "en": "Initially chosen from your system language. Change it anytime.",
+    "ja": "最初はシステムの言語を使用します。いつでも変更できます。",
+    "ko": "처음에는 시스템 언어를 사용하며 언제든 변경할 수 있습니다.",
+    "fr": "Choisie selon la langue du système au premier lancement. Modifiable à tout moment.",
+    "de": "Beim ersten Start aus der Systemsprache übernommen. Jederzeit änderbar.",
+    "ar": "تُختار أولًا حسب لغة النظام، ويمكن تغييرها في أي وقت."
+  },
+  "暂停至": {
+    "zh": "提醒已暂停至 {time}",
+    "en": "Reminders paused until {time}",
+    "ja": "{time}まで通知を停止",
+    "ko": "{time}까지 알림 중지",
+    "fr": "Rappels en pause jusqu’à {time}",
+    "de": "Erinnerungen pausiert bis {time}",
+    "ar": "التذكيرات متوقفة حتى {time}"
+  },
+  "休息次数": {
+    "zh": "已完成 {count} 次休息",
+    "en": "Breaks completed: {count}",
+    "ja": "完了した休憩：{count}回",
+    "ko": "완료한 휴식: {count}회",
+    "fr": "Pauses terminées : {count}",
+    "de": "Abgeschlossene Pausen: {count}",
+    "ar": "الاستراحات المكتملة: {count}"
+  },
+  "摘要": {
+    "zh": "DCD 松一刻 · 今日使用 {duration}，疲劳值 {fatigue}%。记得休息一下。",
+    "en": "DCD · Today: {duration}, fatigue: {fatigue}%. Remember to take a break.",
+    "ja": "DCD · 今日：{duration}、疲労度：{fatigue}%。ひと休みしましょう。",
+    "ko": "DCD · 오늘: {duration}, 피로도: {fatigue}%. 잠시 쉬어 가세요.",
+    "fr": "DCD · Aujourd’hui : {duration}, fatigue : {fatigue} %. Pensez à faire une pause.",
+    "de": "DCD · Heute: {duration}, Ermüdung: {fatigue} %. Denk an eine Pause.",
+    "ar": "DCD · اليوم: {duration}، الإجهاد: {fatigue}%. تذكر أن تستريح."
+  },
+  "时长单位": {
+    "zh": "时长（{unit}）",
+    "en": "Duration ({unit})",
+    "ja": "時間（{unit}）",
+    "ko": "시간 ({unit})",
+    "fr": "Durée ({unit})",
+    "de": "Dauer ({unit})",
+    "ar": "المدة ({unit})"
+  },
+  "柱状图": {
+    "zh": "{metric}柱状图",
+    "en": "{metric} bar chart",
+    "ja": "{metric}の棒グラフ",
+    "ko": "{metric} 막대 차트",
+    "fr": "Histogramme : {metric}",
+    "de": "Balkendiagramm: {metric}",
+    "ar": "مخطط أعمدة: {metric}"
+  },
+  "保存失败": {
+    "zh": "数据保存失败：{error}",
+    "en": "Could not save data: {error}",
+    "ja": "保存できませんでした：{error}",
+    "ko": "저장 실패: {error}",
+    "fr": "Échec de l’enregistrement : {error}",
+    "de": "Daten konnten nicht gespeichert werden: {error}",
+    "ar": "تعذر حفظ البيانات: {error}"
+  },
+  "10 秒后开始休息": {
+    "zh": "10 秒后开始休息",
+    "en": "A break starts in 10 seconds",
+    "ja": "10秒後に休憩が始まります",
+    "ko": "10초 후 휴식이 시작됩니다",
+    "fr": "La pause commence dans 10 secondes",
+    "de": "Die Pause beginnt in 10 Sekunden",
+    "ar": "تبدأ الاستراحة بعد 10 ثوانٍ"
+  },
+  "设置已保存": {
+    "zh": "设置已保存",
+    "en": "Settings saved",
+    "ja": "設定を保存しました",
+    "ko": "설정 저장됨",
+    "fr": "Réglages enregistrés",
+    "de": "Einstellungen gespeichert",
+    "ar": "تم حفظ الإعدادات"
+  },
+  "提醒已暂停，使用时长继续记录": {
+    "zh": "提醒已暂停，使用时长继续记录",
+    "en": "Reminders paused. Usage tracking continues.",
+    "ja": "通知を停止しました。使用時間の計測は続きます。",
+    "ko": "알림을 중지했습니다. 사용 시간은 계속 기록됩니다.",
+    "fr": "Rappels suspendus. Le suivi continue.",
+    "de": "Erinnerungen pausiert. Die Nutzung wird weiter erfasst.",
+    "ar": "أُوقفت التذكيرات مؤقتًا. يستمر تتبع الاستخدام."
+  },
+  "提醒已恢复": {
+    "zh": "提醒已恢复",
+    "en": "Reminders resumed",
+    "ja": "通知を再開しました",
+    "ko": "알림 다시 시작됨",
+    "fr": "Rappels réactivés",
+    "de": "Erinnerungen fortgesetzt",
+    "ar": "تم استئناف التذكيرات"
+  },
+  "今日摘要已复制，可以粘贴分享": {
+    "zh": "今日摘要已复制，可以粘贴分享",
+    "en": "Summary copied. Paste it to share.",
+    "ja": "概要をコピーしました。貼り付けて共有できます。",
+    "ko": "요약을 복사했습니다. 붙여넣어 공유하세요.",
+    "fr": "Résumé copié. Collez-le pour le partager.",
+    "de": "Zusammenfassung kopiert. Zum Teilen einfügen.",
+    "ar": "تم نسخ الملخص. الصقه للمشاركة."
+  },
+  "已导出当前筛选范围的 CSV": {
+    "zh": "已导出当前筛选范围的 CSV",
+    "en": "Selected period exported to CSV",
+    "ja": "選択した期間をCSVに書き出しました",
+    "ko": "선택한 기간을 CSV로 내보냈습니다",
+    "fr": "Période sélectionnée exportée en CSV",
+    "de": "Gewählter Zeitraum als CSV exportiert",
+    "ar": "تم تصدير الفترة المحددة إلى CSV"
+  },
+  "休息完成，欢迎回来": {
+    "zh": "休息完成，欢迎回来",
+    "en": "Break complete. Welcome back.",
+    "ja": "休憩終了。おかえりなさい。",
+    "ko": "휴식 완료. 돌아오신 것을 환영합니다.",
+    "fr": "Pause terminée. Bon retour.",
+    "de": "Pause beendet. Willkommen zurück.",
+    "ar": "انتهت الاستراحة. مرحبًا بعودتك."
+  },
+  "请填写有效时长：工作 1–240 分钟，休息至少 1 秒，提醒间隔 1–60 分钟。": {
+    "zh": "请填写有效时长：工作 1–240 分钟，休息至少 1 秒，提醒间隔 1–60 分钟。",
+    "en": "Use 1–240 work minutes, at least 1 break second, and a 1–60 minute reminder interval.",
+    "ja": "作業は1～240分、休憩は1秒以上、通知間隔は1～60分にしてください。",
+    "ko": "작업 1–240분, 휴식 1초 이상, 알림 간격 1–60분을 입력하세요.",
+    "fr": "Travail : 1–240 min, pause : au moins 1 s, rappel : 1–60 min.",
+    "de": "Arbeit: 1–240 Min., Pause: mindestens 1 Sek., Intervall: 1–60 Min.",
+    "ar": "العمل: 1–240 دقيقة، الاستراحة: ثانية على الأقل، التذكير: 1–60 دقيقة."
+  },
+  "请至少保留状态栏或程序坞入口。": {
+    "zh": "请至少保留状态栏或程序坞入口。",
+    "en": "Keep at least the menu bar or Dock icon enabled.",
+    "ja": "メニューバーかDockのアイコンを残してください。",
+    "ko": "메뉴 막대 또는 Dock 아이콘을 하나 이상 표시하세요.",
+    "fr": "Gardez au moins l’icône de la barre d’état ou du Dock.",
+    "de": "Lass mindestens das Statusleisten- oder Dock-Symbol aktiviert.",
+    "ar": "أبقِ أيقونة شريط النظام أو Dock مفعلة على الأقل."
+  },
+  "请选择不超过 3 MB 的 PNG、JPEG 或 WebP 图片。": {
+    "zh": "请选择不超过 3 MB 的 PNG、JPEG 或 WebP 图片。",
+    "en": "Choose a PNG, JPEG, or WebP image up to 3 MB.",
+    "ja": "3 MB以下のPNG、JPEG、WebP画像を選んでください。",
+    "ko": "3 MB 이하의 PNG, JPEG 또는 WebP 이미지를 선택하세요.",
+    "fr": "Choisissez une image PNG, JPEG ou WebP de 3 Mo maximum.",
+    "de": "Wähle ein PNG-, JPEG- oder WebP-Bild bis 3 MB.",
+    "ar": "اختر صورة PNG أو JPEG أو WebP بحجم لا يتجاوز 3 ميغابايت."
+  },
+  "无法读取图片": {
+    "zh": "无法读取图片",
+    "en": "Could not read the image",
+    "ja": "画像を読み込めません",
+    "ko": "이미지를 읽을 수 없습니다",
+    "fr": "Impossible de lire l’image",
+    "de": "Bild konnte nicht gelesen werden",
+    "ar": "تعذرت قراءة الصورة"
+  },
+  "浏览器预览设置无法读取，请重新保存。": {
+    "zh": "浏览器预览设置无法读取，请重新保存。",
+    "en": "Could not read preview settings. Please save them again.",
+    "ja": "プレビュー設定を読み込めません。もう一度保存してください。",
+    "ko": "미리 보기 설정을 읽을 수 없습니다. 다시 저장하세요.",
+    "fr": "Réglages d’aperçu illisibles. Enregistrez-les à nouveau.",
+    "de": "Vorschaueinstellungen konnten nicht gelesen werden. Bitte erneut speichern.",
+    "ar": "تعذرت قراءة إعدادات المعاينة. احفظها مجددًا."
+  },
+  "窗口控制仅在桌面应用中可用": {
+    "zh": "窗口控制仅在桌面应用中可用",
+    "en": "Window controls are available in the desktop app",
+    "ja": "ウィンドウ操作はデスクトップアプリで利用できます",
+    "ko": "창 제어는 데스크톱 앱에서 사용할 수 있습니다",
+    "fr": "Commandes de fenêtre disponibles dans l’application de bureau",
+    "de": "Fenstersteuerung ist in der Desktop-App verfügbar",
+    "ar": "عناصر التحكم بالنافذة متاحة في تطبيق سطح المكتب"
+  },
+  "桌面应用可通过此按钮退出；当前为浏览器预览": {
+    "zh": "桌面应用可通过此按钮退出；当前为浏览器预览",
+    "en": "Quit is available in the desktop app. This is a browser preview.",
+    "ja": "終了はデスクトップアプリで利用できます。現在はブラウザプレビューです。",
+    "ko": "종료는 데스크톱 앱에서 가능합니다. 현재는 브라우저 미리 보기입니다.",
+    "fr": "Quitter est disponible dans l’application de bureau. Ceci est un aperçu.",
+    "de": "Beenden ist in der Desktop-App verfügbar. Dies ist eine Browservorschau.",
+    "ar": "الإنهاء متاح في تطبيق سطح المكتب. هذه معاينة في المتصفح."
+  },
+  "帮助计时": {
+    "zh": "持续使用电脑时，疲劳值按工作时长上升。达到 100% 时，提醒你看看远处、起身活动、放松思绪。",
+    "en": "Fatigue rises with continuous computer use. At 100%, take a moment to look away, move, and unwind.",
+    "ja": "連続使用で疲労度が上がります。100%になったら、遠くを見て、体を動かし、気持ちをほぐしましょう。",
+    "ko": "컴퓨터를 계속 사용하면 피로도가 올라갑니다. 100%가 되면 먼 곳을 보고 몸을 움직이며 쉬세요.",
+    "fr": "La fatigue augmente pendant l’utilisation. À 100 %, regardez au loin, bougez et détendez-vous.",
+    "de": "Bei ununterbrochener Nutzung steigt die Ermüdung. Bei 100 %: wegschauen, bewegen und entspannen.",
+    "ar": "يزداد الإجهاد مع الاستخدام المتواصل. عند 100%، انظر بعيدًا وتحرك واسترخِ."
+  },
+  "帮助规则": {
+    "zh": "默认工作 25 分钟，休息 5 分钟。空闲超过一分钟后停止累计，疲劳值逐渐恢复；观影模式会持续计时。",
+    "en": "By default, work for 25 minutes and rest for 5. After one idle minute, tracking pauses and fatigue decreases. Movie mode keeps tracking.",
+    "ja": "標準は作業25分、休憩5分です。1分間入力がないと計測が止まり疲労度が下がります。動画モードでは計測を続けます。",
+    "ko": "기본은 작업 25분, 휴식 5분입니다. 1분간 입력이 없으면 기록이 멈추고 피로도가 줄어듭니다. 동영상 모드에서는 계속 기록합니다.",
+    "fr": "Par défaut : 25 min de travail, 5 min de pause. Après une minute d’inactivité, le suivi s’arrête et la fatigue diminue. Le mode cinéma poursuit le suivi.",
+    "de": "Standard: 25 Minuten Arbeit, 5 Minuten Pause. Nach einer Minute Inaktivität pausiert die Erfassung und die Ermüdung sinkt. Der Filmmodus erfasst weiter.",
+    "ar": "افتراضيًا: 25 دقيقة عمل و5 دقائق راحة. بعد دقيقة خمول يتوقف التتبع وينخفض الإجهاد. يستمر التتبع في وضع المشاهدة."
+  },
+  "帮助隐私": {
+    "zh": "暂停提醒期间仍会记录使用时长。数据仅保存在本机，分析页面支持导出 CSV。",
+    "en": "Pausing reminders does not stop usage tracking. Data stays on this device. Export CSV from Analysis.",
+    "ja": "通知停止中も使用時間は記録されます。データは端末内のみに保存され、分析画面からCSVを書き出せます。",
+    "ko": "알림 중지 중에도 사용 시간은 기록됩니다. 데이터는 기기에만 저장되며 분석에서 CSV로 내보낼 수 있습니다.",
+    "fr": "Le suivi continue lorsque les rappels sont suspendus. Les données restent sur cet appareil. Exportez un CSV depuis Analyse.",
+    "de": "Auch bei pausierten Erinnerungen wird die Nutzung erfasst. Daten bleiben lokal. CSV-Export ist unter Analyse verfügbar.",
+    "ar": "يستمر تتبع الاستخدام أثناء إيقاف التذكيرات. تبقى البيانات على الجهاز. صدّر CSV من التحليل."
+  },
+  "分享 DCD": {
+    "zh": "分享 DCD",
+    "en": "Share DCD",
+    "ja": "DCDを共有",
+    "ko": "DCD 공유",
+    "fr": "Partager DCD",
+    "de": "DCD teilen",
+    "ar": "مشاركة DCD"
+  },
+  "主题设置无效：遮罩浓度须为 50–100%，模糊须为 0–40": {
+    "zh": "主题设置无效：遮罩浓度须为 50–100%，模糊须为 0–40",
+    "en": "Invalid appearance: opacity must be 50–100%, blur 0–40.",
+    "ja": "不透明度は50～100%、ぼかしは0～40にしてください。",
+    "ko": "불투명도는 50–100%, 흐림은 0–40이어야 합니다.",
+    "fr": "Opacité : 50–100 %, flou : 0–40.",
+    "de": "Deckkraft: 50–100 %, Unschärfe: 0–40.",
+    "ar": "العتامة: 50–100%، والتمويه: 0–40."
+  },
+  "提醒设置无效，图片须小于 3 MB，提醒文字不能超过 120 字": {
+    "zh": "提醒设置无效，图片须小于 3 MB，提醒文字不能超过 120 字",
+    "en": "Invalid reminder settings. Use an image under 3 MB and a message up to 120 characters.",
+    "ja": "画像は3 MB未満、メッセージは120文字以内にしてください。",
+    "ko": "이미지는 3 MB 미만, 메시지는 120자 이하여야 합니다.",
+    "fr": "Image de moins de 3 Mo et message de 120 caractères maximum.",
+    "de": "Bild unter 3 MB und Nachricht mit höchstens 120 Zeichen verwenden.",
+    "ar": "استخدم صورة أقل من 3 ميغابايت ورسالة لا تتجاوز 120 حرفًا."
+  },
+  "当前规则不允许跳过休息": {
+    "zh": "当前规则不允许跳过休息",
+    "en": "Skipping breaks is disabled.",
+    "ja": "休憩のスキップは無効です。",
+    "ko": "휴식 건너뛰기가 비활성화되어 있습니다.",
+    "fr": "Le passage de pause est désactivé.",
+    "de": "Pausen können nicht übersprungen werden.",
+    "ar": "تخطي الاستراحات معطل."
+  },
+  "暂停时长无效": {
+    "zh": "暂停时长无效",
+    "en": "Invalid pause duration.",
+    "ja": "停止時間が無効です。",
+    "ko": "일시 중지 시간이 잘못되었습니다.",
+    "fr": "Durée de suspension invalide.",
+    "de": "Ungültige Pausendauer.",
+    "ar": "مدة الإيقاف المؤقت غير صالحة."
+  },
+  "未知操作": {
+    "zh": "未知操作",
+    "en": "Unknown action.",
+    "ja": "不明な操作です。",
+    "ko": "알 수 없는 작업입니다.",
+    "fr": "Action inconnue.",
+    "de": "Unbekannte Aktion.",
+    "ar": "إجراء غير معروف."
+  },
+  "无法确定休息浮层所在的显示器": {
+    "zh": "无法确定休息浮层所在的显示器",
+    "en": "Could not find the display for the break overlay.",
+    "ja": "休憩画面の表示先が見つかりません。",
+    "ko": "휴식 화면을 표시할 디스플레이를 찾을 수 없습니다.",
+    "fr": "Écran de la pause introuvable.",
+    "de": "Bildschirm für das Pausen-Overlay nicht gefunden.",
+    "ar": "تعذر العثور على شاشة لطبقة الاستراحة."
+  },
+  "无法显示休息窗口": {
+    "zh": "无法显示休息窗口",
+    "en": "Could not show the break window",
+    "ja": "休憩ウィンドウを表示できません",
+    "ko": "휴식 창을 표시할 수 없습니다",
+    "fr": "Impossible d’afficher la pause",
+    "de": "Pausenfenster konnte nicht angezeigt werden",
+    "ar": "تعذر عرض نافذة الاستراحة"
+  },
+  "系统设置恢复失败": {
+    "zh": "系统设置恢复失败",
+    "en": "Could not restore system settings",
+    "ja": "システム設定を復元できません",
+    "ko": "시스템 설정 복원 실패",
+    "fr": "Restauration des réglages système impossible",
+    "de": "Systemeinstellungen konnten nicht wiederhergestellt werden",
+    "ar": "تعذرت استعادة إعدادات النظام"
+  },
+  "本地保存失败": {
+    "zh": "本地保存失败",
+    "en": "Could not save locally",
+    "ja": "ローカルに保存できません",
+    "ko": "로컬 저장 실패",
+    "fr": "Enregistrement local impossible",
+    "de": "Lokales Speichern fehlgeschlagen",
+    "ar": "تعذر الحفظ محليًا"
+  },
+  "工作时长须为 1–240 分钟，休息时长须为 1 秒–60 分 59 秒，提醒间隔须为 1–60 分钟": {
+    "zh": "请填写有效时长：工作 1–240 分钟，休息至少 1 秒，提醒间隔 1–60 分钟。",
+    "en": "Use 1–240 work minutes, at least 1 break second, and a 1–60 minute reminder interval.",
+    "ja": "作業は1～240分、休憩は1秒以上、通知間隔は1～60分にしてください。",
+    "ko": "작업 1–240분, 휴식 1초 이상, 알림 간격 1–60분을 입력하세요.",
+    "fr": "Travail : 1–240 min, pause : au moins 1 s, rappel : 1–60 min.",
+    "de": "Arbeit: 1–240 Min., Pause: mindestens 1 Sek., Intervall: 1–60 Min.",
+    "ar": "العمل: 1–240 دقيقة، الاستراحة: ثانية على الأقل، التذكير: 1–60 دقيقة."
+  },
+  "请选择 PNG、JPEG 或 WebP 图片": {
+    "zh": "请选择不超过 3 MB 的 PNG、JPEG 或 WebP 图片。",
+    "en": "Choose a PNG, JPEG, or WebP image up to 3 MB.",
+    "ja": "3 MB以下のPNG、JPEG、WebP画像を選んでください。",
+    "ko": "3 MB 이하의 PNG, JPEG 또는 WebP 이미지를 선택하세요.",
+    "fr": "Choisissez une image PNG, JPEG ou WebP de 3 Mo maximum.",
+    "de": "Wähle ein PNG-, JPEG- oder WebP-Bild bis 3 MB.",
+    "ar": "اختر صورة PNG أو JPEG أو WebP بحجم لا يتجاوز 3 ميغابايت."
+  },
+  "请至少保留状态栏或程序坞入口": {
+    "zh": "请至少保留状态栏或程序坞入口。",
+    "en": "Keep at least the menu bar or Dock icon enabled.",
+    "ja": "メニューバーかDockのアイコンを残してください。",
+    "ko": "메뉴 막대 또는 Dock 아이콘을 하나 이상 표시하세요.",
+    "fr": "Gardez au moins l’icône de la barre d’état ou du Dock.",
+    "de": "Lass mindestens das Statusleisten- oder Dock-Symbol aktiviert.",
+    "ar": "أبقِ أيقونة شريط النظام أو Dock مفعلة على الأقل."
+  }
+}

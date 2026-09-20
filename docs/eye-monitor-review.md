@@ -1,4 +1,4 @@
-# Eye Monitor implementation review
+# DCD 松一刻 implementation review
 
 Scope: local changes since `adcf908`, covering the screenshot-driven Vue interface, Tauri window and tray integration, timer model, persistence, settings, and CSV export.
 

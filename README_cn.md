@@ -1,4 +1,4 @@
-# DCD (Desktop Countdown)
+# DCD 松一刻 — Disconnect · Circulate · Decompress
 
 ## 项目简介
 

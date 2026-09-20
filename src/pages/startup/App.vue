@@ -16,7 +16,7 @@ onMounted(async () => {
       <img :src="logo" alt="logo" class="logo relative h-18 w-18">
     </div>
     <div class="text-center text-base">
-      Descktop Countdown 版本: V{{ appVersion }}
+      DCD 版本: V{{ appVersion }}
     </div>
   </div>
 </template>

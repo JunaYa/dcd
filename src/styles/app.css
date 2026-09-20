@@ -1170,3 +1170,51 @@ dialog::backdrop {
 html[data-theme="light"] .toggle:not(.on) {
   background: var(--color-border);
 }
+
+/* Text may grow substantially when switching languages. */
+.setting-row > label,
+.setting-row > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.setting-row select {
+  flex-shrink: 0;
+  max-width: 48%;
+}
+.segmented button {
+  white-space: normal;
+}
+.tray-actions > button,
+.tray-actions > .pause-control > button {
+  white-space: normal;
+  text-align: start;
+}
+.countdown,
+.usage-chart {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+[dir="rtl"] .sidebar nav button {
+  text-align: right;
+}
+[dir="rtl"] .traffic-lights {
+  direction: ltr;
+}
+[dir="rtl"] .pause-menu {
+  right: auto;
+  left: 0;
+}
+[dir="rtl"] .tray-actions .pause-menu {
+  right: auto;
+  left: 100%;
+}
+[dir="rtl"] .background-options label,
+[dir="rtl"] .tray-actions > button {
+  text-align: right;
+}
+@media (max-width: 650px) {
+  .setting-row {
+    flex-wrap: wrap;
+    padding-block: var(--space-2);
+  }
+}

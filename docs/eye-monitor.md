@@ -1,4 +1,4 @@
-# Eye Monitor
+# DCD 松一刻
 
 按参考截图实现的 macOS 护眼提醒应用，使用 Vue 3 + Tauri 2。
 
@@ -25,8 +25,12 @@ CARGO_PROFILE_DEV_DEBUG=0 CARGO_PROFILE_TEST_DEBUG=0 CARGO_INCREMENTAL=0 cargo t
 CARGO_PROFILE_DEV_DEBUG=0 CARGO_INCREMENTAL=0 pnpm tauri build --debug --bundles app
 ```
 
-开发端口为 `1422`。调试包位于 `src-tauri/target/debug/bundle/macos/Eye Monitor.app`。打包应用运行不依赖开发服务器。当前验证平台为 macOS；其他系统的空闲检测尚未实现。
+开发端口为 `1422`。调试包位于 `src-tauri/target/debug/bundle/macos/DCD 松一刻.app`。打包应用运行不依赖开发服务器。当前验证平台为 macOS；其他系统的空闲检测尚未实现。
 
 桌面浮层按当前主窗口所在显示器的尺寸覆盖桌面，不进入 macOS 全屏空间。默认背景为半透明模糊遮罩，结束或跳过休息后撤掉浮层，保留底层窗口状态。旧设置中的 `fullscreen` 值继续兼容，表示桌面浮层。
 
 外观可分别设置主窗口和托盘菜单的浅色、深色或跟随系统主题；休息浮层保留独立背景主题与自定义图片，并可调整桌面遮罩浓度（50–100%）和模糊程度（0–40）。托盘菜单的今日曲线可以关闭，窗口随之收紧。设置保存在本机，已打开的窗口在下次状态刷新时同步；新窗口先读取设置再渲染。旧版本配置自动补齐默认值，保留原有深色主窗口、深色托盘及浮层背景。
+
+品牌名称为「DCD 松一刻」，DCD 表示 Disconnect · Circulate · Decompress。支持中文、英文、日文、韩文、法文、德文及阿拉伯文；首次启动（含旧配置升级）按系统语言初始化并保存，未支持的语言回退英文。设置页可以手动选择语言，后续启动保留选择。阿拉伯文使用 RTL 布局；图表时间轴与倒计时保留 LTR。界面、托盘菜单、系统提醒、日期和导出列名使用所选语言。默认休息文案随语言切换，自定义文案保持原样。
+
+为保留历史记录和系统授权，bundle identifier `com.dcd.app`、内部窗口标识和数据文件 `eye-monitor.json` 保持不变。

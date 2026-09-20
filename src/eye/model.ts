@@ -1,6 +1,9 @@
+import { resolveLanguage } from '../i18n/locale.ts'
+
 export type Theme = 'system' | 'light' | 'dark'
 
 export interface Settings {
+  language: string
   mainTheme: Theme
   trayTheme: Theme
   trayShowChart: boolean
@@ -42,6 +45,7 @@ export interface Snapshot {
   storageError: string | null
 }
 export const defaults: Settings = {
+  language: resolveLanguage(typeof navigator === 'undefined' ? ['en'] : navigator.languages),
   mainTheme: 'dark',
   trayTheme: 'dark',
   trayShowChart: true,
@@ -60,7 +64,7 @@ export const defaults: Settings = {
   dockIcon: true,
   reminders: true,
   reminderStyle: 'fullscreen',
-  message: 'Take a break',
+  message: '',
   allowSkip: true,
   background: 'system',
   backgroundImage: '',

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Bar } from '~/eye/model'
 import { computed } from 'vue'
+import { t } from '~/i18n'
 
 const props = withDefaults(
   defineProps<{
@@ -55,8 +56,8 @@ const tickStep = computed(() =>
       role="img"
       :aria-label="
         bars
-          ? `${metric === 'seconds' ? '使用时长' : '疲劳峰值时长'}柱状图`
-          : '今日疲劳值变化折线图'
+          ? t('柱状图', { metric: t(metric === 'seconds' ? '使用时长' : '疲劳峰值时长') })
+          : t('今日疲劳值变化折线图')
       "
     >
       <defs>
@@ -85,7 +86,7 @@ const tickStep = computed(() =>
       </g>
       <template v-if="bars">
         <text :x="right" y="15" text-anchor="end">
-          时长（{{ metric === "seconds" ? "小时" : "分钟" }}）
+          {{ t('时长单位', { unit: t(metric === 'seconds' ? '小时' : '分钟') }) }}
         </text>
         <g v-for="(bar, index) in bars" :key="bar.key">
           <line
@@ -113,7 +114,7 @@ const tickStep = computed(() =>
             <title>
               {{ bar.label }}：{{
                 (bar[metric] / (metric === "seconds" ? 3600 : 60)).toFixed(1)
-              }}{{ metric === "seconds" ? "小时" : "分钟" }}
+              }}{{ metric === "seconds" ? t('小时') : t('分钟') }}
             </title>
           </rect>
           <text
@@ -161,7 +162,7 @@ const tickStep = computed(() =>
         class="empty-chart"
       >
         {{
-          bars ? "此时间段暂无记录" : "开始使用电脑后，将在这里记录今日使用情况"
+          bars ? t('此时间段暂无记录') : t('开始使用电脑后，将在这里记录今日使用情况')
         }}
       </text>
     </svg>

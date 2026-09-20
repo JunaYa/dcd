@@ -4,18 +4,12 @@ use tauri::{
 };
 
 pub fn create_tray(app: &mut tauri::App) -> Result<(), tauri::Error> {
-    let menu = Menu::with_items(
-        app,
-        &[
-            &MenuItem::with_id(app, "eye-main", "打开主窗口", true, None::<&str>)?,
-            &MenuItem::with_id(app, "eye-break", "手动开始一次休息", true, None::<&str>)?,
-            &MenuItem::with_id(app, "eye-quit", "退出 Eye Monitor", true, None::<&str>)?,
-        ],
-    )?;
+    let language = crate::i18n::system_language();
+    let menu = localized_menu(app.handle(), &language)?;
     TrayIconBuilder::with_id("main-tray")
         .icon(app.default_window_icon().unwrap().clone())
         .icon_as_template(true)
-        .tooltip("Eye Monitor · 关照双眼")
+        .tooltip(crate::i18n::text(&language, "appName"))
         .menu(&menu)
         .show_menu_on_left_click(false)
         .on_menu_event(|app, event| {
@@ -43,5 +37,21 @@ pub fn create_tray(app: &mut tauri::App) -> Result<(), tauri::Error> {
             }
         })
         .build(app)?;
+    Ok(())
+}
+
+fn localized_menu(app: &tauri::AppHandle, language: &str) -> Result<Menu<tauri::Wry>, tauri::Error> {
+    use crate::i18n::text;
+    Menu::with_items(app, &[
+        &MenuItem::with_id(app, "eye-main", text(language, "打开主窗口"), true, None::<&str>)?,
+        &MenuItem::with_id(app, "eye-break", text(language, "手动开始一次休息"), true, None::<&str>)?,
+        &MenuItem::with_id(app, "eye-quit", text(language, "退出"), true, None::<&str>)?,
+    ])
+}
+pub fn update_language(app: &tauri::AppHandle, language: &str) -> Result<(), tauri::Error> {
+    if let Some(tray) = app.tray_by_id("main-tray") {
+        tray.set_menu(Some(localized_menu(app, language)?))?;
+        tray.set_tooltip(Some(crate::i18n::text(language, "appName")))?;
+    }
     Ok(())
 }

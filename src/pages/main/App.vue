@@ -6,7 +6,7 @@ import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 import { save as saveDialog } from '@tauri-apps/plugin-dialog'
 import { writeTextFile } from '@tauri-apps/plugin-fs'
 import { useMediaQuery } from '@vueuse/core'
-import { computed, nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
 import Toggle from '~/components/eye/Toggle.vue'
@@ -15,22 +15,22 @@ import {
   dateKey,
   defaults,
   demoSnapshot,
-  duration,
   emptySnapshot,
   type Settings,
   type Snapshot,
 } from '~/eye/model'
+import { formatDuration as duration, formatBarDate, languages, locale, resolveLanguage, t } from '~/i18n'
 
 const props = defineProps<{ initialSnapshot?: Snapshot }>()
 const native = isTauri()
 const mode = new URLSearchParams(location.search).get('mode') || 'main'
 const page = ref('today')
-const navigation = [
-  { id: 'today', label: '今日', icon: 'sun' },
-  { id: 'analysis', label: '分析', icon: 'chart' },
-  { id: 'rules', label: '规则', icon: 'clock' },
-  { id: 'settings', label: '设置', icon: 'settings' },
-]
+const navigation = computed(() => [
+  { id: 'today', label: t('今日'), icon: 'sun' },
+  { id: 'analysis', label: t('分析'), icon: 'chart' },
+  { id: 'rules', label: t('规则'), icon: 'clock' },
+  { id: 'settings', label: t('设置'), icon: 'settings' },
+])
 const snapshot = ref<Snapshot>(props.initialSnapshot ?? emptySnapshot())
 const settings = ref<Settings>({ ...defaults, ...props.initialSnapshot?.settings })
 const baseline = ref(JSON.stringify(settings.value))
@@ -61,26 +61,26 @@ const change = computed(() => {
 })
 const range = ref(8)
 const grouping = ref('day')
-const ranges = [
-  { value: 8, label: '过去7天' },
-  { value: 29, label: '过去28天' },
-  { value: 91, label: '过去90天' },
-  { value: 365, label: '过去12个月' },
-  { value: 0, label: '全部时间' },
-]
-const groups = [
-  { value: 'day', label: '按天' },
-  { value: 'week', label: '按周' },
-  { value: 'month', label: '按月' },
-]
+const ranges = computed(() => [
+  { value: 8, label: t('过去7天') },
+  { value: 29, label: t('过去28天') },
+  { value: 91, label: t('过去90天') },
+  { value: 365, label: t('过去12个月') },
+  { value: 0, label: t('全部时间') },
+])
+const groups = computed(() => [
+  { value: 'day', label: t('按天') },
+  { value: 'week', label: t('按周') },
+  { value: 'month', label: t('按月') },
+])
 const bars = computed(() =>
-  aggregate(display.value.days, range.value, grouping.value),
+  aggregate(display.value.days, range.value, grouping.value).map(bar => ({ ...bar, label: formatBarDate(bar.key, grouping.value) })),
 )
 const pauseOpen = ref(false)
 const paused = computed(() => snapshot.value.pausedUntil > snapshot.value.now)
 const pauseLabel = computed(() =>
   paused.value
-    ? `提醒已暂停至 ${new Date(snapshot.value.pausedUntil * 1000).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}`
+    ? t('暂停至', { time: new Date(snapshot.value.pausedUntil * 1000).toLocaleString(locale.value, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) })
     : '',
 )
 const remaining = computed(() =>
@@ -94,11 +94,11 @@ const dialog = ref<HTMLDialogElement>()
 const dialogKind = ref<'help' | 'break'>('help')
 const dialogOpener = ref<HTMLElement | null>(null)
 const systemDark = useMediaQuery('(prefers-color-scheme: dark)')
-const themeOptions = [
-  { value: 'system', label: '跟随系统' },
-  { value: 'light', label: '浅色' },
-  { value: 'dark', label: '深色' },
-]
+const themeOptions = computed(() => [
+  { value: 'system', label: t('跟随系统') },
+  { value: 'light', label: t('浅色') },
+  { value: 'dark', label: t('深色') },
+])
 const activeTheme = computed(() => {
   const theme = mode === 'break'
     ? settings.value.background
@@ -107,7 +107,13 @@ const activeTheme = computed(() => {
     ? (systemDark.value ? 'dark' : 'light')
     : theme === 'light' ? 'light' : 'dark'
 })
+watch(() => settings.value.language, (language) => {
+  locale.value = resolveLanguage([language])
+}, { immediate: true, flush: 'sync' })
 watchEffect(() => {
+  document.documentElement.lang = locale.value
+  document.documentElement.dir = locale.value === 'ar' ? 'rtl' : 'ltr'
+  document.title = t('appName')
   document.documentElement.dataset.theme = activeTheme.value
   document.documentElement.style.setProperty('--overlay-opacity', String(settings.value.overlayOpacity / 100))
 })
@@ -115,6 +121,13 @@ const overlayStyle = computed(() => ({
   '--overlay-opacity': String(settings.value.overlayOpacity / 100),
   '--overlay-blur': `${settings.value.overlayBlur}px`,
 }))
+const messageInput = computed({
+  get: () => settings.value.message === 'Take a break' ? '' : settings.value.message,
+  set: (value: string) => { settings.value.message = value },
+})
+const breakMessage = computed(() => settings.value.message && settings.value.message !== 'Take a break'
+  ? settings.value.message
+  : t('休息一下'))
 const backgroundStyle = computed(() =>
   settings.value.background === 'custom' && settings.value.backgroundImage
     ? {
@@ -137,7 +150,7 @@ function inform(message: string) {
   }, 3500)
 }
 function report(cause: unknown) {
-  error.value = String(cause)
+  error.value = t(String(cause))
 }
 async function refresh() {
   if (!native || fetching)
@@ -183,11 +196,11 @@ function validate() {
     || s.repeatMinutes > 60
   ) {
     throw new Error(
-      '请填写有效时长：工作 1–240 分钟，休息至少 1 秒，提醒间隔 1–60 分钟。',
+      t('请填写有效时长：工作 1–240 分钟，休息至少 1 秒，提醒间隔 1–60 分钟。'),
     )
   }
   if (!s.trayIcon && !s.dockIcon)
-    throw new Error('请至少保留状态栏或程序坞入口。')
+    throw new Error(t('请至少保留状态栏或程序坞入口。'))
 }
 async function saveSettings() {
   if (saving.value)
@@ -203,7 +216,7 @@ async function saveSettings() {
     else localStorage.setItem('eye-preview-settings', JSON.stringify(data))
     baseline.value = JSON.stringify(data)
     snapshot.value.settings = data
-    inform('设置已保存')
+    inform(t('设置已保存'))
   }
   catch (cause) {
     report(cause)
@@ -260,12 +273,12 @@ async function action(name: string, minutes?: number) {
         }
       }
       if (name === 'quit')
-        inform('桌面应用可通过此按钮退出；当前为浏览器预览')
+        inform(t('桌面应用可通过此按钮退出；当前为浏览器预览'))
     }
     if (name === 'pause')
-      inform('提醒已暂停，使用时长继续记录')
+      inform(t('提醒已暂停，使用时长继续记录'))
     if (name === 'resume')
-      inform('提醒已恢复')
+      inform(t('提醒已恢复'))
   }
   catch (cause) {
     report(cause)
@@ -289,7 +302,7 @@ function cancelDialog(event: Event) {
 }
 async function windowAction(name: 'close' | 'minimize' | 'toggleMaximize') {
   if (!native) {
-    inform('窗口控制仅在桌面应用中可用')
+    inform(t('窗口控制仅在桌面应用中可用'))
     return
   }
   try {
@@ -300,12 +313,12 @@ async function windowAction(name: 'close' | 'minimize' | 'toggleMaximize') {
   }
 }
 async function share() {
-  const text = `Eye Monitor · 今日使用 ${duration(today.value.seconds)}，疲劳值 ${display.value.fatigue}%。记得让双眼休息一下。`
+  const text = t('摘要', { duration: duration(today.value.seconds), fatigue: display.value.fatigue })
   try {
     if (native)
       await writeText(text)
     else await navigator.clipboard.writeText(text)
-    inform('今日摘要已复制，可以粘贴分享')
+    inform(t('今日摘要已复制，可以粘贴分享'))
   }
   catch (cause) {
     report(cause)
@@ -313,7 +326,7 @@ async function share() {
 }
 async function exportCsv() {
   const rows = [
-    ['日期', '使用时长（分钟）', '疲劳峰值时长（分钟）', '完成休息次数'],
+    [t('日期'), t('使用时长（分钟）'), t('疲劳峰值时长（分钟）'), t('完成休息次数')],
     ...bars.value.map(b => [
       b.key,
       (b.seconds / 60).toFixed(1),
@@ -322,7 +335,7 @@ async function exportCsv() {
     ]),
   ]
   const csv = `\uFEFF${rows.map(row => row.join(',')).join('\r\n')}`
-  const filename = `eye-monitor-${demo.value ? '示例-' : ''}${dateKey()}.csv`
+  const filename = `dcd-${demo.value ? 'demo-' : ''}${dateKey()}.csv`
   try {
     if (native) {
       const path = await saveDialog({
@@ -343,7 +356,7 @@ async function exportCsv() {
       link.click()
       setTimeout(() => URL.revokeObjectURL(url), 1000)
     }
-    inform('已导出当前筛选范围的 CSV')
+    inform(t('已导出当前筛选范围的 CSV'))
   }
   catch (cause) {
     report(cause)
@@ -359,12 +372,12 @@ async function upload(event: Event) {
       !['image/png', 'image/jpeg', 'image/webp'].includes(file.type)
       || file.size > 3 * 1024 * 1024
     ) {
-      throw new Error('请选择不超过 3 MB 的 PNG、JPEG 或 WebP 图片。')
+      throw new Error(t('请选择不超过 3 MB 的 PNG、JPEG 或 WebP 图片。'))
     }
     const data = await new Promise<string>((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = () => resolve(String(reader.result))
-      reader.onerror = () => reject(new Error('无法读取图片'))
+      reader.onerror = () => reject(new Error(t('无法读取图片')))
       reader.readAsDataURL(file)
     })
     settings.value.backgroundImage = data
@@ -396,7 +409,7 @@ onMounted(async () => {
       page.value = event.payload
     })
     const warn = await listen<string>('eye-warning', event =>
-      inform(event.payload))
+      inform(t(event.payload)))
     if (disposed) {
       nav()
       warn()
@@ -415,7 +428,7 @@ onMounted(async () => {
     catch {
       report('浏览器预览设置无法读取，请重新保存。')
     }
-    if (navigation.some(item => item.id === location.hash.slice(1)))
+    if (navigation.value.some(item => item.id === location.hash.slice(1)))
       page.value = location.hash.slice(1)
   }
   interval = setInterval(() => {
@@ -427,7 +440,7 @@ onMounted(async () => {
       if (snapshot.value.breakUntil && remaining.value === 0) {
         snapshot.value.breakUntil = 0
         closeDialog()
-        inform('休息完成，欢迎回来')
+        inform(t('休息完成，欢迎回来'))
       }
     }
   }, 1000)
@@ -455,20 +468,20 @@ onUnmounted(() => {
     <div class="break-backdrop" :style="backgroundStyle" aria-hidden="true" />
     <div class="break-content">
       <Icon name="eye" />
-      <h1>{{ settings.message || "休息一下" }}</h1>
-      <p>移开视线，看看远处，让双眼放松。</p>
+      <h1>{{ breakMessage }}</h1>
+      <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>
       <div class="countdown">
         {{ countdown }}
       </div>
       <span class="break-caption">{{
-        remaining > 0 ? "休息倒计时" : "休息已完成"
+        remaining > 0 ? t('休息倒计时') : t('休息已完成')
       }}</span>
       <button
         v-if="settings.allowSkip"
         class="button break-skip"
         @click="action('skip')"
       >
-        跳过本次休息
+        {{ t('跳过本次休息') }}
       </button>
     </div>
   </div>
@@ -478,20 +491,20 @@ onUnmounted(() => {
         <div class="traffic-lights">
           <button
             class="red"
-            aria-label="关闭窗口"
+            :aria-label="t('关闭窗口')"
             @click="windowAction('close')"
           /><button
             class="yellow"
-            aria-label="最小化"
+            :aria-label="t('最小化')"
             @click="windowAction('minimize')"
           /><button
             class="green"
-            aria-label="切换最大化"
+            :aria-label="t('切换最大化')"
             @click="windowAction('toggleMaximize')"
           />
         </div>
       </div>
-      <nav aria-label="主导航">
+      <nav :aria-label="t('主导航')">
         <button
           v-for="item in navigation"
           :key="item.id"
@@ -505,7 +518,7 @@ onUnmounted(() => {
       </nav>
       <div class="sidebar-bottom">
         <span class="status-dot" :class="{ paused }" />{{
-          paused ? "提醒已暂停" : "Eye Monitor"
+          paused ? t('提醒已暂停') : t('appName')
         }}
       </div>
     </aside>
@@ -515,15 +528,15 @@ onUnmounted(() => {
     >
       <div v-if="mode !== 'tray'" class="title-drag" data-tauri-drag-region />
       <div v-if="!native && mode !== 'tray'" class="preview-note">
-        浏览器预览 · 系统计时在桌面应用中运行
+        {{ t('浏览器预览 · 系统计时在桌面应用中运行') }}
       </div>
       <div
         v-if="error || snapshot.storageError"
         class="error-banner"
         role="alert"
       >
-        <span>{{ error || `数据保存失败：${snapshot.storageError}` }}</span><button
-          aria-label="关闭错误提示"
+        <span>{{ error || t('保存失败', { error: snapshot.storageError ?? '' }) }}</span><button
+          :aria-label="t('关闭错误提示')"
           @click="
             error = '';
             snapshot.storageError = null;
@@ -533,14 +546,14 @@ onUnmounted(() => {
         </button>
       </div>
       <div v-if="loading" class="loading-state" role="status">
-        正在读取本机记录…
+        {{ t('正在读取本机记录…') }}
       </div>
       <template v-else-if="page === 'today' || mode === 'tray'">
         <header v-if="mode !== 'tray'" class="today-toolbar">
           <div class="page-heading">
             <div>
-              <h1>今日</h1>
-              <p>留意用眼节奏，给双眼一点休息。</p>
+              <h1>{{ t('今日') }}</h1>
+              <p>{{ t('留意用眼节奏，给双眼一点休息。') }}</p>
             </div>
           </div>
           <button
@@ -549,43 +562,43 @@ onUnmounted(() => {
             :aria-pressed="demo"
             @click="demo = !demo"
           >
-            {{ demo ? "示例数据 · 返回实时" : "预览示例数据" }}
+            {{ demo ? t('示例数据 · 返回实时') : t('预览示例数据') }}
           </button>
           <button
             class="button primary break-action"
-            title="手动开始一次休息"
-            aria-label="手动开始一次休息"
+            :title="t('手动开始一次休息')"
+            :aria-label="t('手动开始一次休息')"
             @click="action('break')"
           >
-            <Icon name="eye" /><span>休息一下</span>
+            <Icon name="eye" /><span>{{ t('休息一下') }}</span>
           </button>
           <div class="pause-control">
             <button
               class="icon-button"
               :class="{ active: paused }"
-              title="暂停提醒"
-              aria-label="暂停提醒"
+              :title="t('暂停提醒')"
+              :aria-label="t('暂停提醒')"
               :aria-expanded="pauseOpen"
               @click.stop="pauseOpen = !pauseOpen"
             >
               <Icon name="moon" />
             </button>
             <div v-if="pauseOpen" class="pause-menu">
-              <strong>暂停通知</strong><button @click="action('pause', 30)">
-                30分钟
+              <strong>{{ t('暂停通知') }}</strong><button @click="action('pause', 30)">
+                {{ t('30分钟') }}
               </button><button @click="action('pause', 60)">
-                1小时
+                {{ t('1小时') }}
               </button><button @click="action('pause', 0)">
-                直到明天
+                {{ t('直到明天') }}
               </button><button @click="action('resume')">
-                取消暂停
+                {{ t('取消暂停') }}
               </button>
             </div>
           </div>
           <button
             class="icon-button"
-            title="使用说明"
-            aria-label="使用说明"
+            :title="t('使用说明')"
+            :aria-label="t('使用说明')"
             @click="openDialog('help')"
           >
             <Icon name="help" />
@@ -594,13 +607,13 @@ onUnmounted(() => {
         <div class="overview" :class="[{ 'tray-overview': mode === 'tray' }]">
           <div class="stat-cards">
             <section class="stat-card fatigue-card">
-              <h2>疲劳值</h2>
+              <h2>{{ t('疲劳值') }}</h2>
               <strong>{{ display.fatigue }}%</strong>
             </section>
             <section class="stat-card duration-card">
-              <h2>今日时长</h2>
+              <h2>{{ t('今日时长') }}</h2>
               <div>
-                <strong>{{ duration(today.seconds) }}</strong><span v-if="change" class="badge" title="与昨日全天相比">{{
+                <strong>{{ duration(today.seconds) }}</strong><span v-if="change" class="badge" :title="t('与昨日全天相比')">{{
                   change
                 }}</span>
               </div>
@@ -608,7 +621,7 @@ onUnmounted(() => {
           </div>
           <div v-if="mode === 'tray'" class="tray-actions">
             <button @click="action('break')">
-              <Icon name="eye" />手动开始一次休息
+              <Icon name="eye" />{{ t('手动开始一次休息') }}
             </button>
             <div class="pause-control">
               <button
@@ -616,59 +629,59 @@ onUnmounted(() => {
                 :aria-expanded="pauseOpen"
                 @click.stop="pauseOpen = !pauseOpen"
               >
-                <Icon name="moon" />{{ paused ? "提醒已暂停" : "暂停提醒" }}
+                <Icon name="moon" />{{ paused ? t('提醒已暂停') : t('暂停提醒') }}
               </button>
               <div v-if="pauseOpen" class="pause-menu">
-                <strong>暂停通知</strong><button @click="action('pause', 30)">
-                  30分钟
+                <strong>{{ t('暂停通知') }}</strong><button @click="action('pause', 30)">
+                  {{ t('30分钟') }}
                 </button><button @click="action('pause', 60)">
-                  1小时
+                  {{ t('1小时') }}
                 </button><button @click="action('pause', 0)">
-                  直到明天
+                  {{ t('直到明天') }}
                 </button><button @click="action('resume')">
-                  取消暂停
+                  {{ t('取消暂停') }}
                 </button>
               </div>
             </div>
             <button @click="action('main')">
-              <Icon name="window" />打开主窗口
+              <Icon name="window" />{{ t('打开主窗口') }}
             </button><button @click="action('settings')">
-              <Icon name="settings" />设置
+              <Icon name="settings" />{{ t('设置') }}
             </button><button @click="share">
-              <Icon name="share" />分享 Eye Monitor
+              <Icon name="share" />{{ t('分享 DCD') }}
             </button><button @click="action('quit')">
-              <Icon name="power" />退出
+              <Icon name="power" />{{ t('退出') }}
             </button>
           </div>
         </div>
         <p v-if="paused" class="pause-status">
           {{ pauseLabel }}<button @click="action('resume')">
-            恢复提醒
+            {{ t('恢复提醒') }}
           </button>
         </p>
         <section v-if="mode !== 'tray' || settings.trayShowChart" class="today-chart">
-          <h1>今日使用 <span v-if="demo" class="sample-label">示例</span></h1>
+          <h1>{{ t('今日使用') }} <span v-if="demo" class="sample-label">{{ t('示例') }}</span></h1>
           <Chart :samples="display.samples" :compact="mode === 'tray'" />
         </section>
         <div v-if="mode !== 'tray'" class="today-footer">
           <span>{{
             demo
-              ? "示例仅用于预览，不会写入使用记录"
-              : "本机记录 · 每分钟更新曲线"
-          }}</span><span>已完成 {{ today.breaks }} 次休息</span>
+              ? t('示例仅用于预览，不会写入使用记录')
+              : t('本机记录 · 每分钟更新曲线')
+          }}</span><span>{{ t('休息次数', { count: today.breaks }) }}</span>
         </div>
       </template>
       <template v-else-if="page === 'analysis'">
         <header class="page-heading">
           <div>
-            <h1>使用分析</h1>
-            <p>回顾使用时长与疲劳趋势。</p>
+            <h1>{{ t('使用分析') }}</h1>
+            <p>{{ t('回顾使用时长与疲劳趋势。') }}</p>
           </div>
         </header>
         <div class="analysis-controls">
           <div class="filter-row">
             <Icon name="calendar" />
-            <div class="segmented" aria-label="统计范围">
+            <div class="segmented" :aria-label="t('统计范围')">
               <button
                 v-for="item in ranges"
                 :key="item.value"
@@ -682,7 +695,7 @@ onUnmounted(() => {
           </div>
           <div class="filter-row">
             <Icon name="list" />
-            <div class="segmented" aria-label="分组方式">
+            <div class="segmented" :aria-label="t('分组方式')">
               <button
                 v-for="item in groups"
                 :key="item.value"
@@ -695,8 +708,8 @@ onUnmounted(() => {
             </div>
             <button
               class="button export-button"
-              title="导出 CSV"
-              aria-label="导出 CSV"
+              :title="t('导出 CSV')"
+              :aria-label="t('导出 CSV')"
               @click="exportCsv"
             >
               <Icon name="download" />
@@ -704,25 +717,25 @@ onUnmounted(() => {
           </div>
         </div>
         <div class="analysis-meta">
-          <span>{{ demo ? "正在查看示例数据" : "使用记录仅保存在本机" }}</span><button
+          <span>{{ demo ? t('正在查看示例数据') : t('使用记录仅保存在本机') }}</span><button
             class="demo-button"
             :aria-pressed="demo"
             @click="demo = !demo"
           >
-            {{ demo ? "返回实时数据" : "预览示例数据" }}
+            {{ demo ? t('返回实时数据') : t('预览示例数据') }}
           </button>
         </div>
         <section class="analysis-chart">
           <h1>
-            使用时长
-            <Icon name="info" title="当前筛选范围内的实际电脑使用时长" />
+            {{ t('使用时长') }}
+            <Icon name="info" :title="t('当前筛选范围内的实际电脑使用时长')" />
           </h1>
           <Chart :bars="bars" />
         </section>
         <section class="analysis-chart">
           <h1>
-            疲劳峰值时长
-            <Icon name="info" title="疲劳值达到 100% 后仍在使用电脑的时长" />
+            {{ t('疲劳峰值时长') }}
+            <Icon name="info" :title="t('疲劳值达到 100% 后仍在使用电脑的时长')" />
           </h1>
           <Chart :bars="bars" metric="peakSeconds" />
         </section>
@@ -734,88 +747,88 @@ onUnmounted(() => {
       >
         <header class="page-heading">
           <div>
-            <h1>休息规则</h1>
-            <p>设定适合自己的工作与休息节奏。</p>
+            <h1>{{ t('休息规则') }}</h1>
+            <p>{{ t('设定适合自己的工作与休息节奏。') }}</p>
           </div>
         </header>
         <div class="setting-row rule-row">
-          <label for="work">规则</label>
+          <label for="work">{{ t('规则') }}</label>
           <div class="rule-inputs">
-            <span>工作</span><input
+            <span>{{ t('工作') }}</span><input
               id="work"
               v-model.number="settings.workMinutes"
               type="number"
               min="1"
               max="240"
               required
-              aria-label="工作分钟"
-            ><span>分钟后，休息</span><input
+              :aria-label="t('工作分钟')"
+            ><span>{{ t('分钟后，休息') }}</span><input
               v-model.number="settings.breakMinutes"
               type="number"
               min="0"
               max="60"
               required
-              aria-label="休息分钟"
-            ><span>分钟</span><input
+              :aria-label="t('休息分钟')"
+            ><span>{{ t('分钟') }}</span><input
               v-model.number="settings.breakSeconds"
               type="number"
               min="0"
               max="59"
               required
-              aria-label="休息秒数"
-            ><span>秒</span>
+              :aria-label="t('休息秒数')"
+            ><span>{{ t('秒') }}</span>
           </div>
         </div>
         <div class="setting-row rule-row">
-          <label for="repeat">提醒间隔</label>
+          <label for="repeat">{{ t('提醒间隔') }}</label>
           <div class="rule-inputs">
-            <span>若疲劳值一直处于100%，每隔</span><input
+            <span>{{ t('若疲劳值一直处于100%，每隔') }}</span><input
               id="repeat"
               v-model.number="settings.repeatMinutes"
               type="number"
               min="1"
               max="60"
               required
-            ><span>分钟提醒一次</span>
+            ><span>{{ t('分钟提醒一次') }}</span>
           </div>
         </div>
         <div class="setting-row">
-          <span>在弹窗出现前通知提醒</span><Toggle
+          <span>{{ t('在弹窗出现前通知提醒') }}</span><Toggle
             :model-value="settings.preNotify"
-            label="在弹窗出现前通知提醒"
+            :label="t('在弹窗出现前通知提醒')"
             :disabled="saving"
             @update:model-value="toggle('preNotify', $event)"
           />
         </div>
         <div class="setting-row">
-          <span>休息结束时播放声音</span><Toggle
+          <span>{{ t('休息结束时播放声音') }}</span><Toggle
             :model-value="settings.sound"
-            label="休息结束时播放声音"
+            :label="t('休息结束时播放声音')"
             :disabled="saving"
             @update:model-value="toggle('sound', $event)"
           />
         </div>
         <div class="setting-row">
-          <span>观影模式
+          <span>{{ t('观影模式') }}
             <Icon
               name="help"
-              title="开启后，无键盘和鼠标操作时仍持续计时。关闭时，空闲一分钟后暂停累计并恢复疲劳值。"
+              :title="t('开启后，无键盘和鼠标操作时仍持续计时。关闭时，空闲一分钟后暂停累计并恢复疲劳值。')"
             /></span><Toggle
             :model-value="settings.movieMode"
-            label="观影模式"
+            :label="t('观影模式')"
             :disabled="saving"
             @update:model-value="toggle('movieMode', $event)"
           />
         </div>
         <div class="setting-row contact-row">
-          <span>关于应用</span>
+          <span>{{ t('关于应用') }}</span>
           <div>
-            Eye Monitor<span>工作有节奏，休息有提醒</span><small>疲劳值按连续使用时长估算</small>
+            {{ t('appName') }}<span>{{ t('工作有节奏，休息有提醒') }}</span><small>{{ t('疲劳值按连续使用时长估算') }}</small>
           </div>
         </div>
         <div v-if="dirty" class="save-row">
-          <span>有未保存的更改</span><button class="button primary" type="submit" :disabled="saving">
-            {{ saving ? "保存中…" : "保存规则" }}
+          <span>{{ t('有未保存的更改') }}</span><button class="button primary" type="submit" :disabled="saving">
+            {{ saving ? t('保存中…') : t('保存规则') }}
           </button>
         </div>
       </form>
@@ -826,17 +839,31 @@ onUnmounted(() => {
       >
         <header class="page-heading">
           <div>
-            <h1>设置</h1>
-            <p>调整应用行为和提醒方式。</p>
+            <h1>{{ t('设置') }}</h1>
+            <p>{{ t('调整应用行为和提醒方式。') }}</p>
           </div>
         </header>
         <section>
-          <h2>外观</h2>
+          <h2>{{ t('语言') }}</h2>
           <p class="section-description">
-            各个窗口独立设置，修改后自动保存。
+            {{ t('语言说明') }}
           </p>
           <div class="setting-row">
-            <label for="main-theme">主窗口主题</label>
+            <label for="language">{{ t('语言') }}</label>
+            <select id="language" v-model="settings.language" :disabled="saving" @change="saveSettings">
+              <option v-for="language in languages" :key="language.value" :value="language.value" :lang="language.value">
+                {{ language.label }}
+              </option>
+            </select>
+          </div>
+        </section>
+        <section>
+          <h2>{{ t('外观') }}</h2>
+          <p class="section-description">
+            {{ t('各个窗口独立设置，修改后自动保存。') }}
+          </p>
+          <div class="setting-row">
+            <label for="main-theme">{{ t('主窗口主题') }}</label>
             <select id="main-theme" v-model="settings.mainTheme" :disabled="saving" @change="saveSettings">
               <option v-for="option in themeOptions" :key="option.value" :value="option.value">
                 {{ option.label }}
@@ -844,7 +871,7 @@ onUnmounted(() => {
             </select>
           </div>
           <div class="setting-row">
-            <label for="tray-theme">托盘菜单主题</label>
+            <label for="tray-theme">{{ t('托盘菜单主题') }}</label>
             <select id="tray-theme" v-model="settings.trayTheme" :disabled="saving" @change="saveSettings">
               <option v-for="option in themeOptions" :key="option.value" :value="option.value">
                 {{ option.label }}
@@ -852,106 +879,106 @@ onUnmounted(() => {
             </select>
           </div>
           <div class="setting-row">
-            <span>托盘菜单显示今日曲线</span>
-            <Toggle :model-value="settings.trayShowChart" label="托盘菜单显示今日曲线" :disabled="saving" @update:model-value="toggle('trayShowChart', $event)" />
+            <span>{{ t('托盘菜单显示今日曲线') }}</span>
+            <Toggle :model-value="settings.trayShowChart" :label="t('托盘菜单显示今日曲线')" :disabled="saving" @update:model-value="toggle('trayShowChart', $event)" />
           </div>
         </section>
         <section>
-          <h2>系统集成</h2>
+          <h2>{{ t('系统集成') }}</h2>
           <div class="setting-row">
-            <span>开机时启动</span><Toggle
+            <span>{{ t('开机时启动') }}</span><Toggle
               :model-value="settings.autostart"
-              label="开机时启动"
+              :label="t('开机时启动')"
               :disabled="saving"
               @update:model-value="toggle('autostart', $event)"
             />
           </div>
           <div class="setting-row">
-            <span>显示状态栏图标</span><Toggle
+            <span>{{ t('显示状态栏图标') }}</span><Toggle
               :model-value="settings.trayIcon"
-              label="显示状态栏图标"
+              :label="t('显示状态栏图标')"
               :disabled="saving"
               @update:model-value="toggle('trayIcon', $event)"
             />
           </div>
           <div class="setting-row">
-            <span>在状态栏中显示今日时长</span><Toggle
+            <span>{{ t('在状态栏中显示今日时长') }}</span><Toggle
               :model-value="settings.trayTime"
-              label="在状态栏中显示今日时长"
+              :label="t('在状态栏中显示今日时长')"
               :disabled="saving"
               @update:model-value="toggle('trayTime', $event)"
             />
           </div>
           <div class="setting-row">
-            <span>显示程序坞图标</span><Toggle
+            <span>{{ t('显示程序坞图标') }}</span><Toggle
               :model-value="settings.dockIcon"
-              label="显示程序坞图标"
+              :label="t('显示程序坞图标')"
               :disabled="saving"
               @update:model-value="toggle('dockIcon', $event)"
             />
           </div>
         </section>
         <section>
-          <h2>休息提醒</h2>
+          <h2>{{ t('休息提醒') }}</h2>
           <div class="setting-row">
-            <span>开启提醒</span><Toggle
+            <span>{{ t('开启提醒') }}</span><Toggle
               :model-value="settings.reminders"
-              label="开启提醒"
+              :label="t('开启提醒')"
               :disabled="saving"
               @update:model-value="toggle('reminders', $event)"
             />
           </div>
           <div class="setting-row">
-            <label for="style">提醒方式</label><select
+            <label for="style">{{ t('提醒方式') }}</label><select
               id="style"
               v-model="settings.reminderStyle"
               @change="saveSettings"
             >
               <option value="fullscreen">
-                桌面浮层
+                {{ t('桌面浮层') }}
               </option>
               <option value="window">
-                窗口提醒
+                {{ t('窗口提醒') }}
               </option>
             </select>
           </div>
           <div class="setting-row">
-            <label for="message">休息提醒内容</label><input
+            <label for="message">{{ t('休息提醒内容') }}</label><input
               id="message"
-              v-model="settings.message"
+              v-model="messageInput"
               class="message-input"
               maxlength="120"
-              placeholder="Take a break"
+              :placeholder="t('休息一下')"
             >
           </div>
           <div class="setting-row">
-            <span>在弹窗中展示跳过按钮
+            <span>{{ t('在弹窗中展示跳过按钮') }}
               <Icon
                 name="help"
-                title="关闭后需要完成倒计时才能结束休息"
+                :title="t('关闭后需要完成倒计时才能结束休息')"
               /></span><Toggle
               :model-value="settings.allowSkip"
-              label="在弹窗中展示跳过按钮"
+              :label="t('在弹窗中展示跳过按钮')"
               :disabled="saving"
               @update:model-value="toggle('allowSkip', $event)"
             />
           </div>
         </section>
         <section>
-          <h2>休息浮层外观</h2>
+          <h2>{{ t('休息浮层外观') }}</h2>
           <p class="section-description">
-            独立于主窗口和托盘菜单，也用于窗口提醒。
+            {{ t('独立于主窗口和托盘菜单，也用于窗口提醒。') }}
           </p>
           <div class="setting-row">
-            <span>背景主题</span>
+            <span>{{ t('背景主题') }}</span>
           </div>
           <div class="background-options">
             <label
               v-for="option in [
-                { id: 'system', label: '跟随系统' },
-                { id: 'light', label: '浅色' },
-                { id: 'dark', label: '深色' },
-                { id: 'custom', label: '自定义' },
+                { id: 'system', label: t('跟随系统') },
+                { id: 'light', label: t('浅色') },
+                { id: 'dark', label: t('深色') },
+                { id: 'custom', label: t('自定义') },
               ]"
               :key="option.id"
             ><input
@@ -968,7 +995,7 @@ onUnmounted(() => {
                   ? { backgroundImage: `url(${settings.backgroundImage})` }
                   : {}
               "
-            />{{ option.label }}</label><label class="button upload-button">上传<input
+            />{{ option.label }}</label><label class="button upload-button">{{ t('上传') }}<input
               type="file"
               accept="image/png,image/jpeg,image/webp"
               @change="upload"
@@ -981,18 +1008,18 @@ onUnmounted(() => {
                 })
               "
             >
-              测试
+              {{ t('测试') }}
             </button>
           </div>
           <div class="setting-row">
-            <label for="overlay-opacity">桌面遮罩浓度</label>
+            <label for="overlay-opacity">{{ t('桌面遮罩浓度') }}</label>
             <div class="range-control">
               <input id="overlay-opacity" v-model.number="settings.overlayOpacity" type="range" min="50" max="100" :disabled="saving" @change="saveSettings">
               <output for="overlay-opacity">{{ settings.overlayOpacity }}%</output>
             </div>
           </div>
           <div class="setting-row">
-            <label for="overlay-blur">桌面背景模糊</label>
+            <label for="overlay-blur">{{ t('桌面背景模糊') }}</label>
             <div class="range-control">
               <input id="overlay-blur" v-model.number="settings.overlayBlur" type="range" min="0" max="40" :disabled="saving" @change="saveSettings">
               <output for="overlay-blur">{{ settings.overlayBlur }}</output>
@@ -1000,8 +1027,8 @@ onUnmounted(() => {
           </div>
         </section>
         <div v-if="dirty" class="save-row">
-          <span>有未保存的更改</span><button class="button primary" type="submit" :disabled="saving">
-            {{ saving ? "保存中…" : "保存设置" }}
+          <span>{{ t('有未保存的更改') }}</span><button class="button primary" type="submit" :disabled="saving">
+            {{ saving ? t('保存中…') : t('保存设置') }}
           </button>
         </div>
       </form>
@@ -1023,38 +1050,37 @@ onUnmounted(() => {
     <template v-if="dialogKind === 'help'">
       <button
         class="dialog-close icon-button"
-        aria-label="关闭说明"
+        :aria-label="t('关闭说明')"
         @click="closeDialog"
       >
         <Icon name="close" />
       </button><Icon name="eye" />
-      <h2>给双眼一点休息时间</h2>
+      <h2>{{ t('给双眼一点休息时间') }}</h2>
       <p>
-        使用电脑时，疲劳值会按工作时长逐渐上升。达到 100% 时，应用会提醒你休息。
+        {{ t('帮助计时') }}
       </p>
       <p>
-        默认工作 25 分钟，休息 5 分钟。空闲超过 1
-        分钟后停止累计，疲劳值逐渐恢复；观影模式会持续计时。
+        {{ t('帮助规则') }}
       </p>
       <p>
-        暂停提醒期间仍会记录使用时长。数据仅保存在本机，分析页面支持导出 CSV。
+        {{ t('帮助隐私') }}
       </p>
       <button class="button primary" @click="closeDialog">
-        知道了
+        {{ t('知道了') }}
       </button>
     </template>
     <template v-else>
       <Icon name="eye" />
-      <h1>{{ settings.message || "休息一下" }}</h1>
-      <p>移开视线，看看远处，让双眼放松。</p>
+      <h1>{{ breakMessage }}</h1>
+      <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>
       <div class="countdown">
         {{ countdown }}
       </div>
       <p class="break-caption">
-        浏览器休息预览
+        {{ t('浏览器休息预览') }}
       </p>
       <button v-if="settings.allowSkip" class="button" @click="action('skip')">
-        跳过本次休息
+        {{ t('跳过本次休息') }}
       </button>
     </template>
   </dialog>

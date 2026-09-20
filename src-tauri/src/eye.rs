@@ -1,3 +1,4 @@
+use crate::i18n::text;
 use crate::eye_model::{Effect, Monitor, Settings};
 use chrono::{Local, Timelike};
 use serde_json::json;
@@ -50,6 +51,7 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
         true,
     );
     let settings = monitor.settings.clone();
+    save(app, &monitor)?;
     app.manage(EyeState(Mutex::new(monitor)));
     apply_shell(app, &settings)?;
     let handle = app.clone();
@@ -77,10 +79,12 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
         if let Some(tray) = handle.tray_by_id("main-tray") {
             let title = if settings.tray_time {
                 format!(
-                    "{}% · {}小时{:02}分",
+                    "{}% · {}{} {:02}{}",
                     fatigue,
                     seconds / 3600,
-                    seconds % 3600 / 60
+                    text(&settings.language, "小时"),
+                    seconds % 3600 / 60,
+                    text(&settings.language, "分钟")
                 )
             } else {
                 String::new()
@@ -94,7 +98,7 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
                     if let Ok(mut m) = state.0.lock() {
                         m.break_until = 0;
                         m.next_reminder = now.timestamp() + 60;
-                        m.storage_error = Some(format!("无法显示休息窗口：{error}"));
+                        m.storage_error = Some(format!("{}: {error}", text(&settings.language, "无法显示休息窗口")));
                     }
                 }
             }
@@ -112,7 +116,10 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
             Effect::Warn => {
                 let _ = handle.emit("eye-warning", "10 秒后开始休息");
                 #[cfg(target_os = "macos")]
-                let _ = std::process::Command::new("osascript").args(["-e", "display notification \"10 秒后开始休息，放松一下双眼\" with title \"Eye Monitor\""]).spawn();
+                {
+                    let script = format!("display notification {:?} with title {:?}", text(&settings.language, "10 秒后开始休息"), text(&settings.language, "appName"));
+                    let _ = std::process::Command::new("osascript").args(["-e", &script]).spawn();
+                }
             }
             Effect::None => {}
         }
@@ -121,6 +128,12 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn apply_shell(app: &AppHandle, settings: &Settings) -> Result<(), String> {
+    crate::menu::update_language(app, &settings.language).map_err(|e| e.to_string())?;
+    for label in ["main", "eye-tray", "eye-break"] {
+        if let Some(window) = app.get_webview_window(label) {
+            window.set_title(&text(&settings.language, if label == "eye-break" { "休息一下" } else { "appName" })).map_err(|e| e.to_string())?;
+        }
+    }
     if let Some(popup) = app.get_webview_window("eye-tray") {
         popup.set_size(tauri::LogicalSize::new(520.0, if settings.tray_show_chart { 530.0 } else { 285.0 }))
             .map_err(|e| e.to_string())?;
@@ -150,7 +163,8 @@ pub fn show_main(app: &AppHandle, page: &str) -> Result<(), String> {
 }
 
 pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> Result<(), String> {
-    let show_chart = app.state::<EyeState>().0.lock().map_err(|e| e.to_string())?.settings.tray_show_chart;
+    let settings = app.state::<EyeState>().0.lock().map_err(|e| e.to_string())?.settings.clone();
+    let show_chart = settings.tray_show_chart;
     let popup = if let Some(w) = app.get_webview_window("eye-tray") {
         if w.is_visible().unwrap_or(false) {
             return w.hide().map_err(|e| e.to_string());
@@ -162,7 +176,7 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
             "eye-tray",
             WebviewUrl::App("main.html?mode=tray".into()),
         )
-        .title("Eye Monitor")
+        .title(text(&settings.language, "appName"))
         .decorations(false)
         .transparent(true)
         .shadow(false)
@@ -204,7 +218,7 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
             "eye-break",
             WebviewUrl::App("main.html?mode=break".into()),
         )
-        .title("休息一下")
+        .title(text(&settings.language, "休息一下"))
         .decorations(false)
         .transparent(true)
         .shadow(false)
@@ -230,7 +244,7 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
             .get_webview_window("main")
             .and_then(|main| main.current_monitor().ok().flatten())
             .or(window.current_monitor().map_err(|e| e.to_string())?)
-            .ok_or("无法确定休息浮层所在的显示器")?;
+            .ok_or_else(|| text(&settings.language, "无法确定休息浮层所在的显示器"))?;
         window.set_size(*monitor.size()).map_err(|e| e.to_string())?;
         window.set_position(*monitor.position()).map_err(|e| e.to_string())?;
         #[cfg(target_os = "macos")]
@@ -320,11 +334,11 @@ pub fn eye_save_settings(app: AppHandle, settings: Settings) -> Result<(), Strin
             "{error}{}{}",
             rollback
                 .err()
-                .map(|e| format!("；系统设置恢复失败：{e}"))
+                .map(|e| format!("; {}: {e}", text(&old.language, "系统设置恢复失败")))
                 .unwrap_or_default(),
             persisted
                 .err()
-                .map(|e| format!("；本地保存失败：{e}"))
+                .map(|e| format!("; {}: {e}", text(&old.language, "本地保存失败")))
                 .unwrap_or_default()
         ));
     }
@@ -357,7 +371,7 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
         }
         "skip" => {
             if !m.settings.allow_skip {
-                return Err("当前规则不允许跳过休息".into());
+                return Err(text(&m.settings.language, "当前规则不允许跳过休息"));
             }
             m.break_until = 0;
             m.next_reminder = now + m.settings.repeat_minutes as i64 * 60;
@@ -368,7 +382,7 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
         "pause" => {
             let mins = minutes.unwrap_or(30);
             if ![30, 60, 0].contains(&mins) {
-                return Err("暂停时长无效".into());
+                return Err(text(&m.settings.language, "暂停时长无效"));
             }
             m.paused_until = if mins == 0 {
                 let local = Local::now();
@@ -386,7 +400,7 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             app.exit(0);
             return Ok(());
         }
-        _ => return Err("未知操作".into()),
+        _ => return Err(text(&m.settings.language, "未知操作")),
     }
     save(&app, &m)
 }
