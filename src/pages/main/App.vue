@@ -33,7 +33,7 @@ const grouping = ref('day')
     :class="{ 'tray-app': mode === 'tray', 'native-window': native && mode === 'main' }"
   >
     <AppSidebar v-if="mode !== 'tray'" />
-    <main :key="page" class="main-content" :class="{ 'analysis-page': page === 'analysis' }">
+    <main :key="page" class="main-content">
       <div v-if="!native && mode !== 'tray'" class="preview-note">
         {{ t('浏览器预览 · 系统计时在桌面应用中运行') }}
       </div>

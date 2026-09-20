@@ -260,9 +260,6 @@
 .pause-status button {
   color: var(--color-accent);
 }
-.analysis-page {
-  padding: var(--space-12) var(--space-8) var(--space-8);
-}
 .analysis-controls {
   display: grid;
   gap: var(--space-3);
@@ -819,9 +816,6 @@ dialog::backdrop {
   .main-content {
     padding: 52px 28px 28px;
   }
-  .analysis-page {
-    padding: 46px var(--space-4) 25px;
-  }
   .sidebar {
     flex-basis: 135px;
   }
@@ -1012,8 +1006,7 @@ dialog::backdrop {
 .main-content > .preferences {
   max-width: 880px;
 }
-.preferences > section,
-.rules-page {
+.preferences > section {
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
@@ -1044,8 +1037,7 @@ dialog::backdrop {
   }
   .today-chart,
   .analysis-chart,
-  .preferences > section,
-  .rules-page {
+  .preferences > section {
     padding: var(--space-4);
   }
   .page-heading h1 {
