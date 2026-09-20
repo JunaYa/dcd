@@ -266,3 +266,10 @@ button,
 input {
   -webkit-app-region: no-drag;
 }
+
+.no-transitions,
+.no-transitions *,
+.no-transitions *::before,
+.no-transitions *::after {
+  transition: none !important;
+}
