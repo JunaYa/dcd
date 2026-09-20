@@ -671,7 +671,7 @@ onUnmounted(() => {
       >
         <h1>规则</h1>
         <div class="setting-row rule-row">
-          <label for="work">规则 <span class="badge pro" title="此版本已开放">PRO</span></label>
+          <label for="work">规则</label>
           <div class="rule-inputs">
             <span>工作</span><input
               id="work"
@@ -699,7 +699,7 @@ onUnmounted(() => {
           </div>
         </div>
         <div class="setting-row rule-row">
-          <label for="repeat">提醒间隔 <span class="badge pro">PRO</span></label>
+          <label for="repeat">提醒间隔</label>
           <div class="rule-inputs">
             <span>若疲劳值一直处于100%，每隔</span><input
               id="repeat"
@@ -778,7 +778,7 @@ onUnmounted(() => {
             />
           </div>
           <div class="setting-row">
-            <span>在状态栏中显示今日时长 <span class="badge pro">PRO</span></span><Toggle
+            <span>在状态栏中显示今日时长</span><Toggle
               :model-value="settings.trayTime"
               label="在状态栏中显示今日时长"
               :disabled="saving"
@@ -822,7 +822,7 @@ onUnmounted(() => {
             </select>
           </div>
           <div class="setting-row">
-            <label for="message">全屏弹窗的提醒内容 <span class="badge pro">PRO</span></label><input
+            <label for="message">全屏弹窗的提醒内容</label><input
               id="message"
               v-model="settings.message"
               class="message-input"
@@ -843,7 +843,7 @@ onUnmounted(() => {
             />
           </div>
           <div class="setting-row">
-            <span>全屏弹窗背景 <span class="badge pro">PRO</span></span>
+            <span>全屏弹窗背景</span>
           </div>
           <div class="background-options">
             <label

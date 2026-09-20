@@ -478,11 +478,6 @@ input {
   height: 14px;
   color: var(--muted);
 }
-.pro {
-  font-size: 11px;
-  font-family: Georgia, serif;
-  padding: 3px 7px;
-}
 .toggle {
   position: relative;
   width: 43px;
