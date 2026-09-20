@@ -848,7 +848,7 @@ onUnmounted(() => {
               @change="saveSettings"
             >
               <option value="fullscreen">
-                全屏弹窗
+                桌面浮层
               </option>
               <option value="window">
                 窗口提醒
@@ -856,7 +856,7 @@ onUnmounted(() => {
             </select>
           </div>
           <div class="setting-row">
-            <label for="message">全屏弹窗的提醒内容</label><input
+            <label for="message">休息提醒内容</label><input
               id="message"
               v-model="settings.message"
               class="message-input"
@@ -877,7 +877,7 @@ onUnmounted(() => {
             />
           </div>
           <div class="setting-row">
-            <span>全屏弹窗背景</span>
+            <span>休息浮层背景</span>
           </div>
           <div class="background-options">
             <label

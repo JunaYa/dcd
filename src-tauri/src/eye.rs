@@ -102,7 +102,6 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
                 if let Some(window) = handle.get_webview_window("eye-break") {
                     let _ = window.destroy();
                 }
-                let _ = show_main(&handle, "today");
                 #[cfg(target_os = "macos")]
                 if settings.sound {
                     let _ = std::process::Command::new("afplay")
@@ -205,6 +204,9 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
         .transparent(true)
         .shadow(false)
         .inner_size(800.0, 560.0)
+        .resizable(false)
+        .maximizable(false)
+        .minimizable(false)
         .center()
         .skip_taskbar(true)
         .always_on_top(true)
@@ -218,9 +220,40 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
         });
         w
     };
-    window
-        .set_fullscreen(settings.reminder_style == "fullscreen")
-        .map_err(|e| e.to_string())?;
+    if settings.reminder_style == "fullscreen" {
+        let monitor = app
+            .get_webview_window("main")
+            .and_then(|main| main.current_monitor().ok().flatten())
+            .or(window.current_monitor().map_err(|e| e.to_string())?)
+            .ok_or("无法确定休息浮层所在的显示器")?;
+        window.set_size(*monitor.size()).map_err(|e| e.to_string())?;
+        window.set_position(*monitor.position()).map_err(|e| e.to_string())?;
+        #[cfg(target_os = "macos")]
+        {
+            use tauri_nspanel::cocoa::appkit::{NSScreen, NSWindow, NSWindowCollectionBehavior};
+            use tauri_nspanel::cocoa::base::{id, nil, NO, YES};
+            let native = window.ns_window().map_err(|e| e.to_string())? as usize;
+            let keep_alive = window.clone();
+            window.run_on_main_thread(move || unsafe {
+                let _window = keep_alive;
+                let ns_window = native as id;
+                ns_window.setCollectionBehavior_(
+                    NSWindowCollectionBehavior::NSWindowCollectionBehaviorCanJoinAllSpaces
+                        | NSWindowCollectionBehavior::NSWindowCollectionBehaviorFullScreenAuxiliary
+                        | NSWindowCollectionBehavior::NSWindowCollectionBehaviorStationary
+                        | NSWindowCollectionBehavior::NSWindowCollectionBehaviorIgnoresCycle,
+                );
+                // Screen-saver level covers the menu bar without creating a fullscreen Space.
+                ns_window.setLevel_(1000);
+                ns_window.setMovable_(NO);
+                ns_window.setHidesOnDeactivate_(NO);
+                let screen = ns_window.screen();
+                if screen != nil {
+                    ns_window.setFrame_display_(NSScreen::frame(screen), YES);
+                }
+            }).map_err(|e| e.to_string())?;
+        }
+    }
     window.show().map_err(|e| e.to_string())?;
     window.set_focus().map_err(|e| e.to_string())?;
     if let Some(popup) = app.get_webview_window("eye-tray") {
@@ -326,7 +359,6 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             if let Some(w) = app.get_webview_window("eye-break") {
                 w.destroy().map_err(|e| e.to_string())?;
             }
-            show_main(&app, "today")?;
         }
         "pause" => {
             let mins = minutes.unwrap_or(30);

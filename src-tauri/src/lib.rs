@@ -27,7 +27,11 @@ struct AppState {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_sql::Builder::new().build())
-        .plugin(tauri_plugin_window_state::Builder::new().build())
+        .plugin(
+            tauri_plugin_window_state::Builder::new()
+                .with_denylist(&["eye-break", "eye-tray"])
+                .build(),
+        )
         .plugin(tauri_nspanel::init())
         .plugin(tauri_plugin_positioner::init())
         .plugin(tauri_plugin_os::init())
