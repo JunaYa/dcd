@@ -2,7 +2,6 @@
 import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
 import { vScrubNumber } from '~/directives/scrubNumber'
-import Icon from '~/components/eye/Icon.vue'
 import Toggle from '~/components/eye/Toggle.vue'
 const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
 </script>
@@ -73,9 +72,10 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
       </div>
     </div>
     <div class="setting-row">
-      <span>{{ t('在弹窗出现前通知提醒') }}</span
+      <span :title="t('预通知说明')">{{ t('在弹窗出现前通知提醒') }}</span
       ><Toggle
         :model-value="settings.preNotify"
+        :title="t('预通知说明')"
         :label="t('在弹窗出现前通知提醒')"
         :disabled="saving"
         @update:model-value="toggle('preNotify', $event)"
@@ -91,15 +91,13 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
       />
     </div>
     <div class="setting-row">
-      <span
-        >{{ t('观影模式') }}
-        <Icon
-          name="help"
-          :title="
-            t('开启后，无键盘和鼠标操作时仍持续计时。关闭时，空闲一分钟后暂停累计并恢复疲劳值。')
-          " /></span
-      ><Toggle
+      <div class="setting-explanation">
+        <span>{{ t('观影模式') }}</span>
+        <p id="movie-mode-help">{{ t('观影模式说明') }}</p>
+      </div>
+      <Toggle
         :model-value="settings.movieMode"
+        aria-describedby="movie-mode-help"
         :label="t('观影模式')"
         :disabled="saving"
         @update:model-value="toggle('movieMode', $event)"

@@ -83,9 +83,10 @@ const messageInput = computed({
     <section>
       <h2>{{ t('休息提醒') }}</h2>
       <div class="setting-row">
-        <span>{{ t('开启提醒') }}</span
+        <span :title="t('关闭提醒说明')">{{ t('开启提醒') }}</span
         ><Toggle
           :model-value="settings.reminders"
+          :title="t('关闭提醒说明')"
           :label="t('开启提醒')"
           :disabled="saving"
           @update:model-value="toggle('reminders', $event)"
@@ -118,6 +119,7 @@ const messageInput = computed({
           <Icon name="help" :title="t('关闭后需要完成倒计时才能结束休息')" /></span
         ><Toggle
           :model-value="settings.allowSkip"
+          :title="t('关闭后需要完成倒计时才能结束休息')"
           :label="t('在弹窗中展示跳过按钮')"
           :disabled="saving"
           @update:model-value="toggle('allowSkip', $event)"

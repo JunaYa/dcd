@@ -101,7 +101,7 @@ onUnmounted(() => {
       <button
         class="icon-button"
         :class="{ active: paused }"
-        :title="t('暂停提醒')"
+        :title="t('暂停提醒说明')"
         :aria-label="t('暂停提醒')"
         :aria-expanded="pauseOpen"
         @click.stop="pauseOpen = !pauseOpen"

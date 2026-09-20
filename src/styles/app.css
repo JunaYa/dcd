@@ -1285,3 +1285,15 @@ input.scrub-number.scrubbing {
   caret-color: transparent;
   background: var(--color-selected);
 }
+
+.setting-explanation {
+  min-width: 0;
+  max-width: 60ch;
+  margin-inline-end: var(--space-4);
+}
+.setting-explanation p {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-small);
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}

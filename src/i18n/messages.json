@@ -945,13 +945,13 @@
     "ar": "إظهار زر التخطي"
   },
   "关闭后需要完成倒计时才能结束休息": {
-    "zh": "关闭后需要完成倒计时才能结束休息",
-    "en": "When off, the countdown must finish before you can leave the break",
-    "ja": "オフの場合、カウントダウンが終わるまで休憩を終了できません",
-    "ko": "끄면 카운트다운이 끝나야 휴식을 종료할 수 있습니다",
-    "fr": "Sinon, la pause dure jusqu’à la fin du compte à rebours",
-    "de": "Ohne diese Option muss der Countdown ablaufen",
-    "ar": "عند تعطيله، يجب انتهاء العد التنازلي لإنهاء الاستراحة"
+    "zh": "关闭后无法通过跳过按钮提前结束休息。跳过不会清零疲劳值，也不计为完成休息；若仍达到阈值，将在提醒间隔后再次提醒。",
+    "en": "When disabled, the skip button cannot end a break early. Skipping does not reset fatigue or count as a completed break; if you remain above the threshold, another reminder follows after the reminder interval.",
+    "ja": "オフにするとスキップボタンで休憩を早く終了できません。スキップしても疲労値はリセットされず、完了回数にも含まれません。しきい値以上なら通知間隔後に再通知します。",
+    "ko": "끄면 건너뛰기 버튼으로 휴식을 일찍 끝낼 수 없습니다. 건너뛰어도 피로도는 초기화되지 않고 완료한 휴식으로 계산되지 않습니다. 기준 이상이면 알림 간격 후 다시 알립니다.",
+    "fr": "Si désactivé, le bouton Passer ne permet pas de terminer plus tôt. Passer une pause ne remet pas la fatigue à zéro et ne compte pas comme une pause terminée ; un rappel revient après l’intervalle si le seuil reste atteint.",
+    "de": "Wenn deaktiviert, lässt sich die Pause nicht über Überspringen vorzeitig beenden. Überspringen setzt die Ermüdung nicht zurück und zählt nicht als abgeschlossene Pause. Bleibt der Schwellenwert erreicht, wird nach dem Intervall erneut erinnert.",
+    "ar": "عند إيقافه لا يمكن إنهاء الاستراحة مبكرًا بزر التخطي. التخطي لا يصفر الإجهاد ولا يُحسب استراحة مكتملة؛ ويظهر تذكير آخر بعد المدة المحددة إذا استمر بلوغ الحد."
   },
   "休息浮层外观": {
     "zh": "休息浮层外观",
@@ -1323,13 +1323,13 @@
     "ar": "يزداد الإجهاد مع الاستخدام المتواصل. عند 100%، انظر بعيدًا وتحرك واسترخِ."
   },
   "帮助规则": {
-    "zh": "默认工作 25 分钟，休息 5 分钟。空闲超过一分钟后停止累计，疲劳值逐渐恢复；观影模式会持续计时。",
-    "en": "By default, work for 25 minutes and rest for 5. After one idle minute, tracking pauses and fatigue decreases. Movie mode keeps tracking.",
-    "ja": "標準は作業25分、休憩5分です。1分間入力がないと計測が止まり疲労度が下がります。動画モードでは計測を続けます。",
-    "ko": "기본은 작업 25분, 휴식 5분입니다. 1분간 입력이 없으면 기록이 멈추고 피로도가 줄어듭니다. 동영상 모드에서는 계속 기록합니다.",
-    "fr": "Par défaut : 25 min de travail, 5 min de pause. Après une minute d’inactivité, le suivi s’arrête et la fatigue diminue. Le mode cinéma poursuit le suivi.",
-    "de": "Standard: 25 Minuten Arbeit, 5 Minuten Pause. Nach einer Minute Inaktivität pausiert die Erfassung und die Ermüdung sinkt. Der Filmmodus erfasst weiter.",
-    "ar": "افتراضيًا: 25 دقيقة عمل و5 دقائق راحة. بعد دقيقة خمول يتوقف التتبع وينخفض الإجهاد. يستمر التتبع في وضع المشاهدة."
+    "zh": "默认工作 25 分钟，休息 5 分钟。在 macOS 上，关闭观影模式后，空闲满 1 分钟会停止累计，疲劳值逐渐恢复。观影模式会继续计时和提醒，不是免打扰模式。",
+    "en": "Defaults are 25 minutes of work and a 5-minute break. On macOS, with viewing mode off, one minute without input pauses tracking and gradually reduces fatigue. Viewing mode keeps tracking and reminders active; it is not Do Not Disturb.",
+    "ja": "標準は作業25分、休憩5分です。macOSでは観賞モードがオフで1分間操作がないと計測を止め、疲労値が徐々に下がります。観賞モードでは計測と通知が続きます。通知を止めるモードではありません。",
+    "ko": "기본값은 작업 25분, 휴식 5분입니다. macOS에서는 감상 모드를 끄고 1분간 입력이 없으면 기록을 멈추고 피로도가 점차 낮아집니다. 감상 모드는 기록과 알림을 유지하며 방해 금지 모드가 아닙니다.",
+    "fr": "Par défaut : 25 minutes de travail, 5 minutes de pause. Sur macOS, une minute sans saisie avec le mode visionnage désactivé suspend le suivi et réduit la fatigue. Ce mode maintient le suivi et les rappels ; ce n’est pas Ne pas déranger.",
+    "de": "Standard: 25 Minuten Arbeit, 5 Minuten Pause. Auf macOS stoppt bei ausgeschaltetem Wiedergabemodus nach einer Minute ohne Eingabe die Erfassung, und die Ermüdung sinkt. Der Modus behält Erfassung und Erinnerungen bei; er ist kein Nicht-stören-Modus.",
+    "ar": "الإعداد الافتراضي 25 دقيقة عمل و5 دقائق استراحة. على macOS، عند إيقاف وضع المشاهدة ومرور دقيقة دون إدخال، يتوقف الاحتساب وينخفض الإجهاد تدريجيًا. وضع المشاهدة يُبقي الاحتساب والتذكيرات فعّالة، وليس وضع عدم الإزعاج."
   },
   "帮助隐私": {
     "zh": "暂停提醒期间仍会记录使用时长。数据仅保存在本机，分析页面支持导出 CSV。",
@@ -1528,5 +1528,41 @@
     "fr": "Glissez horizontalement pour ajuster, cliquez pour saisir ; Échap annule le glissement.",
     "de": "Zum Ändern nach links oder rechts ziehen, zum Eingeben klicken; Esc bricht das Ziehen ab.",
     "ar": "اسحب يمينًا أو يسارًا للتعديل، وانقر للكتابة؛ اضغط Esc لإلغاء السحب."
+  },
+  "观影模式说明": {
+    "zh": "适合观影、听课等持续看屏幕但很少操作键鼠的场景。开启后仍累计使用时长和疲劳值，并正常提醒休息，不是免打扰模式。离开电脑前请关闭；macOS 在关闭此模式且无键鼠操作满 1 分钟后停止累计，疲劳值逐渐恢复。",
+    "en": "For watching videos or lessons with little keyboard or mouse activity. Usage and fatigue continue to accumulate, and break reminders remain active: this is not Do Not Disturb. Turn it off before stepping away. On macOS, with this mode off, one minute without input pauses tracking and gradually reduces fatigue.",
+    "ja": "動画や講義など、操作せずに画面を見るときに使います。使用時間と疲労値の計測、休憩通知は続きます。通知を止めるモードではありません。離席前にオフにしてください。macOSではオフの状態で1分間操作がないと計測を止め、疲労値が徐々に下がります。",
+    "ko": "영상이나 강의를 보며 키보드와 마우스를 거의 사용하지 않을 때 켜세요. 사용 시간과 피로도가 계속 누적되고 휴식 알림도 유지됩니다. 방해 금지 모드가 아닙니다. 자리를 비우기 전에 끄세요. macOS에서는 이 모드가 꺼져 있고 1분간 입력이 없으면 기록을 멈추고 피로도가 점차 낮아집니다.",
+    "fr": "Pour regarder des vidéos ou des cours sans utiliser souvent le clavier ou la souris. La durée et la fatigue continuent de s’accumuler, et les rappels restent actifs : ce n’est pas un mode Ne pas déranger. Désactivez-le avant de vous éloigner. Sur macOS, une minute sans saisie lorsque ce mode est désactivé suspend le suivi et réduit progressivement la fatigue.",
+    "de": "Für Videos oder Vorträge mit wenig Tastatur- und Mausaktivität. Nutzungszeit und Ermüdung werden weiter erfasst; Pausenerinnerungen bleiben aktiv. Dies ist kein Nicht-stören-Modus. Vor dem Verlassen ausschalten. Auf macOS stoppt bei ausgeschaltetem Modus nach einer Minute ohne Eingabe die Erfassung, und die Ermüdung sinkt allmählich.",
+    "ar": "مناسب لمشاهدة الفيديو أو الدروس مع قلة استخدام لوحة المفاتيح والفأرة. يستمر احتساب الاستخدام والإجهاد وتبقى تذكيرات الاستراحة فعّالة؛ هذا ليس وضع عدم الإزعاج. أوقفه قبل مغادرة الجهاز. على macOS، عند إيقافه ومرور دقيقة دون إدخال، يتوقف الاحتساب وينخفض الإجهاد تدريجيًا."
+  },
+  "预通知说明": {
+    "zh": "接近休息阈值时提前约 10 秒发送系统通知。需允许系统通知；暂停或关闭提醒时不会发送。",
+    "en": "Sends a system notification about 10 seconds before the break threshold. Requires notification permission; no notification is sent while reminders are paused or disabled.",
+    "ja": "休憩のしきい値に達する約10秒前にシステム通知を送ります。通知の許可が必要です。通知の一時停止中や無効時は送信しません。",
+    "ko": "휴식 기준에 도달하기 약 10초 전에 시스템 알림을 보냅니다. 알림 권한이 필요하며, 알림이 일시 정지되거나 꺼져 있으면 보내지 않습니다.",
+    "fr": "Envoie une notification système environ 10 secondes avant le seuil de pause. L’autorisation des notifications est nécessaire ; aucun envoi si les rappels sont suspendus ou désactivés.",
+    "de": "Sendet etwa 10 Sekunden vor der Pausenschwelle eine Systemmitteilung. Eine Mitteilungserlaubnis ist nötig; bei pausierten oder deaktivierten Erinnerungen erfolgt keine Mitteilung.",
+    "ar": "يرسل إشعارًا قبل بلوغ حد الاستراحة بنحو 10 ثوانٍ. يلزم السماح بالإشعارات؛ لا يُرسل عند إيقاف التذكيرات أو تعليقها."
+  },
+  "关闭提醒说明": {
+    "zh": "关闭后不再自动弹出休息提醒，但仍按当前计时规则记录使用时长和疲劳值；仍可手动开始休息。",
+    "en": "Disables automatic break reminders. Usage and fatigue still follow the current tracking rules; you can still start a break manually.",
+    "ja": "自動の休憩通知を停止します。使用時間と疲労値は現在のルールで計測され、手動で休憩を始めることもできます。",
+    "ko": "자동 휴식 알림을 끕니다. 사용 시간과 피로도는 현재 규칙에 따라 계속 기록되며 수동으로 휴식을 시작할 수 있습니다.",
+    "fr": "Désactive les rappels automatiques. La durée et la fatigue restent suivies selon les règles actuelles ; vous pouvez toujours lancer une pause manuellement.",
+    "de": "Deaktiviert automatische Pausenerinnerungen. Nutzungszeit und Ermüdung werden nach den aktuellen Regeln weiter erfasst; manuelle Pausen bleiben möglich.",
+    "ar": "يوقف تذكيرات الاستراحة التلقائية. يستمر احتساب الاستخدام والإجهاد وفق القواعد الحالية، ويمكن بدء استراحة يدويًا."
+  },
+  "暂停提醒说明": {
+    "zh": "暂停只停止自动提醒，不暂停使用统计，也不结束正在进行的休息。恢复后，若疲劳值已达 100% 且提醒间隔已过，可能立即提醒。",
+    "en": "Pausing stops automatic reminders, not usage tracking or an ongoing break. On resuming, a reminder may appear immediately if fatigue is at 100% and the reminder interval has elapsed.",
+    "ja": "一時停止するのは自動通知のみで、使用時間の計測や進行中の休憩は止まりません。再開時に疲労値が100%で通知間隔が過ぎていると、すぐ通知する場合があります。",
+    "ko": "일시 정지는 자동 알림만 멈추며 사용 기록이나 진행 중인 휴식은 멈추지 않습니다. 재개 시 피로도가 100%이고 알림 간격이 지났다면 바로 알림이 표시될 수 있습니다.",
+    "fr": "La suspension arrête les rappels automatiques, pas le suivi ni une pause en cours. À la reprise, un rappel peut apparaître immédiatement si la fatigue atteint 100 % et que l’intervalle est écoulé.",
+    "de": "Pausiert nur automatische Erinnerungen, nicht die Erfassung oder eine laufende Pause. Beim Fortsetzen kann bei 100 % Ermüdung und abgelaufenem Intervall sofort eine Erinnerung erscheinen.",
+    "ar": "يوقف التعليق التذكيرات التلقائية فقط، ولا يوقف الإحصاءات أو الاستراحة الجارية. عند الاستئناف قد يظهر تذكير فورًا إذا بلغ الإجهاد 100% وانقضت مدة التذكير."
   }
 }
