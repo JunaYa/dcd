@@ -24,10 +24,13 @@ const grouping = ref('day')
 
 <template>
   <BreakView v-if="mode === 'break'" />
-  <div v-else class="app-shell" :class="{ 'tray-app': mode === 'tray' }">
+  <div
+    v-else
+    class="app-shell"
+    :class="{ 'tray-app': mode === 'tray', 'native-window': native && mode === 'main' }"
+  >
     <AppSidebar v-if="mode !== 'tray'" />
     <main class="main-content" :class="{ 'analysis-page': page === 'analysis' }">
-      <div v-if="mode !== 'tray'" class="title-drag" data-tauri-drag-region />
       <div v-if="!native && mode !== 'tray'" class="preview-note">
         {{ t('浏览器预览 · 系统计时在桌面应用中运行') }}
       </div>

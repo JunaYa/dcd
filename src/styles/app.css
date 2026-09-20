@@ -11,41 +11,18 @@
   border-radius: var(--radius-window);
   background: var(--color-canvas);
 }
+/* The native window owns the outside edge; the webview only lays out its content. */
+.app-shell.native-window {
+  clip-path: none;
+  border-radius: 0;
+}
 .sidebar {
   flex: 0 0 176px;
   background: var(--color-sidebar);
   border-right: 0;
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
-}
-.window-drag {
-  height: 37px;
-  margin: 0 -10px;
-  padding: 9px 9px 0;
-  -webkit-app-region: drag;
-}
-.traffic-lights {
-  display: flex;
-  gap: var(--space-2);
-}
-.traffic-lights button {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  padding: 0;
-}
-.traffic-lights .red {
-  background: var(--color-window-close);
-}
-.traffic-lights .yellow {
-  background: var(--color-window-minimize);
-}
-.traffic-lights .green {
-  background: var(--color-window-inactive);
-}
-.traffic-lights:hover .green {
-  background: var(--color-window-maximize);
+  padding: var(--space-3) 10px 0;
 }
 .sidebar nav {
   display: grid;
@@ -99,16 +76,7 @@
   overflow-y: auto;
   overscroll-behavior: none;
   padding: var(--space-8);
-  padding-top: var(--space-12);
-}
-.title-drag {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 28px;
-  background: var(--color-canvas);
-  -webkit-app-region: drag;
+  padding-top: var(--space-8);
 }
 .preview-note {
   font-size: 11px;
@@ -897,13 +865,6 @@ dialog::backdrop {
   .sidebar-bottom {
     display: none;
   }
-  .traffic-lights {
-    gap: var(--space-1);
-  }
-  .traffic-lights button {
-    width: 10px;
-    height: 10px;
-  }
   .main-content {
     padding: 64px var(--space-4) var(--space-6);
   }
@@ -1028,7 +989,7 @@ dialog::backdrop {
   }
 }
 
-.main-content > :where(:not(.title-drag):not(.preview-note)) {
+.main-content > :where(:not(.preview-note)) {
   max-width: 1120px;
   margin-inline: auto;
 }
@@ -1196,9 +1157,6 @@ html[data-theme="light"] .toggle:not(.on) {
 }
 [dir="rtl"] .sidebar nav button {
   text-align: right;
-}
-[dir="rtl"] .traffic-lights {
-  direction: ltr;
 }
 [dir="rtl"] .pause-menu {
   right: auto;
