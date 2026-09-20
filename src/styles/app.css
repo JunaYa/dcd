@@ -274,7 +274,9 @@
   height: 22px;
 }
 .segmented {
-  display: flex;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--segment-count), minmax(0, 1fr));
   flex: 1;
   min-width: 0;
   background: var(--color-surface);
@@ -284,16 +286,32 @@
   height: 40px;
 }
 .segmented button {
-  flex: 1;
+  min-width: 0;
   position: relative;
   padding: 0 6px;
   font-size: 14px;
   white-space: nowrap;
   border-radius: 5px;
 }
-.segmented button.selected {
+.segmented-track {
+  position: absolute;
+  inset: 1px;
+  pointer-events: none;
+}
+.segmented-indicator {
+  display: block;
+  width: calc(100% / var(--segment-count));
+  height: 100%;
+  border-radius: 5px;
   background: var(--color-selected);
   box-shadow: var(--shadow-selected);
+  transform: translateX(calc(var(--segment-index) * 100%));
+}
+.segmented:dir(rtl) .segmented-indicator {
+  transform: translateX(calc(var(--segment-index) * -100%));
+}
+.segmented-animated .segmented-indicator {
+  transition: transform 200ms cubic-bezier(0.65, 0, 0.35, 1);
 }
 .segmented button:hover:not(.selected) {
   background: var(--color-hover);
@@ -893,7 +911,6 @@ dialog::backdrop {
   .segmented {
     height: auto;
     min-height: 30px;
-    flex-wrap: wrap;
   }
   .segmented button {
     font-size: 11px;

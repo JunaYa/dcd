@@ -8,6 +8,7 @@ import { aggregate, dateKey } from '~/eye/model'
 import { formatBarDate } from '~/i18n'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
+import SegmentedControl from '~/components/eye/SegmentedControl.vue'
 const { native, display, demo, inform, report } = useMonitor()
 const range = defineModel<number>('range', { required: true })
 const grouping = defineModel<string>('grouping', { required: true })
@@ -74,31 +75,11 @@ async function exportCsv() {
   <div class="analysis-controls">
     <div class="filter-row">
       <Icon name="calendar" />
-      <div class="segmented" :aria-label="t('统计范围')">
-        <button
-          v-for="item in ranges"
-          :key="item.value"
-          :class="{ selected: range === item.value }"
-          :aria-pressed="range === item.value"
-          @click="range = item.value"
-        >
-          {{ item.label }}
-        </button>
-      </div>
+      <SegmentedControl v-model="range" :options="ranges" :label="t('统计范围')" />
     </div>
     <div class="filter-row">
       <Icon name="list" />
-      <div class="segmented" :aria-label="t('分组方式')">
-        <button
-          v-for="item in groups"
-          :key="item.value"
-          :class="{ selected: grouping === item.value }"
-          :aria-pressed="grouping === item.value"
-          @click="grouping = item.value"
-        >
-          {{ item.label }}
-        </button>
-      </div>
+      <SegmentedControl v-model="grouping" :options="groups" :label="t('分组方式')" />
       <button
         class="button export-button"
         :title="t('导出 CSV')"
