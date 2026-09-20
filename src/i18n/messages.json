@@ -1510,5 +1510,23 @@
     "fr": "Format de couleur invalide",
     "de": "Ungültiges Farbformat",
     "ar": "تنسيق لون التمييز غير صالح"
+  },
+  "自定义主题色、窗口主题和休息浮层。": {
+    "zh": "自定义主题色、窗口主题和休息浮层。",
+    "en": "Customize accent colors, window themes and the break overlay.",
+    "ja": "アクセントカラー、ウインドウのテーマ、休憩オーバーレイをカスタマイズ。",
+    "ko": "강조 색상, 창 테마, 휴식 오버레이를 설정하세요.",
+    "fr": "Personnalisez les couleurs, les thèmes des fenêtres et la fenêtre de pause.",
+    "de": "Akzentfarben, Fensterdesigns und Pausenansicht anpassen.",
+    "ar": "خصّص ألوان التمييز ومظاهر النوافذ وواجهة الاستراحة."
+  },
+  "左右拖动调整数值，点击可输入；Esc 取消拖动。": {
+    "zh": "左右拖动调整数值，点击可输入；Esc 取消拖动。",
+    "en": "Drag left or right to adjust, click to type; Esc cancels the drag.",
+    "ja": "左右にドラッグして調整、クリックして入力。Escでドラッグを取り消します。",
+    "ko": "좌우로 드래그하여 조정하거나 클릭하여 입력하세요. Esc로 드래그를 취소합니다.",
+    "fr": "Glissez horizontalement pour ajuster, cliquez pour saisir ; Échap annule le glissement.",
+    "de": "Zum Ändern nach links oder rechts ziehen, zum Eingeben klicken; Esc bricht das Ziehen ab.",
+    "ar": "اسحب يمينًا أو يسارًا للتعديل، وانقر للكتابة؛ اضغط Esc لإلغاء السحب."
   }
 }

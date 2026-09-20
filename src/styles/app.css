@@ -1269,3 +1269,19 @@ html:is([data-material='glass'], [data-material='vibrancy'])
   min-width: 8ch;
   color: var(--color-text-muted);
 }
+
+input.scrub-number {
+  font-variant-numeric: tabular-nums;
+}
+@media (hover: hover) and (pointer: fine) {
+  input.scrub-number:not(:disabled) {
+    cursor: ew-resize;
+  }
+}
+input.scrub-number.scrubbing {
+  cursor: ew-resize;
+  -webkit-user-select: none;
+  user-select: none;
+  caret-color: transparent;
+  background: var(--color-selected);
+}

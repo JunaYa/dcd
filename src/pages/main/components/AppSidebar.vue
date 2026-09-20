@@ -8,6 +8,7 @@ const navigation = computed(() => [
   { id: 'today', label: t('今日'), icon: 'sun' },
   { id: 'analysis', label: t('分析'), icon: 'chart' },
   { id: 'rules', label: t('规则'), icon: 'clock' },
+  { id: 'appearance', label: t('外观'), icon: 'palette' },
   { id: 'settings', label: t('设置'), icon: 'settings' },
 ])
 </script>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
+import { vScrubNumber } from '~/directives/scrubNumber'
 import Icon from '~/components/eye/Icon.vue'
 import Toggle from '~/components/eye/Toggle.vue'
 const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
@@ -21,7 +22,10 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
         ><input
           id="work"
           v-model.number="settings.workMinutes"
+          v-scrub-number
           type="number"
+          :disabled="saving"
+          :title="t('左右拖动调整数值，点击可输入；Esc 取消拖动。')"
           min="1"
           max="240"
           required
@@ -29,7 +33,10 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
         /><span>{{ t('分钟后，休息') }}</span
         ><input
           v-model.number="settings.breakMinutes"
+          v-scrub-number
           type="number"
+          :disabled="saving"
+          :title="t('左右拖动调整数值，点击可输入；Esc 取消拖动。')"
           min="0"
           max="60"
           required
@@ -37,7 +44,10 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
         /><span>{{ t('分钟') }}</span
         ><input
           v-model.number="settings.breakSeconds"
+          v-scrub-number
           type="number"
+          :disabled="saving"
+          :title="t('左右拖动调整数值，点击可输入；Esc 取消拖动。')"
           min="0"
           max="59"
           required
@@ -52,7 +62,10 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
         ><input
           id="repeat"
           v-model.number="settings.repeatMinutes"
+          v-scrub-number
           type="number"
+          :disabled="saving"
+          :title="t('左右拖动调整数值，点击可输入；Esc 取消拖动。')"
           min="1"
           max="60"
           required
