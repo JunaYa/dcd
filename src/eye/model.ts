@@ -1,4 +1,11 @@
+export type Theme = 'system' | 'light' | 'dark'
+
 export interface Settings {
+  mainTheme: Theme
+  trayTheme: Theme
+  trayShowChart: boolean
+  overlayOpacity: number
+  overlayBlur: number
   workMinutes: number
   breakMinutes: number
   breakSeconds: number
@@ -35,6 +42,11 @@ export interface Snapshot {
   storageError: string | null
 }
 export const defaults: Settings = {
+  mainTheme: 'dark',
+  trayTheme: 'dark',
+  trayShowChart: true,
+  overlayOpacity: 82,
+  overlayBlur: 16,
   workMinutes: 25,
   breakMinutes: 5,
   breakSeconds: 0,

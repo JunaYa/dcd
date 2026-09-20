@@ -5,7 +5,8 @@ import { getCurrentWindow } from '@tauri-apps/api/window'
 import { writeText } from '@tauri-apps/plugin-clipboard-manager'
 import { save as saveDialog } from '@tauri-apps/plugin-dialog'
 import { writeTextFile } from '@tauri-apps/plugin-fs'
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+import { computed, nextTick, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
 import Toggle from '~/components/eye/Toggle.vue'
@@ -20,6 +21,7 @@ import {
   type Snapshot,
 } from '~/eye/model'
 
+const props = defineProps<{ initialSnapshot?: Snapshot }>()
 const native = isTauri()
 const mode = new URLSearchParams(location.search).get('mode') || 'main'
 const page = ref('today')
@@ -29,11 +31,11 @@ const navigation = [
   { id: 'rules', label: '规则', icon: 'clock' },
   { id: 'settings', label: '设置', icon: 'settings' },
 ]
-const snapshot = ref<Snapshot>(emptySnapshot())
-const settings = ref<Settings>({ ...defaults })
-const baseline = ref(JSON.stringify(defaults))
+const snapshot = ref<Snapshot>(props.initialSnapshot ?? emptySnapshot())
+const settings = ref<Settings>({ ...defaults, ...props.initialSnapshot?.settings })
+const baseline = ref(JSON.stringify(settings.value))
 const dirty = computed(() => JSON.stringify(settings.value) !== baseline.value)
-const loading = ref(native)
+const loading = ref(native && !props.initialSnapshot)
 const saving = ref(false)
 const error = ref('')
 const toast = ref('')
@@ -91,6 +93,28 @@ const countdown = computed(
 const dialog = ref<HTMLDialogElement>()
 const dialogKind = ref<'help' | 'break'>('help')
 const dialogOpener = ref<HTMLElement | null>(null)
+const systemDark = useMediaQuery('(prefers-color-scheme: dark)')
+const themeOptions = [
+  { value: 'system', label: '跟随系统' },
+  { value: 'light', label: '浅色' },
+  { value: 'dark', label: '深色' },
+]
+const activeTheme = computed(() => {
+  const theme = mode === 'break'
+    ? settings.value.background
+    : mode === 'tray' ? settings.value.trayTheme : settings.value.mainTheme
+  return theme === 'system'
+    ? (systemDark.value ? 'dark' : 'light')
+    : theme === 'light' ? 'light' : 'dark'
+})
+watchEffect(() => {
+  document.documentElement.dataset.theme = activeTheme.value
+  document.documentElement.style.setProperty('--overlay-opacity', String(settings.value.overlayOpacity / 100))
+})
+const overlayStyle = computed(() => ({
+  '--overlay-opacity': String(settings.value.overlayOpacity / 100),
+  '--overlay-blur': `${settings.value.overlayBlur}px`,
+}))
 const backgroundStyle = computed(() =>
   settings.value.background === 'custom' && settings.value.backgroundImage
     ? {
@@ -123,9 +147,15 @@ async function refresh() {
   try {
     const data = await invoke<Snapshot>('eye_snapshot')
     snapshot.value = data
-    if (!dirty.value && !saving.value && generation === settingsGeneration) {
+    const savedSettings = JSON.stringify(data.settings)
+    if (
+      !dirty.value
+      && !saving.value
+      && generation === settingsGeneration
+      && savedSettings !== baseline.value
+    ) {
       settings.value = { ...data.settings }
-      baseline.value = JSON.stringify(data.settings)
+      baseline.value = savedSettings
     }
     loading.value = false
   }
@@ -360,7 +390,8 @@ onMounted(async () => {
   document.addEventListener('keydown', keydown)
   document.addEventListener('click', clickOutside)
   if (native) {
-    await refresh()
+    if (!props.initialSnapshot)
+      await refresh()
     const nav = await listen<string>('eye-navigate', (event) => {
       page.value = event.payload
     })
@@ -415,28 +446,31 @@ onUnmounted(() => {
   <div
     v-if="mode === 'break'"
     class="break-screen"
+    :style="overlayStyle"
     :class="[
       `background-${settings.background}`,
       { 'break-window': settings.reminderStyle !== 'fullscreen' },
     ]"
-    :style="backgroundStyle"
   >
-    <Icon name="eye" />
-    <h1>{{ settings.message || "休息一下" }}</h1>
-    <p>移开视线，看看远处，让双眼放松。</p>
-    <div class="countdown">
-      {{ countdown }}
+    <div class="break-backdrop" :style="backgroundStyle" aria-hidden="true" />
+    <div class="break-content">
+      <Icon name="eye" />
+      <h1>{{ settings.message || "休息一下" }}</h1>
+      <p>移开视线，看看远处，让双眼放松。</p>
+      <div class="countdown">
+        {{ countdown }}
+      </div>
+      <span class="break-caption">{{
+        remaining > 0 ? "休息倒计时" : "休息已完成"
+      }}</span>
+      <button
+        v-if="settings.allowSkip"
+        class="button break-skip"
+        @click="action('skip')"
+      >
+        跳过本次休息
+      </button>
     </div>
-    <span class="break-caption">{{
-      remaining > 0 ? "休息倒计时" : "休息已完成"
-    }}</span>
-    <button
-      v-if="settings.allowSkip"
-      class="button break-skip"
-      @click="action('skip')"
-    >
-      跳过本次休息
-    </button>
   </div>
   <div v-else class="app-shell" :class="[{ 'tray-app': mode === 'tray' }]">
     <aside v-if="mode !== 'tray'" class="sidebar">
@@ -612,7 +646,7 @@ onUnmounted(() => {
             恢复提醒
           </button>
         </p>
-        <section class="today-chart">
+        <section v-if="mode !== 'tray' || settings.trayShowChart" class="today-chart">
           <h1>今日使用 <span v-if="demo" class="sample-label">示例</span></h1>
           <Chart :samples="display.samples" :compact="mode === 'tray'" />
         </section>
@@ -797,6 +831,32 @@ onUnmounted(() => {
           </div>
         </header>
         <section>
+          <h2>外观</h2>
+          <p class="section-description">
+            各个窗口独立设置，修改后自动保存。
+          </p>
+          <div class="setting-row">
+            <label for="main-theme">主窗口主题</label>
+            <select id="main-theme" v-model="settings.mainTheme" :disabled="saving" @change="saveSettings">
+              <option v-for="option in themeOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <label for="tray-theme">托盘菜单主题</label>
+            <select id="tray-theme" v-model="settings.trayTheme" :disabled="saving" @change="saveSettings">
+              <option v-for="option in themeOptions" :key="option.value" :value="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <span>托盘菜单显示今日曲线</span>
+            <Toggle :model-value="settings.trayShowChart" label="托盘菜单显示今日曲线" :disabled="saving" @update:model-value="toggle('trayShowChart', $event)" />
+          </div>
+        </section>
+        <section>
           <h2>系统集成</h2>
           <div class="setting-row">
             <span>开机时启动</span><Toggle
@@ -876,8 +936,14 @@ onUnmounted(() => {
               @update:model-value="toggle('allowSkip', $event)"
             />
           </div>
+        </section>
+        <section>
+          <h2>休息浮层外观</h2>
+          <p class="section-description">
+            独立于主窗口和托盘菜单，也用于窗口提醒。
+          </p>
           <div class="setting-row">
-            <span>休息浮层背景</span>
+            <span>背景主题</span>
           </div>
           <div class="background-options">
             <label
@@ -917,6 +983,20 @@ onUnmounted(() => {
             >
               测试
             </button>
+          </div>
+          <div class="setting-row">
+            <label for="overlay-opacity">桌面遮罩浓度</label>
+            <div class="range-control">
+              <input id="overlay-opacity" v-model.number="settings.overlayOpacity" type="range" min="50" max="100" :disabled="saving" @change="saveSettings">
+              <output for="overlay-opacity">{{ settings.overlayOpacity }}%</output>
+            </div>
+          </div>
+          <div class="setting-row">
+            <label for="overlay-blur">桌面背景模糊</label>
+            <div class="range-control">
+              <input id="overlay-blur" v-model.number="settings.overlayBlur" type="range" min="0" max="40" :disabled="saving" @change="saveSettings">
+              <output for="overlay-blur">{{ settings.overlayBlur }}</output>
+            </div>
           </div>
         </section>
         <div v-if="dirty" class="save-row">

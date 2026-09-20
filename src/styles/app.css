@@ -748,14 +748,33 @@ dialog::backdrop {
   background-position: center;
 }
 .break-screen {
+  position: relative;
   height: 100dvh;
+  display: grid;
+  place-items: center;
+}
+.break-backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+.break-content {
+  position: relative;
+  width: 100%;
+  padding: var(--space-4);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 22px;
+  /* Keep countdown paints out of WebKit's backdrop-filter layer. */
+  contain: paint;
+  transform: translateZ(0);
 }
-.break-screen > .icon,
+.break-content > .icon,
 .break-dialog > .icon {
   width: 60px;
   height: 60px;
@@ -1109,9 +1128,12 @@ dialog::backdrop {
 }
 
 .break-screen:not(.break-window) {
+  background-color: transparent;
+}
+.break-screen:not(.break-window) > .break-backdrop {
   background-color: var(--break-overlay-color, var(--color-break-overlay));
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(var(--overlay-blur, 16px));
+  backdrop-filter: blur(var(--overlay-blur, 16px));
 }
 .break-screen.background-light {
   --break-overlay-color: var(--color-break-overlay-light);
@@ -1120,4 +1142,31 @@ dialog::backdrop {
   .break-screen.background-system {
     --break-overlay-color: var(--color-break-overlay-light);
   }
+}
+
+.section-description {
+  color: var(--color-text-muted);
+  font-size: var(--text-small);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.range-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.range-control input[type="range"] {
+  width: clamp(100px, 20vw, 200px);
+  height: 32px;
+  padding: 0;
+  accent-color: var(--color-accent-strong);
+}
+.range-control output {
+  min-width: 4ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+html[data-theme="light"] .toggle:not(.on) {
+  background: var(--color-border);
 }

@@ -121,6 +121,10 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
 }
 
 fn apply_shell(app: &AppHandle, settings: &Settings) -> Result<(), String> {
+    if let Some(popup) = app.get_webview_window("eye-tray") {
+        popup.set_size(tauri::LogicalSize::new(520.0, if settings.tray_show_chart { 530.0 } else { 285.0 }))
+            .map_err(|e| e.to_string())?;
+    }
     if let Some(tray) = app.tray_by_id("main-tray") {
         tray.set_visible(settings.tray_icon)
             .map_err(|e| e.to_string())?;
@@ -146,6 +150,7 @@ pub fn show_main(app: &AppHandle, page: &str) -> Result<(), String> {
 }
 
 pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> Result<(), String> {
+    let show_chart = app.state::<EyeState>().0.lock().map_err(|e| e.to_string())?.settings.tray_show_chart;
     let popup = if let Some(w) = app.get_webview_window("eye-tray") {
         if w.is_visible().unwrap_or(false) {
             return w.hide().map_err(|e| e.to_string());
@@ -161,7 +166,7 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
         .decorations(false)
         .transparent(true)
         .shadow(false)
-        .inner_size(520.0, 530.0)
+        .inner_size(520.0, if show_chart { 530.0 } else { 285.0 })
         .resizable(false)
         .skip_taskbar(true)
         .always_on_top(true)

@@ -4,6 +4,11 @@ use std::collections::BTreeMap;
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Settings {
+    pub main_theme: String,
+    pub tray_theme: String,
+    pub tray_show_chart: bool,
+    pub overlay_opacity: u32,
+    pub overlay_blur: u32,
     pub work_minutes: u32,
     pub break_minutes: u32,
     pub break_seconds: u32,
@@ -25,6 +30,11 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Self {
+            main_theme: "dark".into(),
+            tray_theme: "dark".into(),
+            tray_show_chart: true,
+            overlay_opacity: 82,
+            overlay_blur: 16,
             work_minutes: 25,
             break_minutes: 5,
             break_seconds: 0,
@@ -47,6 +57,13 @@ impl Default for Settings {
 }
 impl Settings {
     pub fn validate(&self) -> Result<(), String> {
+        if !["system", "light", "dark"].contains(&self.main_theme.as_str())
+            || !["system", "light", "dark"].contains(&self.tray_theme.as_str())
+            || !(50..=100).contains(&self.overlay_opacity)
+            || self.overlay_blur > 40
+        {
+            return Err("主题设置无效：遮罩浓度须为 50–100%，模糊须为 0–40".into());
+        }
         if !(1..=240).contains(&self.work_minutes)
             || self.break_minutes > 60
             || self.break_seconds > 59
@@ -211,6 +228,42 @@ impl Monitor {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn legacy_settings_keep_appearance_and_themes_roundtrip_independently() {
+        let mut s: Settings = serde_json::from_str(r#"{"background":"custom","workMinutes":30}"#).unwrap();
+        assert_eq!(s.main_theme, "dark");
+        assert_eq!(s.tray_theme, "dark");
+        assert_eq!(s.background, "custom");
+        assert_eq!(s.overlay_opacity, 82);
+        assert_eq!(s.overlay_blur, 16);
+        assert!(s.tray_show_chart);
+        s.main_theme = "light".into();
+        s.tray_theme = "system".into();
+        s.tray_show_chart = false;
+        let restored: Settings = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        assert_eq!(restored.main_theme, "light");
+        assert_eq!(restored.tray_theme, "system");
+        assert_eq!(restored.background, "custom");
+        assert!(!restored.tray_show_chart);
+        assert!(restored.validate().is_ok());
+    }
+    #[test]
+    fn appearance_rejects_unknown_themes_and_out_of_range_effects() {
+        let mut s = Settings::default();
+        s.main_theme = "unknown".into();
+        assert!(s.validate().is_err());
+        s.main_theme = "system".into();
+        s.tray_theme = "unknown".into();
+        assert!(s.validate().is_err());
+        s.tray_theme = "light".into();
+        s.overlay_opacity = 49;
+        assert!(s.validate().is_err());
+        s.overlay_opacity = 100;
+        s.overlay_blur = 41;
+        assert!(s.validate().is_err());
+        s.overlay_blur = 0;
+        assert!(s.validate().is_ok());
+    }
     #[test]
     fn work_reaches_break_and_completes_once() {
         let mut m = Monitor::default();
