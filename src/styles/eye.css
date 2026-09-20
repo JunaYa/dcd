@@ -3,7 +3,7 @@
     -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC",
     "Microsoft YaHei", sans-serif;
   color: #e5e5e5;
-  background: #20201f;
+  background: transparent;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   --canvas: #20201f;
@@ -81,14 +81,14 @@ input {
   display: flex;
   height: 100dvh;
   overflow: hidden;
-  border: 1px solid #555553;
+  border: 0;
   border-radius: 12px;
   background: var(--canvas);
 }
 .sidebar {
   flex: 0 0 148px;
   background: var(--sidebar);
-  border-right: 1px solid #080808;
+  border-right: 0;
   display: flex;
   flex-direction: column;
   padding: 0 10px;
@@ -829,6 +829,10 @@ dialog::backdrop {
   width: 60px;
   height: 60px;
   color: var(--accent);
+}
+.break-window {
+  border-radius: 12px;
+  overflow: hidden;
 }
 .break-screen h1,
 .break-dialog h1 {

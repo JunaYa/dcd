@@ -401,7 +401,7 @@ onUnmounted(() => {
   <div
     v-if="mode === 'break'"
     class="break-screen"
-    :class="`background-${settings.background}`"
+    :class="[`background-${settings.background}`, { 'break-window': settings.reminderStyle !== 'fullscreen' }]"
     :style="backgroundStyle"
   >
     <Icon name="eye" />

@@ -77,7 +77,7 @@ pub fn get_main_window(app: &AppHandle) -> WebviewWindow {
         window
     } else {
         let window = WebviewWindowBuilder::new(app, MAIN_WINDOW, WebviewUrl::App("main.html".into()))
-            .title("Eye Monitor").decorations(false).transparent(false)
+            .title("Eye Monitor").decorations(false).transparent(true).shadow(false)
             .inner_size(1100.0, 720.0).min_inner_size(760.0, 540.0)
             .center().resizable(true).build().expect("Unable to build main window");
         let hide = window.clone();
