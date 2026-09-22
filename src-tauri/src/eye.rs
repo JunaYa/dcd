@@ -6,6 +6,7 @@ use std::{sync::Mutex, time::Duration};
 use tauri::{AppHandle, Emitter, Manager, WebviewUrl, WebviewWindowBuilder};
 use tauri_plugin_autostart::ManagerExt;
 use tauri_plugin_store::StoreExt;
+use tauri_plugin_clipboard_manager::ClipboardExt;
 
 pub struct EyeState(pub Mutex<Monitor>);
 
@@ -135,7 +136,7 @@ fn apply_shell(app: &AppHandle, settings: &Settings) -> Result<(), String> {
         }
     }
     if let Some(popup) = app.get_webview_window("eye-tray") {
-        popup.set_size(tauri::LogicalSize::new(360.0, if settings.tray_show_chart { 392.0 } else { 312.0 }))
+        popup.set_size(tauri::LogicalSize::new(360.0, if settings.tray_show_chart { 328.0 } else { 216.0 }))
             .map_err(|e| e.to_string())?;
     }
     if let Some(tray) = app.tray_by_id("main-tray") {
@@ -180,7 +181,7 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
         .decorations(false)
         .transparent(true)
         .shadow(false)
-        .inner_size(360.0, if show_chart { 392.0 } else { 312.0 })
+        .inner_size(360.0, if show_chart { 328.0 } else { 216.0 })
         .resizable(false)
         .skip_taskbar(true)
         .always_on_top(true)
@@ -382,6 +383,16 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
     let mut m = state.0.lock().map_err(|e| e.to_string())?;
     let now = Local::now().timestamp();
     match action.as_str() {
+        "share" => {
+            let seconds = m.days.get(&m.date).map(|day| day.seconds).unwrap_or(0);
+            let language = &m.settings.language;
+            let duration = format!("{} {} {} {}", seconds / 3600, text(language, "小时"), seconds % 3600 / 60, text(language, "分钟"));
+            let summary = text(language, "摘要")
+                .replace("{duration}", &duration)
+                .replace("{fatigue}", &m.fatigue().to_string());
+            drop(m);
+            return app.clipboard().write_text(summary).map_err(|e| e.to_string());
+        }
         "break" => {
             let old = m.break_until;
             m.start_break(now);

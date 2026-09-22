@@ -1600,5 +1600,23 @@
     "fr": "Votre tendance apparaîtra au fil de l’utilisation",
     "de": "Dein Verlauf erscheint während der Nutzung",
     "ar": "سيظهر مسار اليوم مع استخدام الكمبيوتر"
+  },
+  "复制今日摘要": {
+    "zh": "复制今日摘要",
+    "en": "Copy today’s summary",
+    "ja": "今日の概要をコピー",
+    "ko": "오늘 요약 복사",
+    "fr": "Copier le résumé du jour",
+    "de": "Tagesübersicht kopieren",
+    "ar": "نسخ ملخص اليوم"
+  },
+  "右击托盘图标以休息或管理提醒": {
+    "zh": "右击托盘图标以休息或管理提醒",
+    "en": "Right-click the tray icon to take a break or manage reminders",
+    "ja": "トレイアイコンを右クリックして休憩・通知を管理",
+    "ko": "트레이 아이콘을 우클릭해 휴식 및 알림 관리",
+    "fr": "Clic droit sur l’icône pour gérer les pauses et rappels",
+    "de": "Rechtsklick auf das Tray-Symbol für Pausen und Erinnerungen",
+    "ar": "انقر بزر الفأرة الأيمن على أيقونة التطبيق لإدارة الاستراحة والتذكيرات"
   }
 }
