@@ -6,9 +6,13 @@ use tauri::{
 pub fn create_tray(app: &mut tauri::App) -> Result<(), tauri::Error> {
     let language = crate::i18n::system_language();
     let menu = localized_menu(app.handle(), &language)?;
+    let icon = image::load_from_memory(include_bytes!("../icons/tray-template.png"))
+        .map_err(anyhow::Error::from)?
+        .into_rgba8();
+    let (width, height) = icon.dimensions();
     TrayIconBuilder::with_id("main-tray")
-        .icon(app.default_window_icon().unwrap().clone())
-        .icon_as_template(true)
+        .icon(tauri::image::Image::new_owned(icon.into_raw(), width, height))
+        .icon_as_template(cfg!(target_os = "macos"))
         .tooltip(crate::i18n::text(&language, "appName"))
         .menu(&menu)
         .show_menu_on_left_click(false)
@@ -73,4 +77,20 @@ pub fn update_language(app: &tauri::AppHandle, language: &str) -> Result<(), tau
         tray.set_tooltip(Some(crate::i18n::text(language, "appName")))?;
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn tray_icon_has_transparent_background_and_visible_symbol() {
+        let icon = image::load_from_memory(include_bytes!("../icons/tray-template.png"))
+            .unwrap()
+            .into_rgba8();
+        assert_eq!(icon.dimensions(), (32, 32));
+        for (x, y) in [(0, 0), (31, 0), (0, 31), (31, 31)] {
+            assert_eq!(icon.get_pixel(x, y)[3], 0);
+        }
+        let visible = icon.pixels().filter(|pixel| pixel[3] > 128).count();
+        assert!(visible > 100 && visible < 600, "symbol should not be empty or a solid tile: {visible}");
+    }
 }
