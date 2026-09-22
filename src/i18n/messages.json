@@ -1564,5 +1564,41 @@
     "fr": "La suspension arrête les rappels automatiques, pas le suivi ni une pause en cours. À la reprise, un rappel peut apparaître immédiatement si la fatigue atteint 100 % et que l’intervalle est écoulé.",
     "de": "Pausiert nur automatische Erinnerungen, nicht die Erfassung oder eine laufende Pause. Beim Fortsetzen kann bei 100 % Ermüdung und abgelaufenem Intervall sofort eine Erinnerung erscheinen.",
     "ar": "يوقف التعليق التذكيرات التلقائية فقط، ولا يوقف الإحصاءات أو الاستراحة الجارية. عند الاستئناف قد يظهر تذكير فورًا إذا بلغ الإجهاد 100% وانقضت مدة التذكير."
+  },
+  "更多": {
+    "zh": "更多",
+    "en": "More",
+    "ja": "その他",
+    "ko": "더 보기",
+    "fr": "Plus",
+    "de": "Mehr",
+    "ar": "المزيد"
+  },
+  "提醒正常": {
+    "zh": "提醒正常",
+    "en": "Reminders on",
+    "ja": "通知オン",
+    "ko": "알림 켜짐",
+    "fr": "Rappels activés",
+    "de": "Erinnerungen aktiv",
+    "ar": "التذكيرات مفعّلة"
+  },
+  "提醒已关闭": {
+    "zh": "提醒已关闭",
+    "en": "Reminders off",
+    "ja": "通知オフ",
+    "ko": "알림 꺼짐",
+    "fr": "Rappels désactivés",
+    "de": "Erinnerungen aus",
+    "ar": "التذكيرات متوقفة"
+  },
+  "使用后将显示今日趋势": {
+    "zh": "使用电脑后，这里会显示今日趋势",
+    "en": "Your trend will appear as you use your computer",
+    "ja": "使用を始めると今日の傾向が表示されます",
+    "ko": "컴퓨터 사용을 시작하면 오늘의 추이가 표시됩니다",
+    "fr": "Votre tendance apparaîtra au fil de l’utilisation",
+    "de": "Dein Verlauf erscheint während der Nutzung",
+    "ar": "سيظهر مسار اليوم مع استخدام الكمبيوتر"
   }
 }

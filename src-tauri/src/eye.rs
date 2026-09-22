@@ -135,7 +135,7 @@ fn apply_shell(app: &AppHandle, settings: &Settings) -> Result<(), String> {
         }
     }
     if let Some(popup) = app.get_webview_window("eye-tray") {
-        popup.set_size(tauri::LogicalSize::new(520.0, if settings.tray_show_chart { 530.0 } else { 285.0 }))
+        popup.set_size(tauri::LogicalSize::new(360.0, if settings.tray_show_chart { 392.0 } else { 312.0 }))
             .map_err(|e| e.to_string())?;
     }
     if let Some(tray) = app.tray_by_id("main-tray") {
@@ -180,7 +180,7 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
         .decorations(false)
         .transparent(true)
         .shadow(false)
-        .inner_size(520.0, if show_chart { 530.0 } else { 285.0 })
+        .inner_size(360.0, if show_chart { 392.0 } else { 312.0 })
         .resizable(false)
         .skip_taskbar(true)
         .always_on_top(true)
@@ -196,10 +196,10 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
         w
     };
     let scale = popup.scale_factor().map_err(|e| e.to_string())?;
-    let mut x = position.x - 260.0 * scale;
+    let mut x = position.x - 180.0 * scale;
     if let Some(monitor) = popup.current_monitor().map_err(|e| e.to_string())? {
         let left = monitor.position().x as f64;
-        let right = left + monitor.size().width as f64 - 520.0 * scale;
+        let right = left + monitor.size().width as f64 - 360.0 * scale;
         x = x.clamp(left, right.max(left));
     }
     popup

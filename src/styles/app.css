@@ -602,89 +602,7 @@ select {
   border-radius: 13px;
 }
 .tray-app .main-content {
-  padding: 28px 25px var(--space-5);
-}
-.tray-overview {
-  display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: 9px;
-}
-.tray-overview .stat-cards {
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.tray-overview .stat-card {
-  min-width: 0;
-  min-height: 98px;
-  padding: 15px 19px;
-}
-.tray-overview .stat-card h2 {
-  color: var(--color-text);
-  font-size: 17px;
-  margin-bottom: 10px;
-}
-.tray-overview .stat-card strong {
-  font-size: 27px;
-}
-.tray-overview .duration-card > div {
-  gap: var(--space-2);
-}
-.tray-overview .badge {
-  font-size: 10px;
-  padding: 5px 9px;
-}
-.tray-actions {
-  border: 1px solid var(--color-border);
-  border-radius: 15px;
-  padding: var(--space-3) 10px;
-  display: grid;
-  gap: 1px;
-}
-.tray-actions > button,
-.tray-actions > .pause-control > button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px var(--space-3);
-  white-space: nowrap;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 550;
-  width: 100%;
-}
-.tray-actions button:hover,
-.tray-actions button.active {
-  background: var(--color-accent-strong);
-  color: var(--color-white);
-}
-.tray-actions .icon {
-  width: 19px;
-  height: 19px;
-}
-.tray-actions .pause-menu {
-  right: 100%;
-  top: 0;
-  width: 130px;
-}
-.tray-actions .pause-menu button {
-  font-size: 14px;
-  font-weight: 400;
-}
-.tray-app .today-chart {
-  margin-top: 29px;
-  padding-top: 17px;
-  border-top: 1px solid var(--color-border);
-}
-.tray-app .today-chart h1 {
-  font-size: 18px;
-  font-weight: 550;
-  margin-bottom: 14px;
-}
-.tray-app .usage-chart {
-  min-height: 190px;
-}
-.tray-app .pause-status {
-  font-size: 11px;
+  padding: var(--space-4);
 }
 .help-dialog {
   width: min(460px, 90vw);
@@ -957,30 +875,6 @@ dialog::backdrop {
     font-size: 9px;
     left: 12px;
   }
-  .tray-app .main-content {
-    padding: 28px var(--space-6) var(--space-5);
-  }
-  .tray-app .stat-card {
-    min-height: 98px;
-  }
-  .tray-app .stat-cards {
-    flex-direction: column;
-  }
-  .tray-app .duration-card > div {
-    justify-content: flex-start;
-  }
-  .tray-app .usage-chart {
-    min-height: 190px;
-  }
-  .tray-app .today-chart {
-    margin-top: 29px;
-  }
-  .tray-app .stat-card strong {
-    font-size: 26px;
-  }
-  .tray-app .stat-card h2 {
-    font-size: 16px;
-  }
 }
 
 .background-light p,
@@ -1034,14 +928,6 @@ dialog::backdrop {
 .rules-page .rule-row {
   flex-wrap: wrap;
   padding-block: var(--space-3);
-}
-.tray-app .today-chart {
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-}
-.tray-app .stat-card {
-  padding: var(--space-4) 18px;
 }
 @media (max-width: 650px) {
   .page-heading {
@@ -1154,11 +1040,6 @@ html[data-theme="light"] .toggle:not(.on) {
 .segmented button {
   white-space: normal;
 }
-.tray-actions > button,
-.tray-actions > .pause-control > button {
-  white-space: normal;
-  text-align: start;
-}
 .countdown,
 .usage-chart {
   direction: ltr;
@@ -1171,12 +1052,7 @@ html[data-theme="light"] .toggle:not(.on) {
   right: auto;
   left: 0;
 }
-[dir="rtl"] .tray-actions .pause-menu {
-  right: auto;
-  left: 100%;
-}
-[dir="rtl"] .background-options label,
-[dir="rtl"] .tray-actions > button {
+[dir="rtl"] .background-options label {
   text-align: right;
 }
 @media (max-width: 650px) {

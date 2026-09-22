@@ -6,6 +6,7 @@ import { provideMonitor } from './composables/useMonitor'
 import { useWindowMaterials } from './composables/useWindowMaterials'
 import { useAppearance } from './composables/useAppearance'
 import TodayView from './views/TodayView.vue'
+import TrayView from './views/TrayView.vue'
 import AnalysisView from './views/AnalysisView.vue'
 import RulesView from './views/RulesView.vue'
 import AppearanceView from './views/AppearanceView.vue'
@@ -39,7 +40,8 @@ const grouping = ref('day')
       </div>
       <AppError />
       <div v-if="loading" class="loading-state" role="status">{{ t('正在读取本机记录…') }}</div>
-      <TodayView v-else-if="page === 'today' || mode === 'tray'" @help="dialogs?.openHelp()" />
+      <TrayView v-else-if="mode === 'tray'" />
+      <TodayView v-else-if="page === 'today'" @help="dialogs?.openHelp()" />
       <AnalysisView
         v-else-if="page === 'analysis'"
         v-model:range="range"
