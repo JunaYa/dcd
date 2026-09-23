@@ -664,21 +664,29 @@ dialog::backdrop {
 }
 .break-content {
   position: relative;
-  width: 100%;
-  padding: var(--space-4);
-  display: flex;
+  width: min(1080px, 100%);
+  min-height: min(640px, 100dvh);
+  max-height: 100dvh;
+  overflow-y: auto;
+  padding: clamp(32px, 6vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 22px;
+  gap: var(--space-8) clamp(32px, 5vw, 64px);
+  flex-shrink: 0;
+  margin-inline: auto;
   /* Keep countdown paints out of WebKit's backdrop-filter layer. */
   contain: paint;
   transform: translateZ(0);
 }
-.break-content > .icon,
-.break-dialog > .icon {
-  width: 60px;
-  height: 60px;
+.break-content > * {
+  min-width: 0;
+}
+.break-content > .icon {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
   color: var(--color-accent);
 }
 .break-window {
@@ -687,30 +695,67 @@ dialog::backdrop {
 }
 .break-screen h1,
 .break-dialog h1 {
-  font-size: 42px;
-  font-weight: 500;
-  max-width: 80%;
+  font-size: 52px;
+  line-height: 1.2;
+  font-weight: var(--weight-medium);
+  text-wrap: balance;
+  margin: 0;
   overflow-wrap: anywhere;
 }
-.break-screen p,
-.break-dialog p {
+.break-copy {
+  grid-column: 1;
+  display: grid;
+  gap: var(--space-6);
+  text-align: start;
+}
+.break-copy p {
   color: var(--color-text-muted);
-  font-size: 16px;
+  font-size: 20px;
+  line-height: 1.8;
+  text-wrap: pretty;
+  margin: 0;
+}
+.break-timer {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  gap: var(--space-5);
+  justify-items: center;
 }
 .countdown {
-  font-size: 80px;
+  font-size: 112px;
+  line-height: 1;
   font-weight: 300;
-  letter-spacing: 3px;
+  letter-spacing: -.035em;
   font-variant-numeric: tabular-nums;
-  margin-top: var(--space-3);
+  white-space: nowrap;
 }
 .break-caption {
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: 16px;
 }
-.break-skip {
-  margin-top: var(--space-5);
+.break-content .break-skip {
+  grid-column: 2;
+  justify-self: center;
+  min-height: 52px;
+  padding: var(--space-3) var(--space-8);
+  font-size: 18px;
+  border-radius: var(--radius-pill);
+  border-color: color-mix(in srgb, currentColor 16%, transparent);
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  color: inherit;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, currentColor 6%, transparent);
+  transition: background-color 180ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out, transform 180ms ease-out;
 }
+@media (hover: hover) {
+  .break-content .break-skip:hover {
+    background: color-mix(in srgb, currentColor 10%, transparent);
+    border-color: color-mix(in srgb, currentColor 28%, transparent);
+    box-shadow: 0 6px 20px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+  }
+}
+.break-content .break-skip:active { transform: scale(0.96); }
 .background-light {
   background-color: var(--color-break-light);
   color: var(--color-break-light-text);
@@ -726,16 +771,22 @@ dialog::backdrop {
   height: 85dvh;
   border: 1px solid var(--color-border);
   border-radius: 20px;
-  padding: 55px 25px;
+  padding: 0;
 }
-.break-dialog h1 {
-  margin: 25px auto 15px;
+.break-dialog .break-content {
+  min-height: 100%;
+  max-height: 85dvh;
 }
-.break-dialog .button {
-  margin-top: 25px;
+@media (max-height: 640px), (max-width: 650px) {
+  .break-content { padding: var(--space-8); gap: var(--space-8); }
+  .break-content > .icon { width: 64px; height: 64px; }
+  .break-content h1 { font-size: 44px; }
+  .break-content .countdown { font-size: 96px; }
 }
-.break-dialog .break-caption {
-  margin-top: var(--space-3);
+@media (max-width: 650px) {
+  .break-content { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .break-timer { grid-column: 1; grid-row: auto; margin-block: var(--space-4); }
+  .break-content .break-skip { grid-column: 1; }
 }
 @media (prefers-color-scheme: light) {
   .background-system {
@@ -925,9 +976,23 @@ dialog::backdrop {
 .preferences .setting-row + .setting-row {
   border-top: 1px solid var(--color-border-subtle);
 }
+.rules-page .setting-row {
+  min-height: 76px;
+  padding-block: var(--space-5);
+  margin-block: 0;
+  gap: var(--space-4);
+}
 .rules-page .rule-row {
   flex-wrap: wrap;
-  padding-block: var(--space-3);
+}
+.rules-page .setting-row:has(.setting-explanation) {
+  align-items: flex-start;
+}
+.rules-page .setting-explanation {
+  margin-inline-end: 0;
+}
+.rules-page .contact-row > div {
+  gap: var(--space-2);
 }
 @media (max-width: 650px) {
   .page-heading {

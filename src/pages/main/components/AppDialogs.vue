@@ -60,18 +60,20 @@ defineExpose({ openHelp: () => openDialog('help') })
       </button>
     </template>
     <template v-else-if="dialogKind === 'break'">
-      <Icon name="eye" />
-      <h1>{{ breakMessage }}</h1>
-      <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>
-      <div class="countdown">
-        {{ countdown }}
+      <div class="break-content">
+        <Icon name="eye" />
+        <div class="break-copy">
+          <h1>{{ breakMessage }}</h1>
+          <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>
+        </div>
+        <div class="break-timer">
+          <div class="countdown">{{ countdown }}</div>
+          <span class="break-caption">{{ t('浏览器休息预览') }}</span>
+        </div>
+        <button v-if="settings.allowSkip" class="button break-skip" @click="action('skip')">
+          {{ t('跳过本次休息') }}
+        </button>
       </div>
-      <p class="break-caption">
-        {{ t('浏览器休息预览') }}
-      </p>
-      <button v-if="settings.allowSkip" class="button" @click="action('skip')">
-        {{ t('跳过本次休息') }}
-      </button>
     </template>
   </dialog>
 </template>
