@@ -4,6 +4,7 @@ import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
 import { accentPresets, defaultAccent } from '~/theme/accent'
 import Toggle from '~/components/eye/Toggle.vue'
+import BreakPreview from '../components/BreakPreview.vue'
 const { settings, saving, dirty, saveSettings, toggle, action, report } = useMonitor()
 const themeOptions = computed(() => [
   { value: 'system', label: t('跟随系统') },
@@ -139,6 +140,7 @@ async function upload(event: Event) {
       <p class="section-description">
         {{ t('独立于主窗口和托盘菜单，也用于窗口提醒。') }}
       </p>
+      <BreakPreview />
       <div class="setting-row">
         <span>{{ t('背景主题') }}</span>
       </div>

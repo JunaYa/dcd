@@ -3,9 +3,10 @@ import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
 import { nextTick, ref, watch } from 'vue'
 import Icon from '~/components/eye/Icon.vue'
+import BreakContent from './BreakContent.vue'
 import { useBreakPresentation } from '../composables/useBreakPresentation'
 const { settings, browserBreak, action } = useMonitor()
-const { countdown, breakMessage, backgroundStyle } = useBreakPresentation()
+const { countdown, backgroundStyle } = useBreakPresentation()
 const dialog = ref<HTMLDialogElement>()
 const dialogKind = ref<'help' | 'break' | null>(null)
 let dialogOpener: HTMLElement | null = null
@@ -60,20 +61,7 @@ defineExpose({ openHelp: () => openDialog('help') })
       </button>
     </template>
     <template v-else-if="dialogKind === 'break'">
-      <div class="break-content">
-        <Icon name="eye" />
-        <div class="break-copy">
-          <h1>{{ breakMessage }}</h1>
-          <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>
-        </div>
-        <div class="break-timer">
-          <div class="countdown">{{ countdown }}</div>
-          <span class="break-caption">{{ t('浏览器休息预览') }}</span>
-        </div>
-        <button v-if="settings.allowSkip" class="button break-skip" @click="action('skip')">
-          {{ t('跳过本次休息') }}
-        </button>
-      </div>
+      <BreakContent :timer="countdown" :caption="t('浏览器休息预览')" />
     </template>
   </dialog>
 </template>

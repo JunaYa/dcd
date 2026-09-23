@@ -1618,5 +1618,23 @@
     "fr": "Clic droit sur l’icône pour gérer les pauses et rappels",
     "de": "Rechtsklick auf das Tray-Symbol für Pausen und Erinnerungen",
     "ar": "انقر بزر الفأرة الأيمن على أيقونة التطبيق لإدارة الاستراحة والتذكيرات"
+  },
+  "实时预览": {
+    "zh": "实时预览",
+    "en": "Live preview",
+    "ja": "ライブプレビュー",
+    "ko": "실시간 미리보기",
+    "fr": "Aperçu en direct",
+    "de": "Live-Vorschau",
+    "ar": "معاينة مباشرة"
+  },
+  "预览随配置实时更新，桌面背景为示意。": {
+    "zh": "预览随配置实时更新，桌面背景为示意。",
+    "en": "Updates as you adjust settings. The desktop background is illustrative.",
+    "ja": "設定の変更がすぐに反映されます。デスクトップ背景はイメージです。",
+    "ko": "설정 변경이 즉시 반영됩니다. 바탕 화면은 예시입니다.",
+    "fr": "L’aperçu suit vos réglages. Le fond du bureau est illustratif.",
+    "de": "Die Vorschau folgt deinen Einstellungen. Der Desktop-Hintergrund ist beispielhaft.",
+    "ar": "تتحدث المعاينة مع تغيير الإعدادات. خلفية سطح المكتب توضيحية."
   }
 }
