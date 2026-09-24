@@ -1,7 +1,7 @@
 import { invoke, isTauri } from '@tauri-apps/api/core'
 import { listen, type UnlistenFn } from '@tauri-apps/api/event'
 import { computed, inject, onMounted, onUnmounted, provide, ref, type InjectionKey } from 'vue'
-import { defaults, demoSnapshot, emptySnapshot, type Settings, type Snapshot } from '~/eye/model'
+import { defaults, emptySnapshot, type Settings, type Snapshot } from '~/eye/model'
 import { t } from '~/i18n'
 import { applySnapshot, sameSettings } from './snapshot'
 const monitorKey: InjectionKey<Monitor> = Symbol('monitor')
@@ -29,9 +29,6 @@ function createMonitor(initialSnapshot?: Snapshot) {
   const saving = ref(false)
   const error = ref('')
   const toast = ref('')
-  const demo = ref(false)
-  let demoData: Snapshot | undefined
-  const display = computed(() => (demo.value ? (demoData ??= demoSnapshot()) : snapshot.value))
   const paused = computed(() => snapshot.value.pausedUntil > snapshot.value.now)
   const remaining = computed(() =>
     Math.max(0, Math.ceil(snapshot.value.breakUntil - snapshot.value.now)),
@@ -239,8 +236,6 @@ function createMonitor(initialSnapshot?: Snapshot) {
     saving,
     error,
     toast,
-    demo,
-    display,
     paused,
     remaining,
     browserBreak,

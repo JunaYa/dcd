@@ -94,35 +94,6 @@ export function emptySnapshot(): Snapshot {
     storageError: null,
   }
 }
-export function demoSnapshot(): Snapshot {
-  const snapshot = emptySnapshot()
-  const hours = [0, 0, 0, 8.3, 8.25, 6.9, 10, 9.73]
-  hours.forEach((hour, index) => {
-    const date = new Date()
-    date.setDate(date.getDate() - (7 - index))
-    snapshot.days[dateKey(date)] = {
-      seconds: hour * 3600,
-      peakSeconds: hour * 840,
-      breaks: Math.round(hour * 2),
-    }
-  })
-  const samples: [number, number][] = []
-  for (let minute = 540; minute <= 1125; minute += 25) {
-    samples.push([minute, 0], [minute + 19, 100], [minute + 24, 100])
-  }
-  samples.push(
-    [1130, 0],
-    [1290, 0],
-    [1315, 100],
-    [1330, 100],
-    [1331, 0],
-    [1360, 0],
-    [1370, 52],
-  )
-  snapshot.samples = samples
-  snapshot.fatigue = 52
-  return snapshot
-}
 export interface Bar {
   key: string
   label: string

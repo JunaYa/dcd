@@ -9,7 +9,7 @@ import { formatBarDate } from '~/i18n'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
 import SegmentedControl from '~/components/eye/SegmentedControl.vue'
-const { native, display, demo, inform, report } = useMonitor()
+const { native, snapshot, inform, report } = useMonitor()
 const range = defineModel<number>('range', { required: true })
 const grouping = defineModel<string>('grouping', { required: true })
 const ranges = computed(() => [
@@ -25,7 +25,7 @@ const groups = computed(() => [
   { value: 'month', label: t('按月') },
 ])
 const bars = computed(() =>
-  aggregate(display.value.days, range.value, grouping.value).map((bar) => ({
+  aggregate(snapshot.value.days, range.value, grouping.value).map((bar) => ({
     ...bar,
     label: formatBarDate(bar.key, grouping.value),
   })),
@@ -41,7 +41,7 @@ async function exportCsv() {
     ]),
   ]
   const csv = `\uFEFF${rows.map((row) => row.join(',')).join('\r\n')}`
-  const filename = `dcd-${demo.value ? 'demo-' : ''}${dateKey()}.csv`
+  const filename = `dcd-${dateKey()}.csv`
   try {
     if (native) {
       const path = await saveDialog({
@@ -91,10 +91,7 @@ async function exportCsv() {
     </div>
   </div>
   <div class="analysis-meta">
-    <span>{{ demo ? t('正在查看示例数据') : t('使用记录仅保存在本机') }}</span
-    ><button class="demo-button" :aria-pressed="demo" @click="demo = !demo">
-      {{ demo ? t('返回实时数据') : t('预览示例数据') }}
-    </button>
+    <span>{{ t('使用记录仅保存在本机') }}</span>
   </div>
   <section class="analysis-chart">
     <h1>

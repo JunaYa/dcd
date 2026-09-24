@@ -278,24 +278,6 @@
     "de": "Entlaste deine Augen, bewege dich und entspanne deinen Geist.",
     "ar": "أرح عينيك، وحرك جسمك، واسترخِ ذهنيًا."
   },
-  "示例数据 · 返回实时": {
-    "zh": "示例数据 · 返回实时",
-    "en": "Demo data · Return to live",
-    "ja": "サンプル表示中 · 実データに戻る",
-    "ko": "예시 데이터 · 실시간으로 돌아가기",
-    "fr": "Démo · Retour aux données réelles",
-    "de": "Beispieldaten · Zurück zu aktuellen Daten",
-    "ar": "بيانات تجريبية · العودة للبيانات الفعلية"
-  },
-  "预览示例数据": {
-    "zh": "预览示例数据",
-    "en": "Preview demo data",
-    "ja": "サンプルデータを見る",
-    "ko": "예시 데이터 보기",
-    "fr": "Voir les données de démo",
-    "de": "Beispieldaten anzeigen",
-    "ar": "معاينة البيانات التجريبية"
-  },
   "手动开始一次休息": {
     "zh": "手动开始一次休息",
     "en": "Start a break",
@@ -431,24 +413,6 @@
     "de": "Heutige Aktivität",
     "ar": "نشاط اليوم"
   },
-  "示例": {
-    "zh": "示例",
-    "en": "Demo",
-    "ja": "サンプル",
-    "ko": "예시",
-    "fr": "Démo",
-    "de": "Beispiel",
-    "ar": "تجريبي"
-  },
-  "示例仅用于预览，不会写入使用记录": {
-    "zh": "示例仅用于预览，不会写入使用记录",
-    "en": "Demo data is not saved to your records",
-    "ja": "サンプルは記録に保存されません",
-    "ko": "예시 데이터는 기록에 저장되지 않습니다",
-    "fr": "La démo n’est pas enregistrée dans vos données",
-    "de": "Beispieldaten werden nicht gespeichert",
-    "ar": "لا تُحفظ البيانات التجريبية في سجلاتك"
-  },
   "本机记录 · 每分钟更新曲线": {
     "zh": "本机记录 · 每分钟更新曲线",
     "en": "Stored locally · Chart updates every minute",
@@ -503,15 +467,6 @@
     "de": "CSV exportieren",
     "ar": "تصدير CSV"
   },
-  "正在查看示例数据": {
-    "zh": "正在查看示例数据",
-    "en": "Viewing demo data",
-    "ja": "サンプルデータを表示中",
-    "ko": "예시 데이터 표시 중",
-    "fr": "Données de démo affichées",
-    "de": "Beispieldaten werden angezeigt",
-    "ar": "عرض البيانات التجريبية"
-  },
   "使用记录仅保存在本机": {
     "zh": "使用记录仅保存在本机",
     "en": "Usage records stay on this device",
@@ -520,15 +475,6 @@
     "fr": "Les données restent sur cet appareil",
     "de": "Nutzungsdaten bleiben auf diesem Gerät",
     "ar": "تبقى سجلات الاستخدام على هذا الجهاز"
-  },
-  "返回实时数据": {
-    "zh": "返回实时数据",
-    "en": "Return to live data",
-    "ja": "実データに戻る",
-    "ko": "실시간 데이터로 돌아가기",
-    "fr": "Retour aux données réelles",
-    "de": "Zurück zu aktuellen Daten",
-    "ar": "العودة للبيانات الفعلية"
   },
   "使用时长": {
     "zh": "使用时长",

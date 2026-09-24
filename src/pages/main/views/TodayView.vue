@@ -7,7 +7,7 @@ import { formatDuration as duration, locale } from '~/i18n'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
 const emit = defineEmits<{ help: [] }>()
-const { snapshot, demo, display, paused, action } = useMonitor()
+const { snapshot, paused, action } = useMonitor()
 const pauseOpen = ref(false)
 async function runAction(name: string, minutes?: number) {
   pauseOpen.value = false
@@ -15,16 +15,16 @@ async function runAction(name: string, minutes?: number) {
 }
 const today = computed(
   () =>
-    display.value.days[display.value.date] || {
+    snapshot.value.days[snapshot.value.date] || {
       seconds: 0,
       peakSeconds: 0,
       breaks: 0,
     },
 )
 const change = computed(() => {
-  const date = new Date(`${display.value.date}T12:00:00`)
+  const date = new Date(`${snapshot.value.date}T12:00:00`)
   date.setDate(date.getDate() - 1)
-  const previous = display.value.days[dateKey(date)]?.seconds || 0
+  const previous = snapshot.value.days[dateKey(date)]?.seconds || 0
   if (!previous) return null
   const delta = Math.round((today.value.seconds / previous - 1) * 100)
   return `${delta > 0 ? '+' : ''}${delta}%`
@@ -66,14 +66,6 @@ onUnmounted(() => {
         <p>{{ t('留意用眼节奏，给双眼一点休息。') }}</p>
       </div>
     </div>
-    <button
-      class="demo-button"
-      :class="{ active: demo }"
-      :aria-pressed="demo"
-      @click="demo = !demo"
-    >
-      {{ demo ? t('示例数据 · 返回实时') : t('预览示例数据') }}
-    </button>
     <button
       class="button primary break-action"
       :title="t('手动开始一次休息')"
@@ -119,7 +111,7 @@ onUnmounted(() => {
     <div class="stat-cards">
       <section class="stat-card fatigue-card">
         <h2>{{ t('疲劳值') }}</h2>
-        <strong>{{ display.fatigue }}%</strong>
+        <strong>{{ snapshot.fatigue }}%</strong>
       </section>
       <section class="stat-card duration-card">
         <h2>{{ t('今日时长') }}</h2>
@@ -138,12 +130,12 @@ onUnmounted(() => {
   </p>
   <section class="today-chart">
     <h1>
-      {{ t('今日使用') }} <span v-if="demo" class="sample-label">{{ t('示例') }}</span>
+      {{ t('今日使用') }}
     </h1>
-    <Chart :samples="display.samples" />
+    <Chart :samples="snapshot.samples" />
   </section>
   <div class="today-footer">
-    <span>{{ demo ? t('示例仅用于预览，不会写入使用记录') : t('本机记录 · 每分钟更新曲线') }}</span
+    <span>{{ t('本机记录 · 每分钟更新曲线') }}</span
     ><span>{{ t('休息次数', { count: today.breaks }) }}</span>
   </div>
 </template>

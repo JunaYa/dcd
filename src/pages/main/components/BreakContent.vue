@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Icon from '~/components/eye/Icon.vue'
 import { t } from '~/i18n'
 import { useMonitor } from '../composables/useMonitor'
 import { useBreakPresentation } from '../composables/useBreakPresentation'
@@ -9,7 +8,6 @@ const { breakMessage } = useBreakPresentation()
 </script>
 <template>
   <div class="break-content">
-    <Icon name="eye" />
     <div class="break-copy">
       <h1>{{ breakMessage }}</h1>
       <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>

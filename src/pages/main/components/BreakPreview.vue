@@ -107,25 +107,11 @@ figcaption {
   max-height: 560px;
   padding: 32px;
   gap: 32px;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
-}
-.break-preview-stage :deep(.break-content > .icon) {
-  width: 64px;
-  height: 64px;
 }
 .break-preview-stage :deep(h1) {
   font-size: 44px;
 }
 .break-preview-stage :deep(.countdown) {
   font-size: 96px;
-}
-.break-preview-stage :deep(.break-timer) {
-  grid-column: 2;
-  grid-row: 2;
-  margin-block: 0;
-}
-.break-preview-stage :deep(.break-skip) {
-  grid-column: 2;
 }
 </style>

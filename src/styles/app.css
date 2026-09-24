@@ -110,18 +110,6 @@
 .icon-button.active {
   color: var(--color-accent);
 }
-.demo-button {
-  font-size: 11px;
-  color: var(--color-text-muted);
-  padding: 6px var(--space-2);
-}
-.demo-button:hover,
-.demo-button.active {
-  color: var(--color-accent);
-}
-.today-toolbar .demo-button {
-  margin-right: var(--space-2);
-}
 .stat-cards {
   display: flex;
   gap: var(--space-4);
@@ -212,12 +200,6 @@
   color: var(--color-text-muted);
   font-size: 11px;
   margin-top: 25px;
-}
-.sample-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--color-accent);
-  margin-left: 9px;
 }
 .pause-control {
   position: relative;
@@ -670,10 +652,11 @@ dialog::backdrop {
   overflow-y: auto;
   padding: clamp(32px, 6vw, 72px);
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-content: safe center;
   align-items: center;
-  gap: var(--space-8) clamp(32px, 5vw, 64px);
+  gap: clamp(32px, 5vh, 56px);
   flex-shrink: 0;
   margin-inline: auto;
   /* Keep countdown paints out of WebKit's backdrop-filter layer. */
@@ -682,12 +665,6 @@ dialog::backdrop {
 }
 .break-content > * {
   min-width: 0;
-}
-.break-content > .icon {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  color: var(--color-accent);
 }
 .break-window {
   border-radius: 12px;
@@ -703,10 +680,10 @@ dialog::backdrop {
   overflow-wrap: anywhere;
 }
 .break-copy {
-  grid-column: 1;
+  max-width: 680px;
   display: grid;
   gap: var(--space-6);
-  text-align: start;
+  text-align: center;
 }
 .break-copy p {
   color: var(--color-text-muted);
@@ -716,8 +693,6 @@ dialog::backdrop {
   margin: 0;
 }
 .break-timer {
-  grid-column: 2;
-  grid-row: 2;
   display: grid;
   gap: var(--space-5);
   justify-items: center;
@@ -735,7 +710,6 @@ dialog::backdrop {
   font-size: 16px;
 }
 .break-content .break-skip {
-  grid-column: 2;
   justify-self: center;
   min-height: 52px;
   padding: var(--space-3) var(--space-8);
@@ -779,14 +753,8 @@ dialog::backdrop {
 }
 @media (max-height: 640px), (max-width: 650px) {
   .break-content { padding: var(--space-8); gap: var(--space-8); }
-  .break-content > .icon { width: 64px; height: 64px; }
   .break-content h1 { font-size: 44px; }
   .break-content .countdown { font-size: 96px; }
-}
-@media (max-width: 650px) {
-  .break-content { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
-  .break-timer { grid-column: 1; grid-row: auto; margin-block: var(--space-4); }
-  .break-content .break-skip { grid-column: 1; }
 }
 @media (prefers-color-scheme: light) {
   .background-system {
@@ -918,9 +886,6 @@ dialog::backdrop {
   }
   .background-options {
     gap: var(--space-3);
-  }
-  .today-toolbar .demo-button {
-    font-size: 10px;
   }
   .preview-note {
     font-size: 9px;
