@@ -297,6 +297,7 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
         window.show().map_err(|e| e.to_string())?;
         window.set_focus().map_err(|e| e.to_string())?;
     }
+    window.emit("eye-break-show", ()).map_err(|e| e.to_string())?;
     if let Some(popup) = app.get_webview_window("eye-tray") {
         let _ = popup.hide();
     }

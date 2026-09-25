@@ -1212,3 +1212,44 @@ input.scrub-number.scrubbing {
   line-height: 1.65;
   color: var(--color-text-muted);
 }
+
+/* Reveal the overlay with a feathered edge, without moving its backdrop layer. */
+.break-entrance {
+  animation: break-reveal 800ms cubic-bezier(0.22, 0.61, 0.36, 1) backwards;
+}
+.break-entrance > .break-content {
+  animation: break-content-reveal 500ms ease-out 160ms backwards;
+}
+@keyframes break-reveal {
+  from {
+    opacity: 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 33.333%, transparent 66.667%);
+    mask-image: linear-gradient(to bottom, #000 33.333%, transparent 66.667%);
+    -webkit-mask-size: 100% 300%;
+    mask-size: 100% 300%;
+    -webkit-mask-position: 0 100%;
+    mask-position: 0 100%;
+  }
+  to {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(to bottom, #000 33.333%, transparent 66.667%);
+    mask-image: linear-gradient(to bottom, #000 33.333%, transparent 66.667%);
+    -webkit-mask-size: 100% 300%;
+    mask-size: 100% 300%;
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+@keyframes break-content-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.break-entrance.break-hidden,
+.break-entrance.break-hidden > .break-content {
+  animation: none;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .break-entrance,
+  .break-entrance > .break-content { animation: none; }
+}

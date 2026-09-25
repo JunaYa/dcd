@@ -37,7 +37,9 @@ defineExpose({ openHelp: () => openDialog('help') })
   <dialog
     ref="dialog"
     :class="
-      dialogKind === 'break' ? `break-dialog background-${settings.background}` : 'help-dialog'
+      dialogKind === 'break'
+        ? `break-dialog break-entrance background-${settings.background}`
+        : 'help-dialog'
     "
     :style="dialogKind === 'break' ? backgroundStyle : {}"
     @cancel="cancelDialog"
