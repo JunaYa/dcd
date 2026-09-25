@@ -17,6 +17,7 @@ export interface Settings {
   preNotify: boolean
   sound: boolean
   movieMode: boolean
+  pauseMedia: boolean
   autostart: boolean
   trayIcon: boolean
   trayTime: boolean
@@ -60,6 +61,7 @@ export const defaults: Settings = {
   preNotify: true,
   sound: true,
   movieMode: false,
+  pauseMedia: false,
   autostart: false,
   trayIcon: true,
   trayTime: true,

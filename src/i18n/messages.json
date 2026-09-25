@@ -1582,5 +1582,41 @@
     "fr": "L’aperçu suit vos réglages. Le fond du bureau est illustratif.",
     "de": "Die Vorschau folgt deinen Einstellungen. Der Desktop-Hintergrund ist beispielhaft.",
     "ar": "تتحدث المعاينة مع تغيير الإعدادات. خلفية سطح المكتب توضيحية."
+  },
+  "休息时暂停媒体": {
+    "zh": "休息时暂停媒体",
+    "en": "Pause media during breaks",
+    "ja": "休憩時にメディアを一時停止",
+    "ko": "휴식 시 미디어 일시 정지",
+    "fr": "Mettre les médias en pause",
+    "de": "Medien bei Pausen anhalten",
+    "ar": "إيقاف الوسائط مؤقتًا أثناء الاستراحة"
+  },
+  "暂停媒体说明": {
+    "zh": "实验性功能。自动或手动开始休息时，尝试暂停 macOS「正在播放」的媒体，包括兼容的网页视频、播放器和音乐。仅控制当前系统媒体，不保证暂停所有来源；休息结束或跳过后不会自动恢复。兼容性可能随系统更新变化。",
+    "en": "Experimental. When an automatic or manual break starts, attempts to pause the macOS Now Playing media, including compatible web videos, players and music. Only the current system media is targeted, not every source. Playback does not resume automatically after a break ends or is skipped. Compatibility may change with system updates.",
+    "ja": "実験的な機能です。自動・手動の休憩開始時に、対応するウェブ動画、プレーヤー、音楽など、macOS の「再生中」のメディアの一時停止を試みます。対象はシステムで選択されているメディアのみです。休憩終了・スキップ後も自動再生しません。OS 更新で互換性が変わる場合があります。",
+    "ko": "실험적 기능입니다. 자동 또는 수동 휴식 시작 시 호환되는 웹 동영상, 플레이어, 음악 등 macOS의 현재 재생 중인 미디어를 일시 정지합니다. 모든 소스가 아닌 현재 시스템 미디어만 대상입니다. 휴식 종료 또는 건너뛰기 후 자동 재생하지 않습니다. 시스템 업데이트에 따라 호환성이 달라질 수 있습니다.",
+    "fr": "Fonction expérimentale. Au début d’une pause automatique ou manuelle, tente de suspendre le média « À l’écoute » de macOS : vidéos web, lecteurs et musique compatibles. Seul le média système actuel est ciblé, pas toutes les sources. Aucune reprise automatique après une pause terminée ou ignorée. La compatibilité peut évoluer avec macOS.",
+    "de": "Experimentell. Bei einer automatischen oder manuellen Pause wird versucht, das aktuelle macOS-Medium anzuhalten, einschließlich kompatibler Webvideos, Player und Musik. Nur das aktuelle Systemmedium wird angesprochen, nicht alle Quellen. Keine automatische Wiedergabe nach Ende oder Überspringen der Pause. Systemupdates können die Kompatibilität ändern.",
+    "ar": "ميزة تجريبية. عند بدء استراحة تلقائية أو يدوية، تحاول إيقاف وسائط «قيد التشغيل» في macOS مؤقتًا، بما فيها فيديوهات الويب والمشغلات والموسيقى المتوافقة. تستهدف وسيط النظام الحالي فقط، وليس جميع المصادر. لا تستأنف التشغيل تلقائيًا بعد انتهاء الاستراحة أو تخطيها. قد يتغير التوافق مع تحديثات النظام."
+  },
+  "暂停媒体仅支持 macOS 桌面应用。": {
+    "zh": "暂停媒体仅支持 macOS 桌面应用。",
+    "en": "Media pause is available only in the macOS desktop app.",
+    "ja": "メディアの一時停止は macOS デスクトップアプリのみ対応しています。",
+    "ko": "미디어 일시 정지는 macOS 데스크톱 앱에서만 지원됩니다.",
+    "fr": "Disponible uniquement dans l’application macOS.",
+    "de": "Nur in der macOS-Desktop-App verfügbar.",
+    "ar": "متاحة فقط في تطبيق macOS لسطح المكتب."
+  },
+  "无法暂停媒体，请手动暂停。": {
+    "zh": "无法暂停媒体，请手动暂停。",
+    "en": "Unable to pause media. Please pause it manually.",
+    "ja": "メディアを一時停止できません。手動で停止してください。",
+    "ko": "미디어를 일시 정지할 수 없습니다. 직접 정지해 주세요.",
+    "fr": "Impossible de mettre le média en pause. Faites-le manuellement.",
+    "de": "Medien konnten nicht angehalten werden. Bitte manuell pausieren.",
+    "ar": "تعذر إيقاف الوسائط مؤقتًا. يرجى إيقافها يدويًا."
   }
 }

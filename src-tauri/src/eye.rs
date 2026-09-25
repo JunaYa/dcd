@@ -298,6 +298,19 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
         window.set_focus().map_err(|e| e.to_string())?;
     }
     window.emit("eye-break-show", ()).map_err(|e| e.to_string())?;
+    #[cfg(target_os = "macos")]
+    if settings.pause_media {
+        let handle = app.clone();
+        if let Err(error) = app.run_on_main_thread(move || {
+            if let Err(error) = crate::platform::pause_media() {
+                tracing::warn!("Unable to pause media: {error}");
+                let _ = handle.emit("eye-warning", "无法暂停媒体，请手动暂停。");
+            }
+        }) {
+            tracing::warn!("Unable to schedule media pause: {error}");
+            let _ = app.emit("eye-warning", "无法暂停媒体，请手动暂停。");
+        }
+    }
     if let Some(popup) = app.get_webview_window("eye-tray") {
         let _ = popup.hide();
     }

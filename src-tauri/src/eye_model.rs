@@ -18,6 +18,7 @@ pub struct Settings {
     pub pre_notify: bool,
     pub sound: bool,
     pub movie_mode: bool,
+    pub pause_media: bool,
     pub autostart: bool,
     pub tray_icon: bool,
     pub tray_time: bool,
@@ -46,6 +47,7 @@ impl Default for Settings {
             pre_notify: true,
             sound: true,
             movie_mode: false,
+            pause_media: false,
             autostart: false,
             tray_icon: true,
             tray_time: true,
@@ -346,6 +348,18 @@ mod tests {
         s.tray_icon = false;
         s.dock_icon = false;
         assert!(s.validate().is_err());
+    }
+    #[test]
+    fn media_pause_is_opt_in_and_survives_settings_roundtrip() {
+        let legacy: Settings = serde_json::from_str("{}").unwrap();
+        assert!(!legacy.pause_media);
+        let mut settings = legacy;
+        settings.pause_media = true;
+        let saved = serde_json::to_value(&settings).unwrap();
+        assert_eq!(saved["pauseMedia"], true);
+        let restored: Settings = serde_json::from_value(saved).unwrap();
+        assert!(restored.pause_media);
+        assert!(restored.validate().is_ok());
     }
     #[test]
     fn persistence_roundtrip_preserves_history() {

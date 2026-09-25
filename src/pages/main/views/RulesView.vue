@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { platform } from '@tauri-apps/plugin-os'
 import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
 import { vScrubNumber } from '~/directives/scrubNumber'
 import Toggle from '~/components/eye/Toggle.vue'
-const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
+const { native, settings, saving, dirty, saveSettings, toggle } = useMonitor()
+const mediaPauseSupported = native && platform() === 'macos'
 </script>
 
 <template>
@@ -89,6 +91,20 @@ const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
           :label="t('休息结束时播放声音')"
           :disabled="saving"
           @update:model-value="toggle('sound', $event)"
+        />
+      </div>
+      <div class="setting-row">
+        <div class="setting-explanation">
+          <span>{{ t('休息时暂停媒体') }}</span>
+          <p id="pause-media-help">{{ t('暂停媒体说明') }}</p>
+          <p v-if="!mediaPauseSupported">{{ t('暂停媒体仅支持 macOS 桌面应用。') }}</p>
+        </div>
+        <Toggle
+          :model-value="settings.pauseMedia"
+          aria-describedby="pause-media-help"
+          :label="t('休息时暂停媒体')"
+          :disabled="saving || !mediaPauseSupported"
+          @update:model-value="toggle('pauseMedia', $event)"
         />
       </div>
       <div class="setting-row">
