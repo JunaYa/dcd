@@ -2,6 +2,7 @@ import { invoke, isTauri } from '@tauri-apps/api/core'
 import { listen, type UnlistenFn } from '@tauri-apps/api/event'
 import { computed, inject, onMounted, onUnmounted, provide, ref, type InjectionKey } from 'vue'
 import { defaults, emptySnapshot, type Settings, type Snapshot } from '~/eye/model'
+import { parsePetPack } from '~/pet/model'
 import { t } from '~/i18n'
 import { applySnapshot, sameSettings } from './snapshot'
 const monitorKey: InjectionKey<Monitor> = Symbol('monitor')
@@ -36,6 +37,8 @@ function createMonitor(initialSnapshot?: Snapshot) {
   const unlisteners: UnlistenFn[] = []
   let interval: ReturnType<typeof setInterval> | undefined
   let toastTimer: ReturnType<typeof setTimeout> | undefined
+  let breakStart = 0
+  let breakWork = 0
   let fetching = false
   let settingsGeneration = 0
   let disposed = false
@@ -50,7 +53,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
   }
   function report(cause: unknown) {
     if (disposed) return
-    error.value = t(String(cause))
+    error.value = t(cause instanceof Error ? cause.message : String(cause))
   }
   async function refresh() {
     if (!native || fetching || disposed) return
@@ -78,6 +81,19 @@ function createMonitor(initialSnapshot?: Snapshot) {
   }
   function validate() {
     const s = settings.value
+    if (
+      !s.petName.trim() ||
+      s.petName.length > 40 ||
+      !Number.isInteger(s.petSize) ||
+      s.petSize < 48 ||
+      s.petSize > 160 ||
+      !Number.isInteger(s.petTiredThreshold) ||
+      s.petTiredThreshold < 5 ||
+      s.petTiredThreshold > 50 ||
+      !['top', 'bottom'].includes(s.petPosition)
+    )
+      throw new Error(t('宠物素材无效'))
+    if (s.petPack) parsePetPack(s.petPack)
     if (
       ![s.workMinutes, s.breakMinutes, s.breakSeconds, s.repeatMinutes].every(Number.isInteger) ||
       s.workMinutes < 1 ||
@@ -127,6 +143,8 @@ function createMonitor(initialSnapshot?: Snapshot) {
       } else {
         const now = Date.now() / 1000
         if (name === 'break') {
+          breakStart = now
+          breakWork = Math.min(snapshot.value.workSeconds, settings.value.workMinutes * 60)
           snapshot.value.breakUntil =
             now + settings.value.breakMinutes * 60 + settings.value.breakSeconds
           snapshot.value.now = now
@@ -169,7 +187,25 @@ function createMonitor(initialSnapshot?: Snapshot) {
       void refresh()
     } else {
       snapshot.value.now = Date.now() / 1000
+      if (snapshot.value.breakUntil) {
+        snapshot.value.workSeconds =
+          breakWork *
+          Math.max(
+            0,
+            (snapshot.value.breakUntil - snapshot.value.now) /
+              (snapshot.value.breakUntil - breakStart),
+          )
+        snapshot.value.fatigue = Math.round(
+          (snapshot.value.workSeconds / (settings.value.workMinutes * 60)) * 100,
+        )
+      }
       if (snapshot.value.breakUntil && remaining.value === 0) {
+        const day = (snapshot.value.days[snapshot.value.date] ??= {
+          seconds: 0,
+          peakSeconds: 0,
+          breaks: 0,
+        })
+        day.breaks++
         snapshot.value.breakUntil = 0
         browserBreak.value = false
         inform(t('休息完成，欢迎回来'))
@@ -214,7 +250,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
       } catch {
         report('浏览器预览设置无法读取，请重新保存。')
       }
-      if (['today', 'analysis', 'rules', 'settings'].includes(location.hash.slice(1)))
+      if (['today', 'analysis', 'rules', 'appearance', 'settings'].includes(location.hash.slice(1)))
         page.value = location.hash.slice(1)
     }
   })

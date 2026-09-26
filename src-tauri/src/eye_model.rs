@@ -4,6 +4,14 @@ use std::collections::BTreeMap;
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Settings {
+    pub pet_enabled: bool,
+    pub pet_name: String,
+    pub pet_size: u32,
+    pub pet_position: String,
+    pub pet_show_energy: bool,
+    pub pet_show_on_break: bool,
+    pub pet_tired_threshold: u32,
+    pub pet_pack: String,
     pub language: String,
     pub accent_color: String,
     pub main_theme: String,
@@ -33,6 +41,14 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Self {
+            pet_enabled: true,
+            pet_name: "Mori".into(),
+            pet_size: 96,
+            pet_position: "top".into(),
+            pet_show_energy: true,
+            pet_show_on_break: true,
+            pet_tired_threshold: 20,
+            pet_pack: String::new(),
             language: crate::i18n::system_language(),
             accent_color: "#8842b6".into(),
             main_theme: "dark".into(),
@@ -63,6 +79,13 @@ impl Default for Settings {
 }
 impl Settings {
     pub fn validate(&self) -> Result<(), String> {
+        if self.pet_name.trim().is_empty() || self.pet_name.chars().count() > 40
+            || !(48..=160).contains(&self.pet_size) || !(5..=50).contains(&self.pet_tired_threshold)
+            || !["top", "bottom"].contains(&self.pet_position.as_str())
+            || crate::pet::validate_pack(&self.pet_pack).is_err()
+        {
+            return Err(crate::i18n::text(&self.language, "宠物素材无效"));
+        }
         if self.accent_color.len() != 7 || !self.accent_color.starts_with('#')
             || !self.accent_color.as_bytes()[1..].iter().all(u8::is_ascii_hexdigit) {
             return Err(crate::i18n::text(&self.language, "主题色格式无效"));
@@ -135,6 +158,10 @@ pub struct Monitor {
     pub break_until: i64,
     pub next_reminder: i64,
     #[serde(skip)]
+    break_started: i64,
+    #[serde(skip)]
+    break_work_seconds: f64,
+    #[serde(skip)]
     pub last_tick: i64,
     #[serde(skip)]
     pub storage_error: Option<String>,
@@ -150,6 +177,8 @@ impl Default for Monitor {
             paused_until: 0,
             break_until: 0,
             next_reminder: 0,
+            break_started: 0,
+            break_work_seconds: 0.0,
             last_tick: 0,
             storage_error: None,
         }
@@ -170,6 +199,8 @@ impl Monitor {
             .round() as u32
     }
     pub fn start_break(&mut self, now: i64) {
+        self.break_started = now;
+        self.break_work_seconds = self.work_seconds.min((self.settings.work_minutes * 60) as f64);
         self.break_until = now + self.settings.break_duration() as i64;
     }
     pub fn tick(&mut self, now: i64, date: &str, minute: u32, idle: bool) -> Effect {
@@ -194,6 +225,9 @@ impl Monitor {
         self.last_tick = now;
         let mut effect = Effect::None;
         if self.break_until > 0 {
+            let duration = (self.break_until - self.break_started).max(1) as f64;
+            self.work_seconds = self.break_work_seconds
+                * ((self.break_until - now) as f64 / duration).clamp(0.0, 1.0);
             if now >= self.break_until {
                 self.break_until = 0;
                 self.work_seconds = 0.0;
@@ -360,6 +394,45 @@ mod tests {
         let restored: Settings = serde_json::from_value(saved).unwrap();
         assert!(restored.pause_media);
         assert!(restored.validate().is_ok());
+    }
+    #[test]
+    fn break_recovery_is_gradual_and_skip_keeps_partial_recovery() {
+        let mut m = Monitor::default();
+        m.work_seconds = 1500.0;
+        m.last_tick = 100;
+        m.start_break(100);
+        m.tick(250, "2026-09-26", 0, false);
+        assert_eq!(m.fatigue(), 50);
+        m.break_until = 0;
+        m.paused_until = 1000;
+        m.tick(251, "2026-09-26", 0, false);
+        assert_eq!(m.fatigue(), 50);
+        assert_eq!(m.days["2026-09-26"].breaks, 0);
+    }
+    #[test]
+    fn early_break_recharges_from_current_energy_until_end() {
+        let mut m = Monitor::default();
+        m.work_seconds = 600.0;
+        m.last_tick = 100;
+        m.start_break(100);
+        m.tick(250, "2026-09-26", 0, false);
+        assert_eq!(m.fatigue(), 20);
+        assert_eq!(m.tick(400, "2026-09-26", 0, false), Effect::EndBreak);
+        assert_eq!(m.fatigue(), 0);
+    }
+    #[test]
+    fn pet_defaults_and_custom_settings_survive_roundtrip() {
+        let mut s: Settings = serde_json::from_str("{}").unwrap();
+        assert!(s.pet_enabled);
+        s.pet_pack = include_str!("../../src/pet/default.json").into();
+        s.pet_name = "Pip".into();
+        s.pet_tired_threshold = 35;
+        assert!(s.validate().is_ok());
+        let restored: Settings = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        assert_eq!(restored.pet_name, "Pip");
+        assert_eq!(restored.pet_pack, s.pet_pack);
+        s.pet_size = 1000;
+        assert!(s.validate().is_err());
     }
     #[test]
     fn persistence_roundtrip_preserves_history() {

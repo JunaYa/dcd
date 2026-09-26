@@ -4,10 +4,11 @@ import { t } from '~/i18n'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { dateKey } from '~/eye/model'
 import { formatDuration as duration, locale } from '~/i18n'
+import PetCompanion from '~/pet/PetCompanion.vue'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
 const emit = defineEmits<{ help: [] }>()
-const { snapshot, paused, action } = useMonitor()
+const { snapshot, settings, paused, action } = useMonitor()
 const pauseOpen = ref(false)
 async function runAction(name: string, minutes?: number) {
   pauseOpen.value = false
@@ -128,12 +129,14 @@ onUnmounted(() => {
       {{ t('恢复提醒') }}
     </button>
   </p>
+  <PetCompanion v-if="settings.petEnabled && settings.petPosition === 'top'" />
   <section class="today-chart">
     <h1>
       {{ t('今日使用') }}
     </h1>
     <Chart :samples="snapshot.samples" />
   </section>
+  <PetCompanion v-if="settings.petEnabled && settings.petPosition === 'bottom'" />
   <div class="today-footer">
     <span>{{ t('本机记录 · 每分钟更新曲线') }}</span
     ><span>{{ t('休息次数', { count: today.breaks }) }}</span>

@@ -4,6 +4,7 @@ import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
 import { accentPresets, defaultAccent } from '~/theme/accent'
 import Toggle from '~/components/eye/Toggle.vue'
+import PetSettings from '~/pet/PetSettings.vue'
 import BreakPreview from '../components/BreakPreview.vue'
 const { settings, saving, dirty, saveSettings, toggle, action, report } = useMonitor()
 const themeOptions = computed(() => [
@@ -214,6 +215,7 @@ async function upload(event: Event) {
         </div>
       </div>
     </section>
+    <PetSettings />
     <div v-if="dirty" class="save-row">
       <span>{{ t('有未保存的更改') }}</span
       ><button class="button primary" type="submit" :disabled="saving">

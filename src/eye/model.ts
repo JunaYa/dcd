@@ -3,6 +3,14 @@ import { resolveLanguage } from '../i18n/locale.ts'
 export type Theme = 'system' | 'light' | 'dark'
 
 export interface Settings {
+  petEnabled: boolean
+  petName: string
+  petSize: number
+  petPosition: 'top' | 'bottom'
+  petShowEnergy: boolean
+  petShowOnBreak: boolean
+  petTiredThreshold: number
+  petPack: string
   language: string
   accentColor: string
   mainTheme: Theme
@@ -47,6 +55,14 @@ export interface Snapshot {
   storageError: string | null
 }
 export const defaults: Settings = {
+  petEnabled: true,
+  petName: 'Mori',
+  petSize: 96,
+  petPosition: 'top',
+  petShowEnergy: true,
+  petShowOnBreak: true,
+  petTiredThreshold: 20,
+  petPack: '',
   language: resolveLanguage(typeof navigator === 'undefined' ? ['en'] : navigator.languages),
   accentColor: '#8842b6',
   mainTheme: 'dark',

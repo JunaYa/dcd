@@ -108,6 +108,10 @@ figcaption {
   padding: 32px;
   gap: 32px;
 }
+.break-preview-stage :deep(.break-content.with-pet) {
+  gap: 16px;
+  padding-block: 20px;
+}
 .break-preview-stage :deep(h1) {
   font-size: 44px;
 }

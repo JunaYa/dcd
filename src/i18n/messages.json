@@ -1618,5 +1618,257 @@
     "fr": "Impossible de mettre le média en pause. Faites-le manuellement.",
     "de": "Medien konnten nicht angehalten werden. Bitte manuell pausieren.",
     "ar": "تعذر إيقاف الوسائط مؤقتًا. يرجى إيقافها يدويًا."
+  },
+  "像素伙伴": {
+    "zh": "像素伙伴",
+    "en": "Pixel companion",
+    "ja": "ピクセルの相棒",
+    "ko": "픽셀 친구",
+    "fr": "Compagnon pixel",
+    "de": "Pixel-Begleiter",
+    "ar": "رفيق البكسل"
+  },
+  "元气满满": {
+    "zh": "元气满满",
+    "en": "Full of energy",
+    "ja": "元気いっぱい",
+    "ko": "에너지 가득",
+    "fr": "Plein d’énergie",
+    "de": "Voller Energie",
+    "ar": "مفعم بالطاقة"
+  },
+  "陪你专注": {
+    "zh": "陪你专注",
+    "en": "Focusing with you",
+    "ja": "一緒に集中",
+    "ko": "함께 집중해요",
+    "fr": "Concentré avec vous",
+    "de": "Gemeinsam konzentriert",
+    "ar": "يركز معك"
+  },
+  "该充充电了": {
+    "zh": "该充充电了",
+    "en": "Time to recharge",
+    "ja": "充電しよう",
+    "ko": "충전할 시간이에요",
+    "fr": "Il est temps de recharger",
+    "de": "Zeit zum Aufladen",
+    "ar": "حان وقت الشحن"
+  },
+  "慢慢恢复能量": {
+    "zh": "慢慢恢复能量",
+    "en": "Recharging gently",
+    "ja": "ゆっくり回復中",
+    "ko": "천천히 충전 중",
+    "fr": "Recharge en douceur",
+    "de": "Sanft auftanken",
+    "ar": "يستعيد طاقته بهدوء"
+  },
+  "查看伙伴能量": {
+    "zh": "查看伙伴能量",
+    "en": "View companion energy",
+    "ja": "相棒のエネルギーを見る",
+    "ko": "친구 에너지 보기",
+    "fr": "Voir l’énergie du compagnon",
+    "de": "Energie des Begleiters ansehen",
+    "ar": "عرض طاقة الرفيق"
+  },
+  "能量": {
+    "zh": "能量",
+    "en": "Energy",
+    "ja": "エネルギー",
+    "ko": "에너지",
+    "fr": "Énergie",
+    "de": "Energie",
+    "ar": "الطاقة"
+  },
+  "一起休息": {
+    "zh": "一起休息",
+    "en": "Rest together",
+    "ja": "一緒に休む",
+    "ko": "함께 쉬기",
+    "fr": "Se reposer ensemble",
+    "de": "Gemeinsam pausieren",
+    "ar": "لنسترح معا"
+  },
+  "能量跟随疲劳值恢复，跳过休息不会充满。": {
+    "zh": "能量跟随疲劳值恢复，跳过休息不会充满。",
+    "en": "Energy follows fatigue recovery. Skipping a break does not fully recharge it.",
+    "ja": "エネルギーは疲労の回復に連動します。休憩をスキップしても満タンにはなりません。",
+    "ko": "에너지는 피로 회복에 따라 변해요. 휴식을 건너뛰면 완충되지 않아요.",
+    "fr": "L’énergie suit la récupération. Passer une pause ne la recharge pas entièrement.",
+    "de": "Die Energie folgt der Erholung. Eine übersprungene Pause lädt sie nicht vollständig auf.",
+    "ar": "تتبع الطاقة التعافي من التعب. تخطي الاستراحة لا يشحنها بالكامل."
+  },
+  "用一个小伙伴，感受专注与休息的节奏。": {
+    "zh": "用一个小伙伴，感受专注与休息的节奏。",
+    "en": "A little companion for your rhythm of focus and rest.",
+    "ja": "小さな相棒と、集中と休憩のリズムを。",
+    "ko": "작은 친구와 집중과 휴식의 리듬을 느껴보세요.",
+    "fr": "Un petit compagnon au rythme de vos pauses et de votre concentration.",
+    "de": "Ein kleiner Begleiter für deinen Arbeits- und Pausenrhythmus.",
+    "ar": "رفيق صغير لإيقاع التركيز والراحة."
+  },
+  "显示像素伙伴": {
+    "zh": "显示像素伙伴",
+    "en": "Show pixel companion",
+    "ja": "ピクセルの相棒を表示",
+    "ko": "픽셀 친구 표시",
+    "fr": "Afficher le compagnon pixel",
+    "de": "Pixel-Begleiter anzeigen",
+    "ar": "إظهار رفيق البكسل"
+  },
+  "状态预览": {
+    "zh": "状态预览",
+    "en": "State preview",
+    "ja": "状態プレビュー",
+    "ko": "상태 미리보기",
+    "fr": "Aperçu de l’état",
+    "de": "Zustandsvorschau",
+    "ar": "معاينة الحالة"
+  },
+  "动画帧率": {
+    "zh": "动画帧率",
+    "en": "Animation frame rate",
+    "ja": "アニメーションのフレームレート",
+    "ko": "애니메이션 프레임 속도",
+    "fr": "Cadence de l’animation",
+    "de": "Animationsbildrate",
+    "ar": "معدل إطارات الحركة"
+  },
+  "替换此状态素材": {
+    "zh": "替换此状态素材",
+    "en": "Replace this state’s sprite",
+    "ja": "この状態の画像を変更",
+    "ko": "이 상태 이미지 교체",
+    "fr": "Remplacer l’image de cet état",
+    "de": "Grafik dieses Zustands ersetzen",
+    "ar": "استبدال صورة هذه الحالة"
+  },
+  "伙伴名字": {
+    "zh": "伙伴名字",
+    "en": "Companion name",
+    "ja": "相棒の名前",
+    "ko": "친구 이름",
+    "fr": "Nom du compagnon",
+    "de": "Name des Begleiters",
+    "ar": "اسم الرفيق"
+  },
+  "伙伴大小": {
+    "zh": "伙伴大小",
+    "en": "Companion size",
+    "ja": "相棒のサイズ",
+    "ko": "친구 크기",
+    "fr": "Taille du compagnon",
+    "de": "Größe des Begleiters",
+    "ar": "حجم الرفيق"
+  },
+  "今日页面位置": {
+    "zh": "今日页面位置",
+    "en": "Position on Today",
+    "ja": "今日ページの位置",
+    "ko": "오늘 페이지 위치",
+    "fr": "Position sur Aujourd’hui",
+    "de": "Position auf Heute",
+    "ar": "الموضع في صفحة اليوم"
+  },
+  "曲线上方": {
+    "zh": "曲线上方",
+    "en": "Above the chart",
+    "ja": "グラフの上",
+    "ko": "차트 위",
+    "fr": "Au-dessus du graphique",
+    "de": "Über dem Diagramm",
+    "ar": "فوق الرسم البياني"
+  },
+  "曲线下方": {
+    "zh": "曲线下方",
+    "en": "Below the chart",
+    "ja": "グラフの下",
+    "ko": "차트 아래",
+    "fr": "Sous le graphique",
+    "de": "Unter dem Diagramm",
+    "ar": "تحت الرسم البياني"
+  },
+  "低能量阈值": {
+    "zh": "低能量阈值",
+    "en": "Low-energy threshold",
+    "ja": "低エネルギーのしきい値",
+    "ko": "에너지 부족 기준",
+    "fr": "Seuil d’énergie faible",
+    "de": "Schwelle für niedrige Energie",
+    "ar": "عتبة انخفاض الطاقة"
+  },
+  "显示能量条": {
+    "zh": "显示能量条",
+    "en": "Show energy bar",
+    "ja": "エネルギーバーを表示",
+    "ko": "에너지 막대 표시",
+    "fr": "Afficher la barre d’énergie",
+    "de": "Energieleiste anzeigen",
+    "ar": "إظهار شريط الطاقة"
+  },
+  "休息浮层显示伙伴": {
+    "zh": "休息浮层显示伙伴",
+    "en": "Show companion during breaks",
+    "ja": "休憩画面に相棒を表示",
+    "ko": "휴식 화면에 친구 표시",
+    "fr": "Afficher le compagnon pendant les pauses",
+    "de": "Begleiter in Pausen anzeigen",
+    "ar": "إظهار الرفيق أثناء الاستراحة"
+  },
+  "导入宠物包": {
+    "zh": "导入宠物包",
+    "en": "Import pet pack",
+    "ja": "ペットパックを読み込む",
+    "ko": "펫 팩 가져오기",
+    "fr": "Importer un pack",
+    "de": "Begleiterpaket importieren",
+    "ar": "استيراد حزمة الرفيق"
+  },
+  "导出宠物包": {
+    "zh": "导出宠物包",
+    "en": "Export pet pack",
+    "ja": "ペットパックを書き出す",
+    "ko": "펫 팩 내보내기",
+    "fr": "Exporter le pack",
+    "de": "Begleiterpaket exportieren",
+    "ar": "تصدير حزمة الرفيق"
+  },
+  "恢复内置伙伴": {
+    "zh": "恢复内置伙伴",
+    "en": "Restore built-in companion",
+    "ja": "標準の相棒に戻す",
+    "ko": "기본 친구로 복원",
+    "fr": "Rétablir le compagnon intégré",
+    "de": "Mitgelieferten Begleiter wiederherstellen",
+    "ar": "استعادة الرفيق المدمج"
+  },
+  "宠物帧说明": {
+    "zh": "使用透明 PNG 横向排列 1–32 帧，每帧 {width} × {height} px。",
+    "en": "Use a transparent PNG strip with 1–32 frames arranged horizontally. Each frame is {width} × {height} px.",
+    "ja": "透明PNGに1〜32コマを横一列に並べます。1コマは{width} × {height} pxです。",
+    "ko": "투명 PNG에 1~32프레임을 가로로 배치하세요. 각 프레임은 {width} × {height} px입니다.",
+    "fr": "PNG transparent, de 1 à 32 images en ligne. Chaque image mesure {width} × {height} px.",
+    "de": "Transparentes PNG mit 1–32 Bildern nebeneinander. Jedes Bild misst {width} × {height} px.",
+    "ar": "شريط PNG شفاف يضم 1–32 إطارا أفقيا. حجم كل إطار {width} × {height} بكسل."
+  },
+  "宠物包说明": {
+    "zh": "可导出当前宠物包作为模板。JSON 包包含五种状态的 PNG、帧尺寸及播放速度，最大 4 MB；素材仅保存在本机。",
+    "en": "Export a pack as a template. JSON packs contain five PNG animations, frame sizes and playback speeds (up to 4 MB). All assets stay on this device.",
+    "ja": "書き出したパックをテンプレートにできます。JSONには5つのPNGアニメーション、コマサイズ、再生速度を含めます（最大4 MB）。素材はこの端末に保存されます。",
+    "ko": "내보낸 팩을 템플릿으로 사용하세요. JSON에는 PNG 애니메이션 5개, 프레임 크기와 재생 속도가 포함됩니다(최대 4 MB). 모든 소재는 이 기기에 저장됩니다.",
+    "fr": "Exportez un pack comme modèle. Le JSON contient cinq animations PNG, leurs dimensions et vitesses (4 Mo maximum). Tout reste sur cet appareil.",
+    "de": "Exportiere ein Paket als Vorlage. JSON-Pakete enthalten fünf PNG-Animationen, Bildgrößen und Geschwindigkeiten (max. 4 MB). Alle Grafiken bleiben auf diesem Gerät.",
+    "ar": "صدّر حزمة لاستخدامها كقالب. تحتوي حزم JSON على خمس حركات PNG وأحجام الإطارات وسرعات التشغيل (حتى 4 MB). تبقى الملفات على هذا الجهاز."
+  },
+  "宠物素材无效": {
+    "zh": "宠物设置或素材无效：名字限 1–40 字，JSON 包最大 4 MB，须包含五种状态的 PNG；每帧 8–128 px、每条 1–32 帧、帧率 1–24 fps。",
+    "en": "Invalid pet settings or pack. Use a name of 1–40 characters and a JSON pack up to 4 MB with five PNG strips, frames of 8–128 px, 1–32 frames per strip and 1–24 fps.",
+    "ja": "設定または素材が無効です。名前は1〜40文字、JSONは4 MB以内で、5状態のPNG（8〜128 px、1〜32コマ、1〜24 fps）を使用してください。",
+    "ko": "설정 또는 소재가 잘못되었어요. 이름은 1~40자, JSON은 4 MB 이하이며 5개 PNG 스트립(8~128 px, 1~32프레임, 1~24 fps)을 사용하세요.",
+    "fr": "Réglages ou pack invalides. Nom de 1 à 40 caractères, JSON de 4 Mo maximum, cinq bandes PNG de 1 à 32 images (8–128 px), à 1–24 fps.",
+    "de": "Ungültige Einstellungen oder Grafiken. Name: 1–40 Zeichen; JSON: max. 4 MB mit fünf PNG-Streifen, 8–128 px pro Bild, 1–32 Bilder, 1–24 fps.",
+    "ar": "إعدادات أو حزمة غير صالحة. استخدم اسما من 1–40 حرفا وحزمة JSON حتى 4 MB بخمسة أشرطة PNG، إطارات 8–128 بكسل، 1–32 إطارا لكل شريط، و1–24 إطارا في الثانية."
   }
 }

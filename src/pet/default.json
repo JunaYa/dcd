@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "name": "Mori",
+  "frameWidth": 24,
+  "frameHeight": 24,
+  "states": {
+    "ready": {
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAABDElEQVR4nO2YsQ0CMQxFbzEKClrmQSxASwUT0FAzABucmOhQkCKhwxyX4OcY4S+5C8++56Sh6yKRiLNcb6dhXK1nchUNQYfLcRiXJp+eH+fTgiT+Yr164XpdMH6BWghKpXUzW8yvyccFveuTPuJbpsX8Vn4wQVISW5tPz2/pR1VQZs0tzZ4aLJxPCkrnpecqVe3NoheM8mlBwW/YILNrqrTHTy6AFjTm5ycqsaSz3uZXv0DWgoLf8AP68/5RU7fm+YwHQaYvwELQHFleF0zwcUGfepBs7QVTflBBmV9TJXx6fpKPC6rpQbJrFkz7MfmrYOr3mmxifgs/qCCL0POj/M1uuyyp4OvyI5H/yB2gcL/tcTIIIAAAAABJRU5ErkJggg==",
+      "frames": 4,
+      "fps": 4
+    },
+    "working": {
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAABE0lEQVR4nO2YsQ3CMBBFvRgFBS3DUCEWoEhDBRPQUDMAGyAmMjKSpWAusWPft430v/Q75935ny0lMYaiqM70eF1t6NY9dSWNgM73iw2tyUf3D+ejA5L4q+3mh9vrgOEHqEVAzlons0X/mnx4QFN13CZKmTX6r5UPLCBJjq3NR/dfMx/VgDwr1Zo1NVhwPjIgt166rpJzTxZ6wFA+OiDyGxbw7BwvrfGXA0AHFPL9FZVY0tre+lc/QLUDIr/hBp6308dzp2a8poeAqt6AGgGlhNXrgBF8eECxGki29oBR+ZjdMNgcJ8HJn5afoPRw+HolrYl9dJAf+SibK5Dikg2QPypQavIVfkvsj4f1EidByaco6ktv5TPVsvvBOgAAAAAASUVORK5CYII=",
+      "frames": 4,
+      "fps": 4
+    },
+    "tired": {
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAAA3ElEQVR4nO2XQQrCMBBFezEXLtx6HvECgitXegI3grtuBW8gnqgyQiGmwUwnU7DmffiL0uT9GZoJtGkQQgihEbo/z11s+M78Y3vqYnsGwDcELNarAdizAfiZALHX6MI3BslXLobCt0ngUwbAT8C0lj37600dbuFXU79sSN1nKYejp20A/p83MGt+D7dYM2olfE0Dc69/ENDfYaliU2vhl/F/+gTVwP8IeFwOb3+DhmvGNgA/E6AZK88TBF8RUgyHrwuwGL7zz9hkcPh5bXbbZQiQ59DxO/i+fITq0AsB5MMPDXryJAAAAABJRU5ErkJggg==",
+      "frames": 4,
+      "fps": 2
+    },
+    "resting": {
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAABIUlEQVR4nO2YsQ3CQAxFsxgFBS3zIBagpYIJaKgZgA0iJgoK0kkoOJc7x+9i4L7k7nh2/rcbmqaqqsqZ7o9LN6ylZ3KlmEGphp1u525YKXwv82v5ydIaNCeA1XbzwS0dsBe+yqCctCV+X1ObQwY8d37LBVIZpDk36SPG3tIBe+KPNooZNFc92yqAIHp+aoFETRmkYaWWZU8LFs4nDerfS+cqlXZz6YBRPm1Q5S/YILA1ldvjKwOgDRryw4lKLOmtt/nNF+jXDKLnt+YXNai9Hl8VY76/8RgwegGlDRrbJq8BE3zcoKkeJNs6YMof1KDA11QOn56f5OMGaXqQbE3AtD9F/iqI/d6STcxfwh/UoBKi50f5u8N+nVOVb8uvqvoPPQGWRjNoZKk7tQAAAABJRU5ErkJggg==",
+      "frames": 4,
+      "fps": 2
+    },
+    "celebrate": {
+      "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAAAYCAYAAAAF6fiUAAABLklEQVR4nO2XMQ7CMAxFezEGBlbOg7gAKxOcgIWZA3ADxImKOkSqjNs4ib9jhL/khVbPP9+OVIYhFAo50/N9G2n19uRKGgFdHteRliYf7R/ORwfE8Tf73RfX64DhC9QS0Ot+zjbk+FNpbWYP/5oLVB3QZD7V/PclE9whct6QA5b6b1kg1j8yIOkmTOwcv8eA1/yX8ln/mgEtibITS1r0EJRt7b+FL7oBLQFJjHLXlSvpZln6h/MRAQW/YAjIBoldU6U9fnIA6IAoP11RjsW9682/+gJZBxT8jgdIn2NrWzN/x0NApjfAIiBJWF4HjODDA8r1QLK1B4zKBxpQ4tdUCR/tH8mHB1TTA8muGTA6H/g/Sdqj5JkH/xb5QAOyENo/lH84HbclFXxdfij0H/oAKfs8wHxG880AAAAASUVORK5CYII=",
+      "frames": 4,
+      "fps": 4
+    }
+  }
+}
