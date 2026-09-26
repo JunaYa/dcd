@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'DCD Pixel';
+  src: url('/fonts/fusion-pixel/fusion-pixel-12px-proportional-zh_hans.otf.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+.break-content {
+  font-family: var(--break-font-system);
+}
+.break-content[data-font='serif'] { font-family: var(--break-font-serif); }
+.break-content[data-font='mono'] { font-family: var(--break-font-mono); }
+.break-content[data-font='pixel'] { font-family: var(--break-font-pixel); font-synthesis: none; }
+.break-content .break-skip { font-family: inherit; }
+.break-content[data-font='pixel'] h1 { font-size:48px; font-weight:400; line-height:1.25; }
+.break-content[data-font='pixel'] .break-copy p { font-size:24px; line-height:1.5; }
+.break-content[data-font='pixel'] .countdown { font-size:96px; font-weight:400; letter-spacing:0; }
+.break-content[data-font='pixel'] .break-caption,
+.break-content[data-font='pixel'] .break-skip { font-size:24px; line-height:1.5; }
+.pixel-reveal { animation: pixel-text-reveal 240ms steps(1, end) both; }
+@keyframes pixel-text-reveal {
+  0% { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='3' height='3' fill='black'/%3E%3C/svg%3E"); }
+  25% { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='6' height='6' fill='black'/%3E%3C/svg%3E"); }
+  50% { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Crect width='9' height='9' fill='black'/%3E%3C/svg%3E"); }
+  75%, 100% { mask-image:none; }
+}
+@media (prefers-reduced-motion: reduce) { .pixel-reveal { animation:none; } }

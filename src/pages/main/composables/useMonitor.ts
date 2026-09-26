@@ -2,6 +2,7 @@ import { invoke, isTauri } from '@tauri-apps/api/core'
 import { listen, type UnlistenFn } from '@tauri-apps/api/event'
 import { computed, inject, onMounted, onUnmounted, provide, ref, type InjectionKey } from 'vue'
 import { defaults, emptySnapshot, type Settings, type Snapshot } from '~/eye/model'
+import { breakFonts, loadBreakFont } from '~/theme/breakTypography'
 import { parsePetPack } from '~/pet/model'
 import { t } from '~/i18n'
 import { applySnapshot, sameSettings } from './snapshot'
@@ -62,6 +63,14 @@ function createMonitor(initialSnapshot?: Snapshot) {
     try {
       const data = await invoke<Snapshot>('eye_snapshot')
       if (disposed) return
+      if (data.settings.breakFont === 'pixel' && settings.value.breakFont !== 'pixel') {
+        try {
+          await loadBreakFont('pixel')
+        } catch (cause) {
+          report(cause)
+        }
+      }
+      if (disposed) return
       applySnapshot(snapshot.value, data)
       if (
         !dirty.value &&
@@ -81,6 +90,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
   }
   function validate() {
     const s = settings.value
+    if (!breakFonts.includes(s.breakFont)) throw new Error(t('休息字体设置无效'))
     if (
       !s.petName.trim() ||
       s.petName.length > 40 ||

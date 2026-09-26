@@ -1,3 +1,4 @@
+import type { BreakFont } from '../theme/breakTypography'
 import { resolveLanguage } from '../i18n/locale.ts'
 
 export type Theme = 'system' | 'light' | 'dark'
@@ -18,6 +19,8 @@ export interface Settings {
   trayShowChart: boolean
   overlayOpacity: number
   overlayBlur: number
+  breakFont: BreakFont
+  breakPixelAnimation: boolean
   workMinutes: number
   breakMinutes: number
   breakSeconds: number
@@ -70,6 +73,8 @@ export const defaults: Settings = {
   trayShowChart: true,
   overlayOpacity: 82,
   overlayBlur: 16,
+  breakFont: 'system',
+  breakPixelAnimation: false,
   workMinutes: 25,
   breakMinutes: 5,
   breakSeconds: 0,

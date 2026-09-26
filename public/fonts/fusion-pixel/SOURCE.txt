@@ -1,0 +1,4 @@
+Fusion Pixel Font, release 2026.09.25
+https://github.com/TakWolf/fusion-pixel-font
+Unmodified 12px proportional zh_hans WOFF2, shared Latin/CJK coverage.
+Font and upstream licenses accompany this file.

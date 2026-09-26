@@ -1,12 +1,35 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useMonitor } from '../composables/useMonitor'
 import { t } from '~/i18n'
+import { breakFonts, loadBreakFont, type BreakFont } from '~/theme/breakTypography'
 import { accentPresets, defaultAccent } from '~/theme/accent'
 import Toggle from '~/components/eye/Toggle.vue'
 import PetSettings from '~/pet/PetSettings.vue'
 import BreakPreview from '../components/BreakPreview.vue'
 const { settings, saving, dirty, saveSettings, toggle, action, report } = useMonitor()
+const fontLoading = ref(false)
+const fontLabels = computed(() => ({
+  system: t('系统字体'),
+  serif: t('衬线字体'),
+  mono: t('等宽字体'),
+  pixel: t('像素字体'),
+}))
+async function selectBreakFont(event: Event) {
+  const input = event.target as HTMLSelectElement
+  const font = input.value as BreakFont
+  fontLoading.value = true
+  try {
+    await loadBreakFont(font)
+    settings.value.breakFont = font
+    await saveSettings()
+  } catch (cause) {
+    input.value = settings.value.breakFont
+    report(cause)
+  } finally {
+    fontLoading.value = false
+  }
+}
 const themeOptions = computed(() => [
   { value: 'system', label: t('跟随系统') },
   { value: 'light', label: t('浅色') },
@@ -141,6 +164,32 @@ async function upload(event: Event) {
       <p class="section-description">
         {{ t('独立于主窗口和托盘菜单，也用于窗口提醒。') }}
       </p>
+      <div class="setting-row">
+        <label for="break-font">{{ t('休息浮层字体') }}</label>
+        <select
+          id="break-font"
+          :value="settings.breakFont"
+          :disabled="saving || fontLoading"
+          @change="selectBreakFont"
+        >
+          <option v-for="font in breakFonts" :key="font" :value="font">
+            {{ fontLabels[font] }}
+          </option>
+        </select>
+      </div>
+      <p class="section-description">{{ t('休息字体说明') }}</p>
+      <template v-if="settings.breakFont === 'pixel'">
+        <div class="setting-row">
+          <span>{{ t('像素切换动画') }}</span>
+          <Toggle
+            :model-value="settings.breakPixelAnimation"
+            :label="t('像素切换动画')"
+            :disabled="saving"
+            @update:model-value="toggle('breakPixelAnimation', $event)"
+          />
+        </div>
+        <p class="section-description">{{ t('像素动画说明') }}</p>
+      </template>
       <BreakPreview />
       <div class="setting-row">
         <span>{{ t('背景主题') }}</span>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BreakCountdown from './BreakCountdown.vue'
 import PixelPet from '~/pet/PixelPet.vue'
 import { usePet } from '~/pet/usePet'
 import { t } from '~/i18n'
@@ -7,11 +8,12 @@ import { useBreakPresentation } from '../composables/useBreakPresentation'
 defineProps<{ timer: string; caption: string; preview?: boolean }>()
 const { settings, action } = useMonitor()
 const { pack, energy } = usePet()
-const { breakMessage } = useBreakPresentation()
+const { breakMessage, pixelAnimation } = useBreakPresentation()
 </script>
 <template>
   <div
     class="break-content"
+    :data-font="settings.breakFont"
     :class="{ 'with-pet': settings.petEnabled && settings.petShowOnBreak }"
   >
     <div v-if="settings.petEnabled && settings.petShowOnBreak" class="break-pet">
@@ -21,12 +23,16 @@ const { breakMessage } = useBreakPresentation()
         <span>{{ energy }}%</span>
       </div>
     </div>
-    <div class="break-copy">
+    <div
+      :key="settings.breakFont + breakMessage + pixelAnimation"
+      class="break-copy"
+      :class="{ 'pixel-reveal': pixelAnimation }"
+    >
       <h1>{{ breakMessage }}</h1>
       <p>{{ t('移开视线，看看远处，让双眼放松。') }}</p>
     </div>
     <div class="break-timer">
-      <div class="countdown">{{ timer }}</div>
+      <BreakCountdown :value="timer" :animated="pixelAnimation" />
       <span class="break-caption">{{ caption }}</span>
     </div>
     <component

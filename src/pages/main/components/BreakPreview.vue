@@ -6,8 +6,9 @@ import { accentTokens } from '~/theme/accent'
 import { useMonitor } from '../composables/useMonitor'
 import { useBreakPresentation } from '../composables/useBreakPresentation'
 import BreakContent from './BreakContent.vue'
+const replay = ref(0)
 const { settings } = useMonitor()
-const { overlayStyle, backgroundStyle } = useBreakPresentation()
+const { overlayStyle, backgroundStyle, pixelAnimation } = useBreakPresentation()
 const frame = ref<HTMLElement>()
 const { width } = useElementSize(frame)
 const systemDark = useMediaQuery('(prefers-color-scheme: dark)')
@@ -28,7 +29,12 @@ const timer = computed(
 
 <template>
   <figure class="break-preview">
-    <figcaption>{{ t('实时预览') }}</figcaption>
+    <figcaption>
+      {{ t('实时预览')
+      }}<button v-if="pixelAnimation" class="button" type="button" @click="replay++">
+        {{ t('播放切换动画') }}
+      </button>
+    </figcaption>
     <div ref="frame" class="break-preview-frame" :style="themeStyle" aria-hidden="true">
       <div class="break-preview-stage" :style="{ transform: `scale(${width / 800})` }">
         <div class="break-preview-desktop">
@@ -44,7 +50,7 @@ const timer = computed(
           ]"
         >
           <div class="break-backdrop" :style="backgroundStyle" />
-          <BreakContent :timer="timer" :caption="t('休息倒计时')" preview />
+          <BreakContent :key="replay" :timer="timer" :caption="t('休息倒计时')" preview />
         </div>
       </div>
     </div>
@@ -57,6 +63,12 @@ const timer = computed(
   margin: var(--space-6) 0;
 }
 figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  max-width: 480px;
+  min-height: 40px;
   margin-bottom: var(--space-3);
   font-size: var(--text-small);
   color: var(--color-text-muted);
@@ -114,6 +126,9 @@ figcaption {
 }
 .break-preview-stage :deep(h1) {
   font-size: 44px;
+}
+.break-preview-stage :deep(.break-content[data-font='pixel'] h1) {
+  font-size: 48px;
 }
 .break-preview-stage :deep(.countdown) {
   font-size: 96px;

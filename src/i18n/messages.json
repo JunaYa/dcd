@@ -1870,5 +1870,104 @@
     "fr": "Réglages ou pack invalides. Nom de 1 à 40 caractères, JSON de 4 Mo maximum, cinq bandes PNG de 1 à 32 images (8–128 px), à 1–24 fps.",
     "de": "Ungültige Einstellungen oder Grafiken. Name: 1–40 Zeichen; JSON: max. 4 MB mit fünf PNG-Streifen, 8–128 px pro Bild, 1–32 Bilder, 1–24 fps.",
     "ar": "إعدادات أو حزمة غير صالحة. استخدم اسما من 1–40 حرفا وحزمة JSON حتى 4 MB بخمسة أشرطة PNG، إطارات 8–128 بكسل، 1–32 إطارا لكل شريط، و1–24 إطارا في الثانية."
+  },
+  "系统字体": {
+    "zh": "系统字体",
+    "en": "System",
+    "ja": "システム",
+    "ko": "시스템",
+    "fr": "Système",
+    "de": "System",
+    "ar": "النظام"
+  },
+  "衬线字体": {
+    "zh": "衬线字体",
+    "en": "Serif",
+    "ja": "明朝体",
+    "ko": "명조체",
+    "fr": "Avec empattements",
+    "de": "Serifenschrift",
+    "ar": "بذيول"
+  },
+  "等宽字体": {
+    "zh": "等宽字体",
+    "en": "Monospace",
+    "ja": "等幅",
+    "ko": "고정폭",
+    "fr": "Chasse fixe",
+    "de": "Nichtproportional",
+    "ar": "أحادي المسافة"
+  },
+  "像素字体": {
+    "zh": "像素字体",
+    "en": "Pixel",
+    "ja": "ピクセル",
+    "ko": "픽셀",
+    "fr": "Pixel",
+    "de": "Pixel",
+    "ar": "بكسل"
+  },
+  "休息浮层字体": {
+    "zh": "休息浮层字体",
+    "en": "Break overlay font",
+    "ja": "休憩画面のフォント",
+    "ko": "휴식 화면 글꼴",
+    "fr": "Police de la pause",
+    "de": "Schrift der Pausenansicht",
+    "ar": "خط نافذة الاستراحة"
+  },
+  "像素切换动画": {
+    "zh": "像素切换动画",
+    "en": "Pixel transition",
+    "ja": "ピクセル切り替え",
+    "ko": "픽셀 전환 애니메이션",
+    "fr": "Transition pixel",
+    "de": "Pixel-Übergang",
+    "ar": "انتقال البكسل"
+  },
+  "播放切换动画": {
+    "zh": "播放切换动画",
+    "en": "Replay transition",
+    "ja": "切り替えを再生",
+    "ko": "전환 재생",
+    "fr": "Rejouer la transition",
+    "de": "Übergang abspielen",
+    "ar": "إعادة تشغيل الانتقال"
+  },
+  "休息字体说明": {
+    "zh": "仅影响休息浮层文案与倒计时。像素字体离线可用，缺失字形自动使用系统字体。",
+    "en": "Applies only to break text and countdowns. The pixel font works offline; unsupported characters use the system font.",
+    "ja": "休憩の文字とカウントダウンにのみ適用します。ピクセルフォントはオフラインで使用でき、未対応の文字はシステムフォントで表示します。",
+    "ko": "휴식 문구와 카운트다운에만 적용됩니다. 픽셀 글꼴은 오프라인으로 사용되며 지원하지 않는 문자는 시스템 글꼴로 표시됩니다.",
+    "fr": "Uniquement pour le texte et le compte à rebours des pauses. La police pixel fonctionne hors ligne ; les caractères non pris en charge utilisent la police système.",
+    "de": "Gilt nur für Pausentext und Countdown. Die Pixelschrift funktioniert offline; fehlende Zeichen verwenden die Systemschrift.",
+    "ar": "يطبق على نص الاستراحة والعد التنازلي فقط. يعمل خط البكسل دون اتصال، وتستخدم الأحرف غير المدعومة خط النظام."
+  },
+  "像素动画说明": {
+    "zh": "文字以像素方块短暂显现，倒计时仅变化的数字播放动画；遵循系统“减少动态效果”设置。",
+    "en": "Briefly reveals text in pixel blocks. Only changed countdown digits animate. Respects Reduce Motion.",
+    "ja": "文字をピクセル単位で短く表示します。カウントダウンは変化した数字だけが動きます。「視差効果を減らす」に対応します。",
+    "ko": "텍스트를 픽셀 블록으로 짧게 표시합니다. 카운트다운은 바뀐 숫자만 움직이며 동작 줄이기 설정을 따릅니다.",
+    "fr": "Révèle brièvement le texte en blocs de pixels. Seuls les chiffres modifiés s’animent. Respecte la réduction des animations.",
+    "de": "Blendet Text kurz in Pixelblöcken ein. Nur geänderte Ziffern bewegen sich. Beachtet „Bewegung reduzieren“.",
+    "ar": "يكشف النص لفترة وجيزة في كتل بكسل. تتحرك الأرقام المتغيرة فقط، مع احترام إعداد تقليل الحركة."
+  },
+  "像素字体加载失败": {
+    "zh": "像素字体加载失败",
+    "en": "Could not load the pixel font. Please try again.",
+    "ja": "ピクセルフォントを読み込めませんでした。再試行してください。",
+    "ko": "픽셀 글꼴을 불러오지 못했습니다. 다시 시도하세요.",
+    "fr": "Impossible de charger la police pixel. Réessayez.",
+    "de": "Pixelschrift konnte nicht geladen werden. Bitte erneut versuchen.",
+    "ar": "تعذر تحميل خط البكسل. حاول مرة أخرى."
+  },
+  "休息字体设置无效": {
+    "zh": "休息字体设置无效",
+    "en": "Invalid break font setting.",
+    "ja": "休憩フォントの設定が無効です。",
+    "ko": "휴식 글꼴 설정이 잘못되었습니다.",
+    "fr": "Réglage de police de pause invalide.",
+    "de": "Ungültige Pausenschrift-Einstellung.",
+    "ar": "إعداد خط الاستراحة غير صالح."
   }
 }

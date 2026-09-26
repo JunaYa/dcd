@@ -1,4 +1,8 @@
 :root {
+  --break-font-system: var(--font-sans);
+  --break-font-serif: 'Iowan Old Style', 'Palatino Linotype', 'Songti SC', 'Noto Serif', serif;
+  --break-font-mono: 'SFMono-Regular', Menlo, Consolas, 'Noto Sans Mono', monospace;
+  --break-font-pixel: 'DCD Pixel', var(--font-sans);
   --color-white: #fff;
   --color-black: #000;
   --color-scrollbar: rgb(150 150 157 / 0.35);

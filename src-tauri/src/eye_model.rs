@@ -19,6 +19,8 @@ pub struct Settings {
     pub tray_show_chart: bool,
     pub overlay_opacity: u32,
     pub overlay_blur: u32,
+    pub break_font: String,
+    pub break_pixel_animation: bool,
     pub work_minutes: u32,
     pub break_minutes: u32,
     pub break_seconds: u32,
@@ -56,6 +58,8 @@ impl Default for Settings {
             tray_show_chart: true,
             overlay_opacity: 82,
             overlay_blur: 16,
+            break_font: "system".into(),
+            break_pixel_animation: false,
             work_minutes: 25,
             break_minutes: 5,
             break_seconds: 0,
@@ -85,6 +89,9 @@ impl Settings {
             || crate::pet::validate_pack(&self.pet_pack).is_err()
         {
             return Err(crate::i18n::text(&self.language, "宠物素材无效"));
+        }
+        if !["system", "serif", "mono", "pixel"].contains(&self.break_font.as_str()) {
+            return Err(crate::i18n::text(&self.language, "休息字体设置无效"));
         }
         if self.accent_color.len() != 7 || !self.accent_color.starts_with('#')
             || !self.accent_color.as_bytes()[1..].iter().all(u8::is_ascii_hexdigit) {
@@ -419,6 +426,22 @@ mod tests {
         assert_eq!(m.fatigue(), 20);
         assert_eq!(m.tick(400, "2026-09-26", 0, false), Effect::EndBreak);
         assert_eq!(m.fatigue(), 0);
+    }
+    #[test]
+    fn break_typography_defaults_validates_and_persists() {
+        let mut s: Settings = serde_json::from_str("{}").unwrap();
+        assert_eq!(s.break_font, "system");
+        assert!(!s.break_pixel_animation);
+        for font in ["system", "serif", "mono", "pixel"] {
+            s.break_font = font.into();
+            assert!(s.validate().is_ok());
+        }
+        s.break_pixel_animation = true;
+        let restored: Settings = serde_json::from_str(&serde_json::to_string(&s).unwrap()).unwrap();
+        assert_eq!(restored.break_font, "pixel");
+        assert!(restored.break_pixel_animation);
+        s.break_font = "unknown".into();
+        assert!(s.validate().is_err());
     }
     #[test]
     fn pet_defaults_and_custom_settings_survive_roundtrip() {

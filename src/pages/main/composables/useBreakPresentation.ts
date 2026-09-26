@@ -4,6 +4,9 @@ import { useMonitor } from './useMonitor'
 
 export function useBreakPresentation() {
   const { settings, remaining } = useMonitor()
+  const pixelAnimation = computed(
+    () => settings.value.breakFont === 'pixel' && settings.value.breakPixelAnimation,
+  )
   const countdown = computed(
     () =>
       `${String(Math.floor(remaining.value / 60)).padStart(2, '0')}:${String(remaining.value % 60).padStart(2, '0')}`,
@@ -24,5 +27,5 @@ export function useBreakPresentation() {
         }
       : {},
   )
-  return { countdown, overlayStyle, breakMessage, backgroundStyle }
+  return { countdown, overlayStyle, breakMessage, backgroundStyle, pixelAnimation }
 }
