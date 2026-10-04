@@ -162,6 +162,9 @@ function createMonitor(initialSnapshot?: Snapshot) {
         }
         if (name === 'skip') {
           snapshot.value.breakUntil = 0
+          snapshot.value.workSeconds = 0
+          snapshot.value.fatigue = 0
+          snapshot.value.now = now
           browserBreak.value = false
         }
         if (name === 'pause') {

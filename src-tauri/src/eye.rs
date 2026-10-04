@@ -419,8 +419,7 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             if !m.settings.allow_skip {
                 return Err(text(&m.settings.language, "当前规则不允许跳过休息"));
             }
-            m.break_until = 0;
-            m.next_reminder = now + m.settings.repeat_minutes as i64 * 60;
+            m.skip_break(now);
             if let Some(w) = app.get_webview_window("eye-break") {
                 dismiss_break(&w)?;
             }

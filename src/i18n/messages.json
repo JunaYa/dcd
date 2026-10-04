@@ -891,13 +891,13 @@
     "ar": "إظهار زر التخطي"
   },
   "关闭后需要完成倒计时才能结束休息": {
-    "zh": "关闭后无法通过跳过按钮提前结束休息。跳过不会清零疲劳值，也不计为完成休息；若仍达到阈值，将在提醒间隔后再次提醒。",
-    "en": "When disabled, the skip button cannot end a break early. Skipping does not reset fatigue or count as a completed break; if you remain above the threshold, another reminder follows after the reminder interval.",
-    "ja": "オフにするとスキップボタンで休憩を早く終了できません。スキップしても疲労値はリセットされず、完了回数にも含まれません。しきい値以上なら通知間隔後に再通知します。",
-    "ko": "끄면 건너뛰기 버튼으로 휴식을 일찍 끝낼 수 없습니다. 건너뛰어도 피로도는 초기화되지 않고 완료한 휴식으로 계산되지 않습니다. 기준 이상이면 알림 간격 후 다시 알립니다.",
-    "fr": "Si désactivé, le bouton Passer ne permet pas de terminer plus tôt. Passer une pause ne remet pas la fatigue à zéro et ne compte pas comme une pause terminée ; un rappel revient après l’intervalle si le seuil reste atteint.",
-    "de": "Wenn deaktiviert, lässt sich die Pause nicht über Überspringen vorzeitig beenden. Überspringen setzt die Ermüdung nicht zurück und zählt nicht als abgeschlossene Pause. Bleibt der Schwellenwert erreicht, wird nach dem Intervall erneut erinnert.",
-    "ar": "عند إيقافه لا يمكن إنهاء الاستراحة مبكرًا بزر التخطي. التخطي لا يصفر الإجهاد ولا يُحسب استراحة مكتملة؛ ويظهر تذكير آخر بعد المدة المحددة إذا استمر بلوغ الحد."
+    "zh": "关闭后无法通过跳过按钮提前结束休息。跳过会结束本次休息、清零疲劳值并重新开始工作计时；工作满设定时长后再次提醒，不计为完成休息。",
+    "en": "When disabled, the skip button cannot end a break early. Skipping ends this break, resets fatigue and starts a new work period. The next reminder follows a full work period; skipping does not count as a completed break.",
+    "ja": "オフにするとスキップボタンで休憩を早く終了できません。スキップすると休憩を終了し、疲労値と作業タイマーをリセットします。設定した作業時間が経過すると再通知します。完了した休憩には数えません。",
+    "ko": "끄면 건너뛰기 버튼으로 휴식을 일찍 끝낼 수 없습니다. 건너뛰면 휴식을 끝내고 피로도와 작업 타이머를 초기화합니다. 설정한 작업 시간이 지나면 다시 알리며, 완료한 휴식으로 계산하지 않습니다.",
+    "fr": "Si désactivé, le bouton Passer ne permet pas de terminer plus tôt. Passer termine la pause, remet la fatigue à zéro et relance une période de travail complète avant le prochain rappel, sans compter la pause comme terminée.",
+    "de": "Wenn deaktiviert, lässt sich die Pause nicht über Überspringen vorzeitig beenden. Überspringen beendet die Pause, setzt die Ermüdung zurück und startet eine volle Arbeitsphase bis zur nächsten Erinnerung. Die Pause zählt nicht als abgeschlossen.",
+    "ar": "عند إيقافه لا يمكن إنهاء الاستراحة مبكرًا بزر التخطي. ينهي التخطي الاستراحة ويصفر الإجهاد ويبدأ فترة عمل جديدة. يظهر التذكير التالي بعد فترة عمل كاملة، ولا يُحسب التخطي استراحة مكتملة."
   },
   "休息浮层外观": {
     "zh": "休息浮层外观",
@@ -1691,14 +1691,14 @@
     "de": "Gemeinsam pausieren",
     "ar": "لنسترح معا"
   },
-  "能量跟随疲劳值恢复，跳过休息不会充满。": {
-    "zh": "能量跟随疲劳值恢复，跳过休息不会充满。",
-    "en": "Energy follows fatigue recovery. Skipping a break does not fully recharge it.",
-    "ja": "エネルギーは疲労の回復に連動します。休憩をスキップしても満タンにはなりません。",
-    "ko": "에너지는 피로 회복에 따라 변해요. 휴식을 건너뛰면 완충되지 않아요.",
-    "fr": "L’énergie suit la récupération. Passer une pause ne la recharge pas entièrement.",
-    "de": "Die Energie folgt der Erholung. Eine übersprungene Pause lädt sie nicht vollständig auf.",
-    "ar": "تتبع الطاقة التعافي من التعب. تخطي الاستراحة لا يشحنها بالكامل."
+  "能量随疲劳值变化，新一轮工作开始时重置。": {
+    "zh": "能量随疲劳值变化，新一轮工作开始时重置。",
+    "en": "Energy follows fatigue and resets when a new work period starts.",
+    "ja": "エネルギーは疲労値に連動し、新しい作業期間の開始時にリセットされます。",
+    "ko": "에너지는 피로도에 따라 변하며 새 작업 시간이 시작되면 초기화됩니다.",
+    "fr": "L’énergie suit la fatigue et se réinitialise au début d’une nouvelle période de travail.",
+    "de": "Die Energie folgt der Ermüdung und wird beim Start einer neuen Arbeitsphase zurückgesetzt.",
+    "ar": "تتغير الطاقة مع الإجهاد وتُعاد ضبطها عند بدء فترة عمل جديدة."
   },
   "用一个小伙伴，感受专注与休息的节奏。": {
     "zh": "用一个小伙伴，感受专注与休息的节奏。",

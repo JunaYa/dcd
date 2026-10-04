@@ -43,7 +43,7 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            pet_enabled: true,
+            pet_enabled: false,
             pet_name: "Mori".into(),
             pet_size: 96,
             pet_position: "top".into(),
@@ -209,6 +209,14 @@ impl Monitor {
         self.break_started = now;
         self.break_work_seconds = self.work_seconds.min((self.settings.work_minutes * 60) as f64);
         self.break_until = now + self.settings.break_duration() as i64;
+    }
+    pub fn skip_break(&mut self, now: i64) {
+        self.break_until = 0;
+        self.break_started = 0;
+        self.break_work_seconds = 0.0;
+        self.work_seconds = 0.0;
+        self.next_reminder = 0;
+        self.last_tick = now;
     }
     pub fn tick(&mut self, now: i64, date: &str, minute: u32, idle: bool) -> Effect {
         if self.date != date {
@@ -403,18 +411,28 @@ mod tests {
         assert!(restored.validate().is_ok());
     }
     #[test]
-    fn break_recovery_is_gradual_and_skip_keeps_partial_recovery() {
+    fn skip_restarts_a_full_work_period_without_completing_a_break() {
         let mut m = Monitor::default();
         m.work_seconds = 1500.0;
         m.last_tick = 100;
         m.start_break(100);
         m.tick(250, "2026-09-26", 0, false);
         assert_eq!(m.fatigue(), 50);
-        m.break_until = 0;
-        m.paused_until = 1000;
-        m.tick(251, "2026-09-26", 0, false);
-        assert_eq!(m.fatigue(), 50);
+        m.next_reminder = 10000;
+        let seconds = m.days["2026-09-26"].seconds;
+        m.skip_break(250);
+        assert_eq!(m.work_seconds, 0.0);
+        assert_eq!(m.fatigue(), 0);
+        assert_eq!(m.break_until, 0);
+        assert_eq!(m.next_reminder, 0);
         assert_eq!(m.days["2026-09-26"].breaks, 0);
+        assert_eq!(m.days["2026-09-26"].seconds, seconds);
+        for now in 251..1750 {
+            assert_ne!(m.tick(now, "2026-09-26", 0, false), Effect::StartBreak);
+        }
+        assert_eq!(m.tick(1750, "2026-09-26", 0, false), Effect::StartBreak);
+        assert_eq!(m.days["2026-09-26"].breaks, 0);
+        assert_eq!(m.days["2026-09-26"].seconds, seconds + 1500);
     }
     #[test]
     fn early_break_recharges_from_current_energy_until_end() {
@@ -446,7 +464,7 @@ mod tests {
     #[test]
     fn pet_defaults_and_custom_settings_survive_roundtrip() {
         let mut s: Settings = serde_json::from_str("{}").unwrap();
-        assert!(s.pet_enabled);
+        assert!(!s.pet_enabled);
         s.pet_pack = include_str!("../../src/pet/default.json").into();
         s.pet_name = "Pip".into();
         s.pet_tired_threshold = 35;

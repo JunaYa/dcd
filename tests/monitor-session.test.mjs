@@ -1,11 +1,11 @@
-import { createRenderer } from 'vue'
+import { createRenderer, toRaw } from 'vue'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { invoke } from '@tauri-apps/api/core'
+import { invoke, isTauri } from '@tauri-apps/api/core'
 import { listen } from '@tauri-apps/api/event'
 import { emptySnapshot } from '../src/eye/model'
 import { provideMonitor } from '../src/pages/main/composables/useMonitor'
 
-vi.mock('@tauri-apps/api/core', () => ({ isTauri: () => true, invoke: vi.fn() }))
+vi.mock('@tauri-apps/api/core', () => ({ isTauri: vi.fn(), invoke: vi.fn() }))
 vi.mock('@tauri-apps/api/event', () => ({ listen: vi.fn() }))
 
 const renderer = createRenderer({
@@ -37,6 +37,7 @@ function mount() {
 beforeEach(() => {
   vi.useFakeTimers()
   vi.resetAllMocks()
+  isTauri.mockReturnValue(true)
   documentTarget = Object.assign(new EventTarget(), { hidden: false })
   vi.stubGlobal('document', documentTarget)
   vi.stubGlobal('location', new URL('http://localhost/main.html'))
@@ -113,4 +114,23 @@ it('does not overwrite a completed save with an older in-flight snapshot', async
   await settle()
   expect(monitor.settings.value.workMinutes).toBe(40)
   expect(monitor.dirty.value).toBe(false)
+})
+it('skipping a preview break resets work without counting a completed break', async () => {
+  isTauri.mockReturnValue(false)
+  vi.stubGlobal('localStorage', { getItem: () => null })
+  mount()
+  monitor.snapshot.value.workSeconds = 1500
+  monitor.snapshot.value.fatigue = 100
+  const days = structuredClone(toRaw(monitor.snapshot.value.days))
+  await monitor.action('break')
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(monitor.browserBreak.value).toBe(true)
+  await monitor.action('skip')
+  expect(monitor.browserBreak.value).toBe(false)
+  expect(monitor.snapshot.value.breakUntil).toBe(0)
+  expect(monitor.snapshot.value.workSeconds).toBe(0)
+  expect(monitor.snapshot.value.fatigue).toBe(0)
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(monitor.snapshot.value.workSeconds).toBe(0)
+  expect(monitor.snapshot.value.days).toEqual(days)
 })

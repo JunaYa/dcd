@@ -28,7 +28,7 @@ const expanded = ref(false)
         <meter min="0" max="100" :value="energy" :aria-label="t('能量')" />
         <span>{{ energy }}%</span>
       </div>
-      <p v-if="expanded" class="pet-hint">{{ t('能量跟随疲劳值恢复，跳过休息不会充满。') }}</p>
+      <p v-if="expanded" class="pet-hint">{{ t('能量随疲劳值变化，新一轮工作开始时重置。') }}</p>
     </div>
     <button v-if="expanded" type="button" class="button pet-break-button" @click="action('break')">
       {{ t('一起休息') }}

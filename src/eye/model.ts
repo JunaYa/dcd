@@ -58,7 +58,7 @@ export interface Snapshot {
   storageError: string | null
 }
 export const defaults: Settings = {
-  petEnabled: true,
+  petEnabled: false,
   petName: 'Mori',
   petSize: 96,
   petPosition: 'top',
