@@ -52,6 +52,7 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
         true,
     );
     let settings = monitor.settings.clone();
+    monitor.shortcut_error = crate::global_shortcut::apply(app, &settings).err();
     save(app, &monitor)?;
     app.manage(EyeState(Mutex::new(monitor)));
     apply_shell(app, &settings)?;
@@ -325,6 +326,7 @@ pub fn eye_snapshot(app: AppHandle) -> Result<serde_json::Value, String> {
     value["fatigue"] = json!(m.fatigue());
     value["now"] = json!(Local::now().timestamp());
     value["storageError"] = json!(m.storage_error);
+    value["shortcutError"] = json!(m.shortcut_error);
     Ok(value)
 }
 
@@ -339,6 +341,7 @@ pub fn save_on_exit(app: &AppHandle) {
 }
 
 fn apply_settings(app: &AppHandle, settings: &Settings) -> Result<(), String> {
+    crate::global_shortcut::apply(app, settings)?;
     let enabled = app.autolaunch().is_enabled().map_err(|e| e.to_string())?;
     if enabled != settings.autostart {
         if settings.autostart {
@@ -364,6 +367,7 @@ pub fn eye_save_settings(app: AppHandle, settings: Settings) -> Result<(), Strin
     if let Err(error) = result {
         m.settings = old.clone();
         let rollback = apply_settings(&app, &old);
+        m.shortcut_error = rollback.as_ref().err().cloned();
         // Restore the store's in-memory value too, so its later autosave cannot persist a failed edit.
         let persisted = save(&app, &m);
         return Err(format!(
@@ -378,6 +382,7 @@ pub fn eye_save_settings(app: AppHandle, settings: Settings) -> Result<(), Strin
                 .unwrap_or_default()
         ));
     }
+    m.shortcut_error = None;
     Ok(())
 }
 
@@ -408,6 +413,9 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             return app.clipboard().write_text(summary).map_err(|e| e.to_string());
         }
         "break" => {
+            if m.break_until > 0 {
+                return Ok(());
+            }
             let old = m.break_until;
             m.start_break(now);
             if let Err(error) = show_break(&app, &m.settings) {
@@ -416,6 +424,9 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             }
         }
         "skip" => {
+            if m.break_until == 0 {
+                return Ok(());
+            }
             if !m.settings.allow_skip {
                 return Err(text(&m.settings.language, "当前规则不允许跳过休息"));
             }
@@ -423,6 +434,11 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             if let Some(w) = app.get_webview_window("eye-break") {
                 dismiss_break(&w)?;
             }
+        }
+        "toggle-pause" => {
+            m.toggle_pause(now);
+            let message = if m.paused_until > now { "提醒已暂停，使用时长继续记录" } else { "提醒已恢复" };
+            let _ = app.emit("eye-warning", message);
         }
         "pause" => {
             let mins = minutes.unwrap_or(30);

@@ -6,12 +6,19 @@ const { error, snapshot } = useMonitor()
 function dismiss() {
   error.value = ''
   snapshot.value.storageError = null
+  snapshot.value.shortcutError = null
 }
 </script>
 
 <template>
-  <div v-if="error || snapshot.storageError" class="error-banner" role="alert">
-    <span>{{ error || t('保存失败', { error: snapshot.storageError ?? '' }) }}</span
+  <div
+    v-if="error || snapshot.storageError || snapshot.shortcutError"
+    class="error-banner"
+    role="alert"
+  >
+    <span>{{
+      error || snapshot.shortcutError || t('保存失败', { error: snapshot.storageError ?? '' })
+    }}</span
     ><button :aria-label="t('关闭错误提示')" @click="dismiss">
       <Icon name="close" />
     </button>

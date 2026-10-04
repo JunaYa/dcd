@@ -5,6 +5,7 @@ import { computed } from 'vue'
 import { languages } from '~/i18n'
 import Icon from '~/components/eye/Icon.vue'
 import Toggle from '~/components/eye/Toggle.vue'
+import ShortcutSettings from '../components/ShortcutSettings.vue'
 const { settings, saving, dirty, saveSettings, toggle } = useMonitor()
 const messageInput = computed({
   get: () => (settings.value.message === 'Take a break' ? '' : settings.value.message),
@@ -126,6 +127,7 @@ const messageInput = computed({
         />
       </div>
     </section>
+    <ShortcutSettings />
     <div v-if="dirty" class="save-row">
       <span>{{ t('有未保存的更改') }}</span
       ><button class="button primary" type="submit" :disabled="saving">

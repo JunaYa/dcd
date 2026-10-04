@@ -1969,5 +1969,95 @@
     "fr": "Réglage de police de pause invalide.",
     "de": "Ungültige Pausenschrift-Einstellung.",
     "ar": "إعداد خط الاستراحة غير صالح."
+  },
+  "全局快捷键": {
+    "zh": "全局快捷键",
+    "en": "Global shortcuts",
+    "ja": "グローバルショートカット",
+    "ko": "전역 단축키",
+    "fr": "Raccourcis globaux",
+    "de": "Globale Tastenkürzel",
+    "ar": "اختصارات عامة"
+  },
+  "暂停或恢复提醒": {
+    "zh": "暂停／恢复提醒（30 分钟）",
+    "en": "Pause / resume reminders (30 min)",
+    "ja": "通知を一時停止／再開（30分）",
+    "ko": "알림 일시 중지 / 재개 (30분)",
+    "fr": "Suspendre / reprendre les rappels (30 min)",
+    "de": "Erinnerungen pausieren / fortsetzen (30 Min.)",
+    "ar": "إيقاف التذكيرات مؤقتًا / استئنافها (30 دقيقة)"
+  },
+  "全局快捷键说明": {
+    "zh": "应用在后台时也可操作。输入组合键，例如 CmdOrCtrl+Shift+B；CmdOrCtrl 在 Mac 上为 Command，其他平台为 Ctrl。留空可禁用单项，保存后生效。暂停只停止自动提醒，跳过仍遵循允许跳过的设置。",
+    "en": "Works while the app is in the background. Enter a combination such as CmdOrCtrl+Shift+B; CmdOrCtrl means Command on Mac and Ctrl elsewhere. Leave blank to disable an action, then save. Pause only stops automatic reminders; skipping respects the allow-skip setting.",
+    "ja": "アプリがバックグラウンドでも使えます。CmdOrCtrl+Shift+B のように入力してください。CmdOrCtrl は Mac では Command、それ以外では Ctrl です。空欄で無効にし、保存して適用します。一時停止は自動通知のみを止めます。スキップは許可設定に従います。",
+    "ko": "백그라운드에서도 작동합니다. CmdOrCtrl+Shift+B처럼 입력하세요. CmdOrCtrl은 Mac에서 Command, 다른 플랫폼에서 Ctrl입니다. 비워 두면 비활성화되며 저장 후 적용됩니다. 일시 중지는 자동 알림만 멈추며 건너뛰기 허용 설정을 따릅니다.",
+    "fr": "Fonctionne en arrière-plan. Saisissez une combinaison comme CmdOrCtrl+Shift+B : Command sur Mac, Ctrl ailleurs. Laissez vide pour désactiver, puis enregistrez. La suspension arrête uniquement les rappels automatiques ; passer une pause reste soumis au réglage correspondant.",
+    "de": "Funktioniert auch im Hintergrund. Kombination wie CmdOrCtrl+Shift+B eingeben: Command auf dem Mac, sonst Ctrl. Zum Deaktivieren leer lassen und speichern. Pausieren stoppt nur automatische Erinnerungen; Überspringen beachtet die entsprechende Einstellung.",
+    "ar": "تعمل عندما يكون التطبيق في الخلفية. أدخل تركيبة مثل CmdOrCtrl+Shift+B؛ تعني CmdOrCtrl زر Command على Mac وCtrl على المنصات الأخرى. اترك الحقل فارغًا للتعطيل ثم احفظ. الإيقاف المؤقت يوقف التذكيرات التلقائية فقط، والتخطي يلتزم بإعداد السماح به."
+  },
+  "全局快捷键仅支持桌面应用": {
+    "zh": "全局快捷键仅在桌面应用中可用。",
+    "en": "Global shortcuts are available in the desktop app only.",
+    "ja": "グローバルショートカットはデスクトップアプリでのみ使用できます。",
+    "ko": "전역 단축키는 데스크톱 앱에서만 사용할 수 있습니다.",
+    "fr": "Les raccourcis globaux sont disponibles uniquement dans l’application de bureau.",
+    "de": "Globale Tastenkürzel sind nur in der Desktop-App verfügbar.",
+    "ar": "الاختصارات العامة متاحة في تطبيق سطح المكتب فقط."
+  },
+  "未设置": {
+    "zh": "未设置",
+    "en": "Not set",
+    "ja": "未設定",
+    "ko": "설정 안 됨",
+    "fr": "Non défini",
+    "de": "Nicht festgelegt",
+    "ar": "غير معيّن"
+  },
+  "恢复默认快捷键": {
+    "zh": "恢复默认快捷键",
+    "en": "Restore default shortcuts",
+    "ja": "既定のショートカットに戻す",
+    "ko": "기본 단축키 복원",
+    "fr": "Rétablir les raccourcis par défaut",
+    "de": "Standardkürzel wiederherstellen",
+    "ar": "استعادة الاختصارات الافتراضية"
+  },
+  "快捷键格式无效": {
+    "zh": "快捷键格式无效，请使用 Ctrl、Command 或 Alt 加一个按键，例如 CmdOrCtrl+Shift+B。",
+    "en": "Invalid shortcut. Use Ctrl, Command or Alt with a key, for example CmdOrCtrl+Shift+B.",
+    "ja": "無効なショートカットです。Ctrl、Command または Alt とキーを組み合わせてください（例：CmdOrCtrl+Shift+B）。",
+    "ko": "잘못된 단축키입니다. Ctrl, Command 또는 Alt와 키를 조합하세요. 예: CmdOrCtrl+Shift+B.",
+    "fr": "Raccourci invalide. Utilisez Ctrl, Command ou Alt avec une touche, par exemple CmdOrCtrl+Shift+B.",
+    "de": "Ungültiges Kürzel. Ctrl, Command oder Alt mit einer Taste verwenden, z. B. CmdOrCtrl+Shift+B.",
+    "ar": "اختصار غير صالح. استخدم Ctrl أو Command أو Alt مع مفتاح، مثل CmdOrCtrl+Shift+B."
+  },
+  "快捷键不能重复": {
+    "zh": "不同操作不能使用同一个快捷键。",
+    "en": "Each action must use a different shortcut.",
+    "ja": "各操作には異なるショートカットを設定してください。",
+    "ko": "각 작업에 서로 다른 단축키를 지정하세요.",
+    "fr": "Chaque action doit utiliser un raccourci différent.",
+    "de": "Jede Aktion benötigt ein anderes Tastenkürzel.",
+    "ar": "يجب استخدام اختصار مختلف لكل إجراء."
+  },
+  "快捷键注册失败": {
+    "zh": "快捷键无法启用，可能已被其他应用占用，请在设置中更换组合键",
+    "en": "Could not enable shortcut. It may be used by another app; choose another combination in Settings",
+    "ja": "ショートカットを有効にできません。他のアプリで使用中の可能性があります。設定で変更してください",
+    "ko": "단축키를 활성화할 수 없습니다. 다른 앱에서 사용 중일 수 있으니 설정에서 변경하세요",
+    "fr": "Impossible d’activer le raccourci. Il est peut-être utilisé par une autre application ; modifiez-le dans les paramètres",
+    "de": "Tastenkürzel konnte nicht aktiviert werden. Es wird möglicherweise von einer anderen App verwendet; bitte in den Einstellungen ändern",
+    "ar": "تعذر تفعيل الاختصار. قد يستخدمه تطبيق آخر؛ اختر تركيبة أخرى في الإعدادات"
+  },
+  "快捷键注销失败": {
+    "zh": "快捷键无法停用，请重启应用后重试",
+    "en": "Could not disable shortcut. Restart the app and try again",
+    "ja": "ショートカットを無効にできません。アプリを再起動して再試行してください",
+    "ko": "단축키를 비활성화할 수 없습니다. 앱을 다시 시작하고 재시도하세요",
+    "fr": "Impossible de désactiver le raccourci. Redémarrez l’application et réessayez",
+    "de": "Tastenkürzel konnte nicht deaktiviert werden. Bitte die App neu starten und erneut versuchen",
+    "ar": "تعذر تعطيل الاختصار. أعد تشغيل التطبيق وحاول مرة أخرى"
   }
 }

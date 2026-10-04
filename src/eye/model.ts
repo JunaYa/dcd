@@ -4,6 +4,10 @@ import { resolveLanguage } from '../i18n/locale.ts'
 export type Theme = 'system' | 'light' | 'dark'
 
 export interface Settings {
+  shortcutMain: string
+  shortcutBreak: string
+  shortcutSkip: string
+  shortcutPause: string
   petEnabled: boolean
   petName: string
   petSize: number
@@ -56,8 +60,13 @@ export interface Snapshot {
   fatigue: number
   now: number
   storageError: string | null
+  shortcutError: string | null
 }
 export const defaults: Settings = {
+  shortcutMain: 'CmdOrCtrl+Shift+A',
+  shortcutBreak: 'CmdOrCtrl+Shift+B',
+  shortcutSkip: 'CmdOrCtrl+Shift+S',
+  shortcutPause: 'CmdOrCtrl+Shift+P',
   petEnabled: false,
   petName: 'Mori',
   petSize: 96,
@@ -115,6 +124,7 @@ export function emptySnapshot(): Snapshot {
     fatigue: 0,
     now: Date.now() / 1000,
     storageError: null,
+    shortcutError: null,
   }
 }
 export interface Bar {

@@ -46,12 +46,10 @@ pub fn run() {
             #[cfg(desktop)]
             configure_autostart(app);
 
-            #[cfg(desktop)]
-            let _ = global_shortcut::register_global_shortcut(app);
-
             app.set_activation_policy(ActivationPolicy::Regular);
 
             menu::create_tray(app)?;
+            app.manage(global_shortcut::RegisteredShortcuts::default());
             eye::initialize(app.handle())?;
             window::show_main_window(app.handle());
 

@@ -4,6 +4,10 @@ use std::collections::BTreeMap;
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(default, rename_all = "camelCase")]
 pub struct Settings {
+    pub shortcut_main: String,
+    pub shortcut_break: String,
+    pub shortcut_skip: String,
+    pub shortcut_pause: String,
     pub pet_enabled: bool,
     pub pet_name: String,
     pub pet_size: u32,
@@ -43,6 +47,10 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Self {
+            shortcut_main: "CmdOrCtrl+Shift+A".into(),
+            shortcut_break: "CmdOrCtrl+Shift+B".into(),
+            shortcut_skip: "CmdOrCtrl+Shift+S".into(),
+            shortcut_pause: "CmdOrCtrl+Shift+P".into(),
             pet_enabled: false,
             pet_name: "Mori".into(),
             pet_size: 96,
@@ -83,6 +91,7 @@ impl Default for Settings {
 }
 impl Settings {
     pub fn validate(&self) -> Result<(), String> {
+        crate::global_shortcut::bindings(self)?;
         if self.pet_name.trim().is_empty() || self.pet_name.chars().count() > 40
             || !(48..=160).contains(&self.pet_size) || !(5..=50).contains(&self.pet_tired_threshold)
             || !["top", "bottom"].contains(&self.pet_position.as_str())
@@ -172,6 +181,8 @@ pub struct Monitor {
     pub last_tick: i64,
     #[serde(skip)]
     pub storage_error: Option<String>,
+    #[serde(skip)]
+    pub shortcut_error: Option<String>,
 }
 impl Default for Monitor {
     fn default() -> Self {
@@ -188,6 +199,7 @@ impl Default for Monitor {
             break_work_seconds: 0.0,
             last_tick: 0,
             storage_error: None,
+            shortcut_error: None,
         }
     }
 }
@@ -200,6 +212,9 @@ pub enum Effect {
     EndBreak,
 }
 impl Monitor {
+    pub fn toggle_pause(&mut self, now: i64) {
+        self.paused_until = if self.paused_until > now { 0 } else { now + 30 * 60 };
+    }
     pub fn fatigue(&self) -> u32 {
         (self.work_seconds / (self.settings.work_minutes.max(1) * 60) as f64 * 100.0)
             .clamp(0.0, 100.0)
@@ -289,6 +304,19 @@ impl Monitor {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn shortcut_pause_toggles_without_resetting_work_or_breaks() {
+        let mut m = Monitor::default();
+        m.work_seconds = 500.0;
+        m.start_break(100);
+        let break_until = m.break_until;
+        m.toggle_pause(100);
+        assert_eq!(m.paused_until, 1900);
+        m.toggle_pause(101);
+        assert_eq!(m.paused_until, 0);
+        assert_eq!(m.work_seconds, 500.0);
+        assert_eq!(m.break_until, break_until);
+    }
     #[test]
     fn accent_color_defaults_validates_and_persists() {
         let mut s: Settings = serde_json::from_str("{}").unwrap();
