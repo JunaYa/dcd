@@ -20,6 +20,7 @@ pub fn create_tray(app: &mut tauri::App) -> Result<(), tauri::Error> {
             let (action, minutes) = match event.id.as_ref() {
                 "eye-main" => ("main", None),
                 "eye-break" => ("break", None),
+                "eye-clock" => ("toggle-clock", None),
                 "eye-settings" => ("settings", None),
                 "eye-share" => ("share", None),
                 "eye-pause-30" => ("pause", Some(30)),
@@ -61,6 +62,7 @@ fn localized_menu(app: &tauri::AppHandle, language: &str) -> Result<Menu<tauri::
     ])?;
     Menu::with_items(app, &[
         &MenuItem::with_id(app, "eye-break", text(language, "休息一下"), true, None::<&str>)?,
+        &MenuItem::with_id(app, "eye-clock", text(language, "打开或关闭时钟锁屏"), true, None::<&str>)?,
         &pause,
         &PredefinedMenuItem::separator(app)?,
         &MenuItem::with_id(app, "eye-main", text(language, "打开主窗口"), true, None::<&str>)?,

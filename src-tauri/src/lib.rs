@@ -7,6 +7,7 @@ use tauri_plugin_store::StoreExt;
 use tauri_nspanel;
 
 mod eye;
+mod clock_screen;
 mod materials;
 mod i18n;
 mod eye_model;
@@ -36,7 +37,7 @@ pub fn run() {
                     tauri_plugin_window_state::StateFlags::all()
                         - tauri_plugin_window_state::StateFlags::DECORATIONS,
                 )
-                .with_denylist(&["eye-break", "eye-tray"])
+                .with_denylist(&["eye-break", "eye-tray", "eye-clock"])
                 .build(),
         )
         .plugin(tauri_nspanel::init())

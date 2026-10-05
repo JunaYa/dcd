@@ -2059,5 +2059,59 @@
     "fr": "Impossible de désactiver le raccourci. Redémarrez l’application et réessayez",
     "de": "Tastenkürzel konnte nicht deaktiviert werden. Bitte die App neu starten und erneut versuchen",
     "ar": "تعذر تعطيل الاختصار. أعد تشغيل التطبيق وحاول مرة أخرى"
+  },
+  "全屏时钟锁屏": {
+    "zh": "全屏时钟锁屏",
+    "en": "Fullscreen clock",
+    "ja": "全画面時計",
+    "ko": "전체 화면 시계",
+    "fr": "Horloge plein écran",
+    "de": "Vollbilduhr",
+    "ar": "ساعة بملء الشاشة"
+  },
+  "打开或关闭时钟锁屏": {
+    "zh": "打开／关闭时钟锁屏",
+    "en": "Open / close fullscreen clock",
+    "ja": "全画面時計を開く／閉じる",
+    "ko": "전체 화면 시계 열기 / 닫기",
+    "fr": "Ouvrir / fermer l’horloge plein écran",
+    "de": "Vollbilduhr öffnen / schließen",
+    "ar": "فتح / إغلاق ساعة ملء الشاشة"
+  },
+  "打开时钟锁屏": {
+    "zh": "打开时钟锁屏",
+    "en": "Open fullscreen clock",
+    "ja": "全画面時計を開く",
+    "ko": "전체 화면 시계 열기",
+    "fr": "Ouvrir l’horloge plein écran",
+    "de": "Vollbilduhr öffnen",
+    "ar": "فتح ساعة ملء الشاشة"
+  },
+  "关闭锁屏": {
+    "zh": "关闭锁屏",
+    "en": "Close clock",
+    "ja": "時計を閉じる",
+    "ko": "시계 닫기",
+    "fr": "Fermer l’horloge",
+    "de": "Uhr schließen",
+    "ar": "إغلاق الساعة"
+  },
+  "时钟锁屏说明": {
+    "zh": "显示当前时间和日期，用同一快捷键、Esc 或关闭按钮退出。此界面不设置系统密码锁，不改变工作与休息计时。",
+    "en": "Shows the current time and date. Exit with the same shortcut, Esc or the close button. This is not a password-protected system lock and does not change work or break timers.",
+    "ja": "現在の日時を表示します。同じショートカット、Esc、または閉じるボタンで終了します。システムのパスワードロックではなく、作業・休憩タイマーは変更しません。",
+    "ko": "현재 날짜와 시간을 표시합니다. 같은 단축키, Esc 또는 닫기 버튼으로 종료합니다. 시스템 암호 잠금이 아니며 작업 및 휴식 타이머를 변경하지 않습니다.",
+    "fr": "Affiche la date et l’heure. Quittez avec le même raccourci, Échap ou le bouton de fermeture. Ce n’est pas un verrouillage système par mot de passe ; les minuteries restent inchangées.",
+    "de": "Zeigt Datum und Uhrzeit. Mit demselben Kürzel, Esc oder der Schließen-Schaltfläche beenden. Keine Systemsperre mit Passwort; Arbeits- und Pausentimer bleiben unverändert.",
+    "ar": "تعرض الوقت والتاريخ الحاليين. اخرج بالاختصار نفسه أو Esc أو زر الإغلاق. ليست قفل نظام محميًا بكلمة مرور ولا تغيّر مؤقتات العمل أو الاستراحة."
+  },
+  "时钟快捷键提示": {
+    "zh": "再次按 {shortcut} 关闭",
+    "en": "Press {shortcut} again to close",
+    "ja": "もう一度 {shortcut} を押して閉じる",
+    "ko": "{shortcut}을 다시 눌러 닫기",
+    "fr": "Appuyez à nouveau sur {shortcut} pour fermer",
+    "de": "Zum Schließen erneut {shortcut} drücken",
+    "ar": "اضغط {shortcut} مرة أخرى للإغلاق"
   }
 }

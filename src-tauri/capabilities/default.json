@@ -9,7 +9,8 @@
     "preview",
     "startup",
     "eye-tray",
-    "eye-break"
+    "eye-break",
+    "eye-clock"
   ],
   "permissions": [
     "core:default",

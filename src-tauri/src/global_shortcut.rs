@@ -14,6 +14,7 @@ pub fn bindings(settings: &Settings) -> Result<Vec<(Shortcut, &'static str)>, St
         (&settings.shortcut_break, "break"),
         (&settings.shortcut_skip, "skip"),
         (&settings.shortcut_pause, "toggle-pause"),
+        (&settings.shortcut_clock, "toggle-clock"),
     ] {
         if value.trim().is_empty() {
             continue;
@@ -154,13 +155,15 @@ mod tests {
     #[test]
     fn validates_defaults_aliases_and_disabled_bindings() {
         let mut settings: Settings = serde_json::from_str("{}").unwrap();
-        assert_eq!(bindings(&settings).unwrap().len(), 4);
+        assert_eq!(bindings(&settings).unwrap().len(), 5);
         settings.shortcut_main.clear();
-        assert_eq!(bindings(&settings).unwrap().len(), 3);
+        assert_eq!(bindings(&settings).unwrap().len(), 4);
         let restored: Settings =
             serde_json::from_str(&serde_json::to_string(&settings).unwrap()).unwrap();
         assert!(restored.shortcut_main.is_empty());
         assert_eq!(restored.shortcut_pause, settings.shortcut_pause);
+        assert_eq!(restored.shortcut_clock, "CmdOrCtrl+Shift+L");
+        assert!(bindings(&restored).unwrap().iter().any(|(_, action)| *action == "toggle-clock"));
         settings.shortcut_main = settings.shortcut_break.clone();
         assert!(bindings(&settings).is_err());
         settings.shortcut_main = "Shift+A".into();

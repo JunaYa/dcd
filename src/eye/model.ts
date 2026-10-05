@@ -8,6 +8,7 @@ export interface Settings {
   shortcutBreak: string
   shortcutSkip: string
   shortcutPause: string
+  shortcutClock: string
   petEnabled: boolean
   petName: string
   petSize: number
@@ -67,6 +68,7 @@ export const defaults: Settings = {
   shortcutBreak: 'CmdOrCtrl+Shift+B',
   shortcutSkip: 'CmdOrCtrl+Shift+S',
   shortcutPause: 'CmdOrCtrl+Shift+P',
+  shortcutClock: 'CmdOrCtrl+Shift+L',
   petEnabled: false,
   petName: 'Mori',
   petSize: 96,

@@ -388,6 +388,13 @@ pub fn eye_save_settings(app: AppHandle, settings: Settings) -> Result<(), Strin
 
 #[tauri::command]
 pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Result<(), String> {
+    if action == "close-clock" {
+        return crate::clock_screen::close(&app);
+    }
+    if action == "toggle-clock" {
+        let language = app.state::<EyeState>().0.lock().map_err(|e| e.to_string())?.settings.language.clone();
+        return crate::clock_screen::toggle(&app, &language);
+    }
     if action == "main" || action == "settings" {
         return show_main(
             &app,

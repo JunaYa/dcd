@@ -12,13 +12,14 @@ import RulesView from './views/RulesView.vue'
 import AppearanceView from './views/AppearanceView.vue'
 import SettingsView from './views/SettingsView.vue'
 import BreakView from './views/BreakView.vue'
+import ClockScreen from './views/ClockScreen.vue'
 import AppSidebar from './components/AppSidebar.vue'
 import AppDialogs from './components/AppDialogs.vue'
 import AppError from './components/AppError.vue'
 import AppToast from './components/AppToast.vue'
 const props = defineProps<{ initialSnapshot?: Snapshot }>()
 const monitor = provideMonitor(props.initialSnapshot)
-const { mode, native, page, loading } = monitor
+const { mode, native, page, loading, browserClock } = monitor
 useAppearance(monitor)
 useWindowMaterials(monitor)
 const dialogs = ref<InstanceType<typeof AppDialogs>>()
@@ -27,7 +28,8 @@ const grouping = ref('day')
 </script>
 
 <template>
-  <BreakView v-if="mode === 'break'" />
+  <ClockScreen v-if="(native && mode === 'clock') || browserClock" />
+  <BreakView v-else-if="mode === 'break'" />
   <div
     v-else
     class="app-shell"

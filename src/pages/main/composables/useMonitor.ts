@@ -23,6 +23,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
   const mode = new URLSearchParams(location.search).get('mode') || 'main'
   const page = ref('today')
   const browserBreak = ref(false)
+  const browserClock = ref(mode === 'clock')
   const snapshot = ref<Snapshot>(initialSnapshot ?? emptySnapshot())
   const settings = ref<Settings>({ ...defaults, ...initialSnapshot?.settings })
   const baseline = ref(JSON.stringify(settings.value))
@@ -152,6 +153,8 @@ function createMonitor(initialSnapshot?: Snapshot) {
         await refresh()
       } else {
         const now = Date.now() / 1000
+        if (name === 'toggle-clock') browserClock.value = !browserClock.value
+        if (name === 'close-clock') browserClock.value = false
         if (name === 'break') {
           breakStart = now
           breakWork = Math.min(snapshot.value.workSeconds, settings.value.workMinutes * 60)
@@ -288,6 +291,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
     paused,
     remaining,
     browserBreak,
+    browserClock,
     inform,
     report,
     saveSettings,
