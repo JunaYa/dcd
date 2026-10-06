@@ -2097,13 +2097,13 @@
     "ar": "إغلاق الساعة"
   },
   "时钟锁屏说明": {
-    "zh": "显示当前时间和日期，用同一快捷键、Esc 或关闭按钮退出。此界面不设置系统密码锁，不改变工作与休息计时。",
-    "en": "Shows the current time and date. Exit with the same shortcut, Esc or the close button. This is not a password-protected system lock and does not change work or break timers.",
-    "ja": "現在の日時を表示します。同じショートカット、Esc、または閉じるボタンで終了します。システムのパスワードロックではなく、作業・休憩タイマーは変更しません。",
-    "ko": "현재 날짜와 시간을 표시합니다. 같은 단축키, Esc 또는 닫기 버튼으로 종료합니다. 시스템 암호 잠금이 아니며 작업 및 휴식 타이머를 변경하지 않습니다.",
-    "fr": "Affiche la date et l’heure. Quittez avec le même raccourci, Échap ou le bouton de fermeture. Ce n’est pas un verrouillage système par mot de passe ; les minuteries restent inchangées.",
-    "de": "Zeigt Datum und Uhrzeit. Mit demselben Kürzel, Esc oder der Schließen-Schaltfläche beenden. Keine Systemsperre mit Passwort; Arbeits- und Pausentimer bleiben unverändert.",
-    "ar": "تعرض الوقت والتاريخ الحاليين. اخرج بالاختصار نفسه أو Esc أو زر الإغلاق. ليست قفل نظام محميًا بكلمة مرور ولا تغيّر مؤقتات العمل أو الاستراحة."
+    "zh": "显示当前时间和日期，用同一快捷键、Esc 或关闭按钮退出。展示期间暂停工作计时和休息提醒，已有休息倒计时也会暂停，退出后继续。此界面不设置系统密码锁。",
+    "en": "Shows the current time and date. Exit with the same shortcut, Esc or the close button. Work tracking, break reminders and any active break countdown pause while visible and resume on exit. This is not a password-protected system lock.",
+    "ja": "現在の日時を表示します。同じショートカット、Esc、閉じるボタンで終了します。表示中は作業計測、休憩通知、進行中の休憩タイマーを一時停止し、終了後に再開します。システムのパスワードロックではありません。",
+    "ko": "현재 날짜와 시간을 표시합니다. 같은 단축키, Esc 또는 닫기 버튼으로 종료합니다. 표시 중에는 작업 시간 측정, 휴식 알림 및 진행 중인 휴식 타이머가 일시 중지되며 종료 후 재개됩니다. 시스템 암호 잠금은 아닙니다.",
+    "fr": "Affiche la date et l’heure. Quittez avec le même raccourci, Échap ou le bouton de fermeture. Le suivi du travail, les rappels et le compte à rebours de la pause sont suspendus pendant l’affichage et reprennent à la fermeture. Ce n’est pas un verrouillage système par mot de passe.",
+    "de": "Zeigt Datum und Uhrzeit. Mit demselben Kürzel, Esc oder der Schließen-Schaltfläche beenden. Arbeitszeiterfassung, Erinnerungen und laufende Pausentimer pausieren während der Anzeige und werden danach fortgesetzt. Keine Systemsperre mit Passwort.",
+    "ar": "تعرض الوقت والتاريخ. اخرج بالاختصار نفسه أو Esc أو زر الإغلاق. تتوقف مؤقتًا مدة العمل وتذكيرات الاستراحة وعدّاد الاستراحة الجاري أثناء العرض وتُستأنف عند الخروج. ليست قفل نظام محميًا بكلمة مرور."
   },
   "时钟快捷键提示": {
     "zh": "再次按 {shortcut} 关闭",

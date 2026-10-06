@@ -93,6 +93,16 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
             };
             let _ = tray.set_title(Some(title));
         }
+        if effect == Effect::None {
+            continue;
+        }
+        let effect_handle = handle.clone();
+        let _ = handle.run_on_main_thread(move || {
+        let handle = effect_handle;
+        let state = handle.state::<EyeState>();
+        if state.0.lock().map(|m| m.clock_started.is_some()).unwrap_or(true) {
+            return;
+        }
         match effect {
             Effect::StartBreak => {
                 if let Err(error) = show_break(&handle, &settings) {
@@ -125,6 +135,7 @@ pub fn initialize(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
             }
             Effect::None => {}
         }
+        });
     });
     Ok(())
 }
@@ -211,6 +222,26 @@ pub fn toggle_popup(app: &AppHandle, position: tauri::PhysicalPosition<f64>) -> 
     popup.set_focus().map_err(|e| e.to_string())
 }
 
+pub fn clock_visibility(app: &AppHandle, visible: bool) -> Result<(), String> {
+    let state = app.state::<EyeState>();
+    let mut m = state.0.lock().map_err(|e| e.to_string())?;
+    if visible == m.clock_started.is_some() {
+        return Ok(());
+    }
+    m.set_clock_visible(visible, Local::now().timestamp());
+    let resume_break = m.break_until > 0;
+    let settings = m.settings.clone();
+    drop(m);
+    if visible {
+        if let Some(window) = app.get_webview_window("eye-break") {
+            dismiss_break(&window)?;
+        }
+    } else if resume_break {
+        show_break(app, &settings)?;
+    }
+    Ok(())
+}
+
 fn dismiss_break(window: &tauri::WebviewWindow) -> Result<(), String> {
     #[cfg(target_os = "macos")]
     return window.hide().map_err(|error| error.to_string());
@@ -292,7 +323,7 @@ fn show_break(app: &AppHandle, settings: &Settings) -> Result<(), String> {
     }
     window.set_title(&text(&settings.language, "休息一下")).map_err(|e| e.to_string())?;
     #[cfg(target_os = "macos")]
-    crate::platform::show_break_panel(&window, new_panel)?;
+    crate::platform::show_overlay_panel(&window, new_panel)?;
     #[cfg(not(target_os = "macos"))]
     {
         window.show().map_err(|e| e.to_string())?;
@@ -420,7 +451,7 @@ pub fn eye_action(app: AppHandle, action: String, minutes: Option<u32>) -> Resul
             return app.clipboard().write_text(summary).map_err(|e| e.to_string());
         }
         "break" => {
-            if m.break_until > 0 {
+            if m.clock_started.is_some() || m.break_until > 0 {
                 return Ok(());
             }
             let old = m.break_until;

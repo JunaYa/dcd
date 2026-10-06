@@ -134,7 +134,7 @@ it('skipping a preview break resets work without counting a completed break', as
   expect(monitor.snapshot.value.workSeconds).toBe(0)
   expect(monitor.snapshot.value.days).toEqual(days)
 })
-it('opens and closes the clock without changing the work or break session', async () => {
+it('freezes a break while the clock is visible and resumes it on close', async () => {
   isTauri.mockReturnValue(false)
   vi.stubGlobal('localStorage', { getItem: () => null })
   mount()
@@ -143,11 +143,21 @@ it('opens and closes the clock without changing the work or break session', asyn
   const before = structuredClone(toRaw(monitor.snapshot.value))
   await monitor.action('toggle-clock')
   expect(monitor.browserClock.value).toBe(true)
+  expect(monitor.browserBreak.value).toBe(false)
+  await vi.advanceTimersByTimeAsync(5000)
+  await monitor.action('break')
+  expect(monitor.snapshot.value.workSeconds).toBe(before.workSeconds)
+  expect(monitor.snapshot.value.breakUntil).toBe(before.breakUntil)
   await monitor.action('toggle-clock')
   expect(monitor.browserClock.value).toBe(false)
+  expect(monitor.browserBreak.value).toBe(true)
   await monitor.action('toggle-clock')
   await monitor.action('close-clock')
   await monitor.action('close-clock')
   expect(monitor.browserClock.value).toBe(false)
-  expect(monitor.snapshot.value).toEqual(before)
+  expect(monitor.snapshot.value).toEqual({
+    ...before,
+    now: before.now + 5,
+    breakUntil: before.breakUntil + 5,
+  })
 })

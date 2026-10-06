@@ -185,6 +185,8 @@ pub struct Monitor {
     pub storage_error: Option<String>,
     #[serde(skip)]
     pub shortcut_error: Option<String>,
+    #[serde(skip)]
+    pub clock_started: Option<i64>,
 }
 impl Default for Monitor {
     fn default() -> Self {
@@ -202,6 +204,7 @@ impl Default for Monitor {
             last_tick: 0,
             storage_error: None,
             shortcut_error: None,
+            clock_started: None,
         }
     }
 }
@@ -214,6 +217,21 @@ pub enum Effect {
     EndBreak,
 }
 impl Monitor {
+    pub fn set_clock_visible(&mut self, visible: bool, now: i64) {
+        if visible == self.clock_started.is_some() {
+            return;
+        }
+        if visible {
+            self.clock_started = Some(now);
+        } else if let Some(started) = self.clock_started.take() {
+            if self.break_until > 0 {
+                let elapsed = (now - started).max(0);
+                self.break_started += elapsed;
+                self.break_until += elapsed;
+            }
+        }
+        self.last_tick = now;
+    }
     pub fn toggle_pause(&mut self, now: i64) {
         self.paused_until = if self.paused_until > now { 0 } else { now + 30 * 60 };
     }
@@ -245,6 +263,10 @@ impl Monitor {
             if let Some(first) = self.days.keys().next().cloned() {
                 self.days.remove(&first);
             }
+        }
+        if self.clock_started.is_some() {
+            self.last_tick = now;
+            return Effect::None;
         }
         let elapsed = if self.last_tick == 0 {
             0
@@ -306,6 +328,47 @@ impl Monitor {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn clock_freezes_work_totals_and_reminders_even_across_midnight() {
+        let mut m = Monitor::default();
+        m.settings.movie_mode = true;
+        m.work_seconds = 1500.0;
+        m.tick(100, "2026-10-05", 0, true);
+        m.break_until = 0;
+        m.set_clock_visible(true, 100);
+        let seconds = m.days["2026-10-05"].seconds;
+        for idle in [true, false] {
+            assert_eq!(m.tick(1000, "2026-10-06", 0, idle), Effect::None);
+            assert_eq!(m.work_seconds, 1500.0);
+            assert_eq!(m.break_until, 0);
+        }
+        assert_eq!(m.days["2026-10-05"].seconds, seconds);
+        assert_eq!(m.days["2026-10-06"].seconds, 0);
+        assert_eq!(m.days["2026-10-06"].peak_seconds, 0);
+        m.set_clock_visible(false, 2000);
+        assert_eq!(m.tick(2001, "2026-10-06", 0, false), Effect::StartBreak);
+        assert_eq!(m.days["2026-10-06"].seconds, 1);
+    }
+
+    #[test]
+    fn clock_preserves_remaining_break_and_does_not_count_it_as_completed() {
+        let mut m = Monitor::default();
+        m.work_seconds = 600.0;
+        m.start_break(100);
+        m.tick(150, "2026-10-05", 0, false);
+        let work = m.work_seconds;
+        m.set_clock_visible(true, 150);
+        m.set_clock_visible(true, 200);
+        assert_eq!(m.tick(900, "2026-10-05", 0, false), Effect::None);
+        assert_eq!(m.work_seconds, work);
+        assert_eq!(m.days["2026-10-05"].breaks, 0);
+        m.set_clock_visible(false, 1000);
+        assert_eq!(m.break_until, 1250);
+        m.set_clock_visible(false, 1010);
+        assert_eq!(m.break_until, 1250);
+        assert_eq!(m.tick(1250, "2026-10-05", 0, false), Effect::EndBreak);
+        assert_eq!(m.days["2026-10-05"].breaks, 1);
+    }
     #[test]
     fn shortcut_pause_toggles_without_resetting_work_or_breaks() {
         let mut m = Monitor::default();

@@ -83,7 +83,7 @@ pub fn hide_startup_window(window: &WebviewWindow) {
     let _ = window.minimize();
 }
 
-pub fn show_break_panel(window: &WebviewWindow, new_panel: bool) -> Result<(), String> {
+pub fn show_overlay_panel(window: &WebviewWindow, new_panel: bool) -> Result<(), String> {
     use tauri_nspanel::{ManagerExt, WebviewWindowExt};
 
     let handle = window.clone();
@@ -96,7 +96,7 @@ pub fn show_break_panel(window: &WebviewWindow, new_panel: bool) -> Result<(), S
                 } else {
                     handle
                         .get_webview_panel(handle.label())
-                        .map_err(|error| format!("Unable to find break panel: {error:?}"))?
+                        .map_err(|error| format!("Unable to find overlay panel: {error:?}"))?
                 };
                 // Receive input without activating DCD and raising its main window.
                 panel.set_style_mask(1 << 7); // NSWindowStyleMaskNonactivatingPanel

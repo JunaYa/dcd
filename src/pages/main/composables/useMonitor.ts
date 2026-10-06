@@ -41,6 +41,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
   let toastTimer: ReturnType<typeof setTimeout> | undefined
   let breakStart = 0
   let breakWork = 0
+  let clockStart = mode === 'clock' ? Date.now() / 1000 : 0
   let fetching = false
   let settingsGeneration = 0
   let disposed = false
@@ -153,9 +154,20 @@ function createMonitor(initialSnapshot?: Snapshot) {
         await refresh()
       } else {
         const now = Date.now() / 1000
-        if (name === 'toggle-clock') browserClock.value = !browserClock.value
-        if (name === 'close-clock') browserClock.value = false
+        if (name === 'toggle-clock' || name === 'close-clock') {
+          const visible = name === 'toggle-clock' && !browserClock.value
+          if (visible) clockStart = now
+          else if (browserClock.value && snapshot.value.breakUntil) {
+            const elapsed = Math.max(0, now - clockStart)
+            breakStart += elapsed
+            snapshot.value.breakUntil += elapsed
+          }
+          browserClock.value = visible
+          browserBreak.value = !visible && snapshot.value.breakUntil > 0
+          snapshot.value.now = now
+        }
         if (name === 'break') {
+          if (browserClock.value) return
           breakStart = now
           breakWork = Math.min(snapshot.value.workSeconds, settings.value.workMinutes * 60)
           snapshot.value.breakUntil =
@@ -203,6 +215,7 @@ function createMonitor(initialSnapshot?: Snapshot) {
       void refresh()
     } else {
       snapshot.value.now = Date.now() / 1000
+      if (browserClock.value) return
       if (snapshot.value.breakUntil) {
         snapshot.value.workSeconds =
           breakWork *
