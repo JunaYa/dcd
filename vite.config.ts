@@ -7,7 +7,24 @@ const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [vue(), UnoCSS()],
+  plugins: [
+    {
+      name: 'lapse-dev-panel',
+      apply: 'serve',
+      transformIndexHtml: {
+        order: 'pre',
+        handler: () => [
+          {
+            tag: 'script',
+            attrs: { type: 'module', src: '/src/dev/lapse.ts' },
+            injectTo: 'head-prepend',
+          },
+        ],
+      },
+    },
+    vue(),
+    UnoCSS(),
+  ],
 
   resolve: {
     alias: {

@@ -7,3 +7,6 @@ pub use materials::update_materials;
 
 mod media;
 pub use media::pause_media;
+
+mod power;
+pub use power::ClockKeepAwake;

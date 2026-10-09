@@ -51,6 +51,8 @@ pub fn run() {
 
             menu::create_tray(app)?;
             app.manage(global_shortcut::RegisteredShortcuts::default());
+            #[cfg(target_os = "macos")]
+            app.manage(platform::ClockKeepAwake::default());
             eye::initialize(app.handle())?;
             window::show_main_window(app.handle());
 
@@ -112,7 +114,11 @@ pub fn run() {
                 tauri::RunEvent::Reopen { has_visible_windows: false, .. } => {
                     let _ = eye::show_main(app, "today");
                 }
-                tauri::RunEvent::Exit => eye::save_on_exit(app),
+                tauri::RunEvent::Exit => {
+                    #[cfg(target_os = "macos")]
+                    app.state::<platform::ClockKeepAwake>().release();
+                    eye::save_on_exit(app);
+                },
                 _ => {}
             }
         });

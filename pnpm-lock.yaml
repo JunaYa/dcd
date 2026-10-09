@@ -209,6 +209,9 @@ importers:
         specifier: ^3.5.43
         version: 3.5.43(typescript@6.0.3)
     devDependencies:
+      '@aiforui/lapse':
+        specifier: ^0.19.0
+        version: 0.19.0
       '@tauri-apps/cli':
         specifier: ^2.11.5
         version: 2.11.5
@@ -244,6 +247,17 @@ importers:
         version: 3.3.11(typescript@6.0.3)
 
 packages:
+
+  '@aiforui/lapse@0.19.0':
+    resolution: {integrity: sha512-+QRQVPe/l5XQGcO3R52z3SLklmHoouFzG8uUwmvOLJwTzcV13dU62qoBZwdizOPSF5KgWIL3V5pJftZiT05ZNg==, tarball: https://aiforui.dev/npm/@aiforui/lapse/-/lapse-0.19.0.tgz}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   '@antfu/install-pkg@2.1.0':
     resolution: {integrity: sha512-sdg9NxU3zR4Mnawfbc/x6GB5Wf17WYud5qOuEuxXjaKpYpMkISSJEjItGebXJ2bQ4DIcly4NYH23mtkGJjvKUw==}
@@ -1545,6 +1559,8 @@ packages:
     hasBin: true
 
 snapshots:
+
+  '@aiforui/lapse@0.19.0': {}
 
   '@antfu/install-pkg@2.1.0':
     dependencies:

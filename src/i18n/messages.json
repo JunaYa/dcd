@@ -2097,13 +2097,13 @@
     "ar": "إغلاق الساعة"
   },
   "时钟锁屏说明": {
-    "zh": "显示当前时间和日期，用同一快捷键、Esc 或关闭按钮退出。展示期间暂停工作计时和休息提醒，已有休息倒计时也会暂停，退出后继续。此界面不设置系统密码锁。",
-    "en": "Shows the current time and date. Exit with the same shortcut, Esc or the close button. Work tracking, break reminders and any active break countdown pause while visible and resume on exit. This is not a password-protected system lock.",
-    "ja": "現在の日時を表示します。同じショートカット、Esc、閉じるボタンで終了します。表示中は作業計測、休憩通知、進行中の休憩タイマーを一時停止し、終了後に再開します。システムのパスワードロックではありません。",
-    "ko": "현재 날짜와 시간을 표시합니다. 같은 단축키, Esc 또는 닫기 버튼으로 종료합니다. 표시 중에는 작업 시간 측정, 휴식 알림 및 진행 중인 휴식 타이머가 일시 중지되며 종료 후 재개됩니다. 시스템 암호 잠금은 아닙니다.",
-    "fr": "Affiche la date et l’heure. Quittez avec le même raccourci, Échap ou le bouton de fermeture. Le suivi du travail, les rappels et le compte à rebours de la pause sont suspendus pendant l’affichage et reprennent à la fermeture. Ce n’est pas un verrouillage système par mot de passe.",
-    "de": "Zeigt Datum und Uhrzeit. Mit demselben Kürzel, Esc oder der Schließen-Schaltfläche beenden. Arbeitszeiterfassung, Erinnerungen und laufende Pausentimer pausieren während der Anzeige und werden danach fortgesetzt. Keine Systemsperre mit Passwort.",
-    "ar": "تعرض الوقت والتاريخ. اخرج بالاختصار نفسه أو Esc أو زر الإغلاق. تتوقف مؤقتًا مدة العمل وتذكيرات الاستراحة وعدّاد الاستراحة الجاري أثناء العرض وتُستأنف عند الخروج. ليست قفل نظام محميًا بكلمة مرور."
+    "zh": "显示当前时间和日期，用同一快捷键、Esc 或关闭按钮退出。展示期间暂停工作计时和休息提醒，已有休息倒计时也会暂停，退出后继续。此界面不设置系统密码锁。 在 macOS 上，展示期间会阻止屏幕和设备自动休眠，关闭后恢复。",
+    "en": "Shows the current time and date. Exit with the same shortcut, Esc or the close button. Work tracking, break reminders and any active break countdown pause while visible and resume on exit. This is not a password-protected system lock. On macOS, the display and device stay awake while the clock is visible; normal sleep behavior resumes on close.",
+    "ja": "現在の日時を表示します。同じショートカット、Esc、閉じるボタンで終了します。表示中は作業計測、休憩通知、進行中の休憩タイマーを一時停止し、終了後に再開します。システムのパスワードロックではありません。 macOS では表示中の画面とデバイスの自動スリープを防ぎ、閉じると元に戻ります。",
+    "ko": "현재 날짜와 시간을 표시합니다. 같은 단축키, Esc 또는 닫기 버튼으로 종료합니다. 표시 중에는 작업 시간 측정, 휴식 알림 및 진행 중인 휴식 타이머가 일시 중지되며 종료 후 재개됩니다. 시스템 암호 잠금은 아닙니다. macOS에서는 시계 표시 중 화면과 기기의 자동 잠자기를 방지하고 닫으면 원래 동작으로 돌아갑니다。",
+    "fr": "Affiche la date et l’heure. Quittez avec le même raccourci, Échap ou le bouton de fermeture. Le suivi du travail, les rappels et le compte à rebours de la pause sont suspendus pendant l’affichage et reprennent à la fermeture. Ce n’est pas un verrouillage système par mot de passe. Sur macOS, l’écran et l’appareil restent éveillés pendant l’affichage ; la veille normale reprend à la fermeture.",
+    "de": "Zeigt Datum und Uhrzeit. Mit demselben Kürzel, Esc oder der Schließen-Schaltfläche beenden. Arbeitszeiterfassung, Erinnerungen und laufende Pausentimer pausieren während der Anzeige und werden danach fortgesetzt. Keine Systemsperre mit Passwort. Unter macOS bleiben Bildschirm und Gerät während der Anzeige wach; nach dem Schließen gilt wieder das normale Ruhezustandsverhalten.",
+    "ar": "تعرض الوقت والتاريخ. اخرج بالاختصار نفسه أو Esc أو زر الإغلاق. تتوقف مؤقتًا مدة العمل وتذكيرات الاستراحة وعدّاد الاستراحة الجاري أثناء العرض وتُستأنف عند الخروج. ليست قفل نظام محميًا بكلمة مرور. على macOS تبقى الشاشة والجهاز مستيقظين أثناء عرض الساعة ويعود السكون المعتاد عند الإغلاق."
   },
   "时钟快捷键提示": {
     "zh": "再次按 {shortcut} 关闭",
@@ -2113,5 +2113,14 @@
     "fr": "Appuyez à nouveau sur {shortcut} pour fermer",
     "de": "Zum Schließen erneut {shortcut} drücken",
     "ar": "اضغط {shortcut} مرة أخرى للإغلاق"
+  },
+  "无法保持时钟屏幕常亮": {
+    "zh": "无法保持时钟屏幕常亮，请重试",
+    "en": "Could not keep the clock display awake. Try again",
+    "ja": "時計画面を常時表示できません。再試行してください",
+    "ko": "시계 화면을 켜진 상태로 유지할 수 없습니다. 다시 시도하세요",
+    "fr": "Impossible de maintenir l’écran de l’horloge allumé. Réessayez",
+    "de": "Die Uhranzeige konnte nicht wach gehalten werden. Bitte erneut versuchen",
+    "ar": "تعذر إبقاء شاشة الساعة مضاءة. حاول مرة أخرى"
   }
 }

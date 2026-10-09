@@ -6,6 +6,8 @@ pub fn close(app: &AppHandle) -> Result<(), String> {
     if let Some(window) = app.get_webview_window("eye-clock") {
         window.hide().map_err(|error| error.to_string())?;
     }
+    #[cfg(target_os = "macos")]
+    app.state::<crate::platform::ClockKeepAwake>().release();
     crate::eye::clock_visibility(app, false)
 }
 
@@ -39,6 +41,10 @@ pub fn toggle(app: &AppHandle, language: &str) -> Result<(), String> {
         .map_err(|error| error.to_string())?;
         let handle = app.clone();
         window.on_window_event(move |event| {
+            #[cfg(target_os = "macos")]
+            if matches!(event, tauri::WindowEvent::Destroyed) {
+                handle.state::<crate::platform::ClockKeepAwake>().release();
+            }
             if let tauri::WindowEvent::CloseRequested { api, .. } = event {
                 api.prevent_close();
                 if let Err(error) = close(&handle) {
@@ -49,6 +55,10 @@ pub fn toggle(app: &AppHandle, language: &str) -> Result<(), String> {
         window
     };
     let result = (|| {
+        #[cfg(target_os = "macos")]
+        app.state::<crate::platform::ClockKeepAwake>()
+            .acquire()
+            .map_err(|error| format!("{}: {error}", text(language, "无法保持时钟屏幕常亮")))?;
         crate::eye::clock_visibility(app, true)?;
         let monitor = app
             .get_webview_window("main")
@@ -102,6 +112,8 @@ pub fn toggle(app: &AppHandle, language: &str) -> Result<(), String> {
         Ok(())
     })();
     if result.is_err() {
+        #[cfg(target_os = "macos")]
+        app.state::<crate::platform::ClockKeepAwake>().release();
         if new_window {
             let _ = window.destroy();
         } else {
