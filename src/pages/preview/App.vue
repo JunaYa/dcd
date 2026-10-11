@@ -48,7 +48,7 @@ onMounted(() => {
 <template>
   <div class="w-full h-screen bg-gradient-to-b from-gray-500 to-transparent bg-opacity-10 flex flex-col items-center justify-center gap-8 select-none" @mousedown="dragStart">
     <div class="text-2xl font-normal text-gray-600 text-center">
-      休息一会儿
+      调频一下
     </div>
     <!-- countdown  min sec -->
     <div class="flex flex-row items-center justify-center gap-8">
@@ -71,7 +71,7 @@ onMounted(() => {
     </div>
     <div class="flex flex-row items-center justify-center gap-4">
       <Button class-name="btn-solid" @click="onSkip">
-        跳过
+        继续专注
       </Button>
     </div>
   </div>
