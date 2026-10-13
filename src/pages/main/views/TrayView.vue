@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import RollingNumber from '~/components/eye/RollingNumber.vue'
 import { formatDuration, locale, t } from '~/i18n'
 import { useMonitor } from '../composables/useMonitor'
 
@@ -59,7 +60,7 @@ const status = computed(() =>
           />
         </svg>
         <div>
-          <strong>{{ fatigue }}<small>%</small></strong
+          <strong><RollingNumber :value="fatigue" /><small>%</small></strong
           ><span>{{ t('疲劳值') }}</span>
         </div>
       </div>
@@ -177,16 +178,19 @@ const status = computed(() =>
   gap: 2px;
 }
 .fatigue-ring strong {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
   font-size: 30px;
   line-height: 1.1;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 .fatigue-ring small {
   font-size: 15px;
   margin-inline-start: 1px;
 }
-.fatigue-ring span,
+.fatigue-ring > div > span,
 .metric-label {
   font-size: 12px;
   color: var(--color-text-muted);

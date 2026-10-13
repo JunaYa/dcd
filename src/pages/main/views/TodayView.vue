@@ -7,6 +7,7 @@ import { formatDuration as duration, locale } from '~/i18n'
 import PetCompanion from '~/pet/PetCompanion.vue'
 import Chart from '~/components/eye/Chart.vue'
 import Icon from '~/components/eye/Icon.vue'
+import RollingNumber from '~/components/eye/RollingNumber.vue'
 const emit = defineEmits<{ help: [] }>()
 const { snapshot, settings, paused, action } = useMonitor()
 const pauseOpen = ref(false)
@@ -112,7 +113,7 @@ onUnmounted(() => {
     <div class="stat-cards">
       <section class="stat-card fatigue-card">
         <h2>{{ t('疲劳值') }}</h2>
-        <strong>{{ snapshot.fatigue }}%</strong>
+        <strong><RollingNumber :value="snapshot.fatigue" />%</strong>
       </section>
       <section class="stat-card duration-card">
         <h2>{{ t('今日时长') }}</h2>
